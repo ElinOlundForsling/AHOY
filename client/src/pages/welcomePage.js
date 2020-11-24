@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom';
 
 const welcomePage = ({ auth, profile }) => {
   if (!auth.uid) {
-    return <Redirect to="/signin" />;
+    return <Redirect to='/signin' />;
   }
   return (
     <div>
@@ -15,7 +15,7 @@ const welcomePage = ({ auth, profile }) => {
   );
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     auth: state.firebase.auth,
     profile: state.firebase.profile,

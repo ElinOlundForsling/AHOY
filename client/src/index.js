@@ -22,8 +22,8 @@ const store = createStore(
   rootReducer,
   compose(
     applyMiddleware(thunk.withExtraArgument({ getFirestore, getFirebase })),
-    reduxFirestore(firebase, fbConfig)
-  )
+    reduxFirestore(firebase, fbConfig),
+  ),
 );
 
 const profileSpecificProps = {
@@ -42,17 +42,16 @@ const rrfProps = {
 };
 
 function AuthIsLoaded({ children }) {
-  const auth = useSelector((state) => state.firebase.auth);
+  const auth = useSelector(state => state.firebase.auth);
   if (!isLoaded(auth))
     return (
-      <div className="center">
+      <div className='center'>
         {' '}
         <p>Loading...</p>
       </div>
     );
   return children;
 }
-
 
 ReactDOM.render(
   <Provider store={store}>
@@ -62,8 +61,5 @@ ReactDOM.render(
       </AuthIsLoaded>
     </ReactReduxFirebaseProvider>
   </Provider>,
-  document.getElementById('root')
-
-);
-
+  document.getElementById('root'),
 );
