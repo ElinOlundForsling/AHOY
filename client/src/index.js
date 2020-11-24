@@ -53,6 +53,7 @@ function AuthIsLoaded({ children }) {
   return children;
 }
 
+
 ReactDOM.render(
   <Provider store={store}>
     <ReactReduxFirebaseProvider {...rrfProps}>
@@ -62,4 +63,7 @@ ReactDOM.render(
     </ReactReduxFirebaseProvider>
   </Provider>,
   document.getElementById('root')
+
+);
+
 );
