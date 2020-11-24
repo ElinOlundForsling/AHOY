@@ -7,6 +7,7 @@ import {
   getTeamByDepartment,
 } from '../../store/actions/departmentActions';
 import { v4 as uuid } from 'uuid';
+import Select from 'react-select';
 
 const SignUpForm = ({
   signUp,
@@ -25,10 +26,36 @@ const SignUpForm = ({
     department: '',
     team: '',
   });
+  const [teamOption, setTeamOption] = useState(null);
+  const [departmentOption, setDepartmentOption] = useState(null);
 
   useEffect(() => {
     getDepartments();
   }, [getDepartments]);
+
+  const createOptions = () => {
+    const options = departments.map(dep => {
+      return {
+        label: dep.name,
+        name: dep.name,
+        value: dep.name.toLowerCase(),
+      };
+    });
+    return options;
+  };
+
+  const createTeams = () => {
+    const options =
+      teams &&
+      teams.map(team => {
+        return {
+          label: team.teamName,
+          name: team.teamName,
+          value: team.teamName.toLowerCase(),
+        };
+      });
+    return options;
+  };
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -36,19 +63,35 @@ const SignUpForm = ({
     signUp(credentials);
   };
 
+  const handleDepartmentChange = selectedOption => {
+    setDepartmentOption(selectedOption);
+    setTeamOption('Team');
+    setCredentials(credentials => ({
+      ...credentials,
+      department: selectedOption.name,
+    }));
+    getTeamByDepartment(selectedOption.name);
+  };
+
+  const handleTeamChange = selectedOption => {
+    setTeamOption(selectedOption);
+    setCredentials(credentials => ({
+      ...credentials,
+      team: selectedOption.name,
+    }));
+  };
+
   const handleInputChange = event => {
-    if (event.target.name === 'department') {
-      getTeamByDepartment(event.target.value);
-    }
     setCredentials(credentials => ({
       ...credentials,
       [event.target.name]: event.target.value,
     }));
   };
+
   if (auth.uid) {
     return <Redirect to='/' />;
   }
-  console.log('Teams: ', teams);
+
   return (
     <>
       <div className='container'>
@@ -91,44 +134,22 @@ const SignUpForm = ({
             />
           </div>
           <div className='input-field col s12'>
-            <select
-              onChange={handleInputChange}
-              name='department'
-              defaultValue='Department'
-              className='browser-default'>
-              <option value='' disabled selected>
-                Departments
-              </option>
-              {departments.map(dep => {
-                return (
-                  <option key={uuid()} value={dep.name}>
-                    {dep.name}
-                  </option>
-                );
-              })}
-            </select>
+            <Select
+              value={departmentOption}
+              onChange={handleDepartmentChange}
+              options={createOptions()}
+              className='browser-default'
+            />
           </div>
           <div className='input-field col s12'>
-            <select
-              onChange={handleInputChange}
-              name='team'
-              defaultValue='Team'
-              className='browser-default'>
-              <option value='' disabled selected>
-                Team
-              </option>
-              {teams &&
-                teams.map(team => {
-                  return (
-                    <option
-                      name={team.teamName}
-                      key={uuid()}
-                      value={team.teamName}>
-                      {team.teamName}
-                    </option>
-                  );
-                })}
-            </select>
+            <div className='input-field col s12'>
+              <Select
+                value={teamOption}
+                onChange={handleTeamChange}
+                options={createTeams()}
+                className='browser-default'
+              />
+            </div>
           </div>
           <div className='input-field'>
             <button type='submit' className='btn pink lighten-1 z-depth-0'>
