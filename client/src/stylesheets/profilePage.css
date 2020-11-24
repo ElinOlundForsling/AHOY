@@ -1,0 +1,35 @@
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  .profile-info {
+    width: 90vw;
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  .profile-info {
+    width: 600px;
+  }
+}
+
+.profile-page {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: center;
+}
+
+.profile-welcome {
+  font-size: 1rem !important;
+  text-align: center;
+}
+
+/* .profile-pen {
+} */
+
+.profile-info {
+  border: 1px solid grey;
+  border-radius: 15px;
+  /* width: 400px; */
+  padding: 15px;
+}

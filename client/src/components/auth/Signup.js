@@ -6,7 +6,6 @@ import {
   getDepartments,
   getTeamByDepartment,
 } from '../../store/actions/departmentActions';
-import { v4 as uuid } from 'uuid';
 import Select from 'react-select';
 
 const SignUpForm = ({
