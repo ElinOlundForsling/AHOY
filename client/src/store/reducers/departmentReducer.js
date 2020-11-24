@@ -1,13 +1,14 @@
 const initState = {
   departments: [],
+  teams: [],
 };
 
 const departmentReducer = (state = initState, action) => {
   switch (action.type) {
     case 'DEPARTMENTS_SUCCESS':
-      console.log('departments success');
-      console.log('Payload: ', action.payload);
-      return { departments: action.payload };
+      return { ...state, departments: action.payload };
+    case 'TEAMS_SUCCESS':
+      return { ...state, teams: action.payload };
     default:
       return state;
   }

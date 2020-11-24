@@ -2,11 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { signUp } from '../../store/actions/authActions';
-import { getDepartments } from '../../store/actions/departmentActions';
+import {
+  getDepartments,
+  getTeamByDepartment,
+} from '../../store/actions/departmentActions';
+import { v4 as uuid } from 'uuid';
 
 const SignUpForm = ({
   signUp,
+  teams,
   departments,
+  getTeamByDepartment,
   getDepartments,
   auth,
   authError,
@@ -19,18 +25,21 @@ const SignUpForm = ({
     department: '',
     team: '',
   });
-  const [department, setDepartment] = useState('HR');
 
   useEffect(() => {
-    getDepartments().then(res => console.log(res));
+    getDepartments();
   }, [getDepartments]);
 
   const handleSubmit = event => {
     event.preventDefault();
+    console.log(credentials);
     signUp(credentials);
   };
 
   const handleInputChange = event => {
+    if (event.target.name === 'department') {
+      getTeamByDepartment(event.target.value);
+    }
     setCredentials(credentials => ({
       ...credentials,
       [event.target.name]: event.target.value,
@@ -39,6 +48,7 @@ const SignUpForm = ({
   if (auth.uid) {
     return <Redirect to='/' />;
   }
+  console.log('Teams: ', teams);
   return (
     <>
       <div className='container'>
@@ -80,24 +90,45 @@ const SignUpForm = ({
               value={credentials.lastName}
             />
           </div>
-          <div class='input-field col s12'>
-            <select className='browser-default'>
+          <div className='input-field col s12'>
+            <select
+              onChange={handleInputChange}
+              name='department'
+              defaultValue='Department'
+              className='browser-default'>
               <option value='' disabled selected>
                 Departments
               </option>
               {departments.map(dep => {
-                return <option value={dep.name}>{dep.name}</option>;
+                return (
+                  <option key={uuid()} value={dep.name}>
+                    {dep.name}
+                  </option>
+                );
               })}
             </select>
           </div>
-          <div className='input-field'>
-            <label>Team</label>
-            <input
-              type='text'
-              name='team'
+          <div className='input-field col s12'>
+            <select
               onChange={handleInputChange}
-              value={credentials.team}
-            />
+              name='team'
+              defaultValue='Team'
+              className='browser-default'>
+              <option value='' disabled selected>
+                Team
+              </option>
+              {teams &&
+                teams.map(team => {
+                  return (
+                    <option
+                      name={team.teamName}
+                      key={uuid()}
+                      value={team.teamName}>
+                      {team.teamName}
+                    </option>
+                  );
+                })}
+            </select>
           </div>
           <div className='input-field'>
             <button type='submit' className='btn pink lighten-1 z-depth-0'>
@@ -116,6 +147,7 @@ const SignUpForm = ({
 const mapStateToProps = state => {
   return {
     departments: state.departments.departments,
+    teams: state.departments.teams,
     auth: state.firebase.auth,
     authError: state.auth.authError,
   };
@@ -125,6 +157,8 @@ const mapDispatchToProps = dispatch => {
   return {
     signUp: newUser => dispatch(signUp(newUser)),
     getDepartments: () => dispatch(getDepartments()),
+    getTeamByDepartment: department =>
+      dispatch(getTeamByDepartment(department)),
   };
 };
 
