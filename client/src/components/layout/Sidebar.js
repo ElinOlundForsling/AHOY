@@ -5,51 +5,67 @@ import { connect } from 'react-redux';
 import { signOut } from '../../store/actions/authActions';
 import React from 'react';
 
-const Sidebar = ({ width, height, children, profile, auth, signOut }) => {
+const Sidebar = ({
+  width,
+  height,
+  children,
+  profile,
+  auth,
+  signOut,
+  setSidebarIsOpen,
+}) => {
   const [xPosition, setX] = React.useState(-width);
 
   const toggleMenu = () => {
+    console.log('Toggle');
     if (xPosition < 0) {
       setX(0);
+      setSidebarIsOpen(true);
     } else {
       setX(-width);
+      setSidebarIsOpen(false);
     }
   };
 
   React.useEffect(() => {
     setX(0);
   }, []);
+
   return (
     <React.Fragment>
-      <div
-        className='side-bar'
-        style={{
-          transform: `translatex(${xPosition}px)`,
-          width: width,
-          minHeight: height,
-        }}>
-        <img
-          src={
-            profile.imgURL
-              ? profile.imgURL
-              : 'https://cdn.statically.io/img/avatarfiles.alphacoders.com/866/86635.png'
-          }
-          alt=''
-          className='dashboard-avatar'
-        />
-        <p>Profile</p>
-        <p>Deparment</p>
-        <p>Calendar</p>
-        <p>Settings</p>
-        <p>Sign out</p>
-        <button
-          onClick={() => toggleMenu()}
-          className='toggle-menu'
+      {profile.isLoaded && (
+        <div
+          className='side-bar'
           style={{
-            transform: `translate(${width}px, 20vh)`,
-          }}></button>
-        <div className='content'>{children}</div>
-      </div>
+            transform: `translatex(${xPosition}px)`,
+            width: width,
+            minHeight: height,
+          }}>
+          <img
+            src={
+              profile.imgURL
+                ? profile.imgURL
+                : 'https://cdn.statically.io/img/avatarfiles.alphacoders.com/866/86635.png'
+            }
+            alt=''
+            className='dashboard-avatar'
+          />
+          <Link to={`/profiles/${auth.uid}`}>Profile</Link>
+          <Link>Department</Link>
+          <Link>Calendar</Link>
+          <Link>Settings</Link>
+          <div className='sign-out'>
+            <a onClick={signOut}>Sign Out</a>
+          </div>
+          <button
+            onClick={() => toggleMenu()}
+            className='toggle-menu'
+            style={{
+              transform: `translate(${width}px, 20vh)`,
+            }}></button>
+          <div className='content'>{children}</div>
+        </div>
+      )}
     </React.Fragment>
   );
 };

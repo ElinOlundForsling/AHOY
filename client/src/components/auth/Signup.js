@@ -141,14 +141,16 @@ const Signup = ({
             />
           </div>
           <div className='input-field col s12'>
-            <div className='input-field col s12'>
-              <Select
-                value={teamOption}
-                onChange={handleTeamChange}
-                options={createTeams()}
-                className='browser-default'
-              />
-            </div>
+            {departmentOption && (
+              <div className='input-field col s12'>
+                <Select
+                  value={teamOption}
+                  onChange={handleTeamChange}
+                  options={createTeams()}
+                  className='browser-default'
+                />
+              </div>
+            )}
           </div>
           <div className='input-field'>
             <button type='submit' className='btn pink lighten-1 z-depth-0'>

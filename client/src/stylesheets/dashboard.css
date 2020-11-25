@@ -3,9 +3,16 @@
   text-align: center;
 }
 
-.side-bar img {
-  height: 100px;
-  width: 100px;
-  margin: 0 auto;
-  margin-bottom: 10px;
+.dashboard-layout {
+  position: absolute;
+  margin-left: 230px;
+}
+
+.dashboard-layout-fullscreen {
+  position: absolute;
+  margin-left: 30px;
+}
+
+.sidebar-layout {
+  position: fixed;
 }

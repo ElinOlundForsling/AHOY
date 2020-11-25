@@ -43,11 +43,11 @@ const Profile = ({
       <section>
         {profileData.firstName && (
           <>
-            <div className='profile-welcome'>
+            {/* <div className='profile-welcome'>
               <h4>
                 Welcome, {profileData.firstName} {profileData.lastName}!
               </h4>
-            </div>
+            </div> */}
             <div className='profile-info'>
               <div className='profile-image'>
                 <img
@@ -62,6 +62,9 @@ const Profile = ({
               <div className='profile-pen' id='edit-profile-pen'>
                 {auth.uid === profileId && <FaPen onClick={openModal} />}
               </div>
+              <h5>
+                {profileData.firstName} {profileData.lastName}
+              </h5>
               <p>
                 Department: {profileData.department} <br></br> Team:{' '}
                 {profileData.team}
