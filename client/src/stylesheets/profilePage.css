@@ -17,17 +17,17 @@
     flex-direction: column;
     flex-wrap: wrap;
     align-content: center;
-  }
-  
-  .profile-welcome {
+}
+
+.profile-welcome {
     font-size: 1rem !important;
-    text-align: center;
-  }
-  
-  /* .profile-pen {
-  } */
-  
-  .profile-info {
+    text-align: left;
+}
+
+/* .profile-pen {
+} */
+
+.profile-info {
     border: 1px solid grey;
     border-radius: 15px;
     /* width: 400px; */
