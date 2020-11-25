@@ -7,10 +7,14 @@ import { GiCoffeeCup } from "react-icons/gi";
 import Modal from "react-modal";
 import { updateProfile } from "../store/actions/profileActions";
 import "../stylesheets/profilePage.css";
+import { storage } from "../config/fbConfig";
 
 const ProfilePage = ({ auth, profile, updateProfile }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [info, setInfo] = useState("");
+  const allInputs = { imgUrl: "" };
+  const [file, setFile] = useState(null);
+  const [url, setURL] = useState("");
 
   useEffect(() => {
     setInfo(profile);
@@ -29,7 +33,7 @@ const ProfilePage = ({ auth, profile, updateProfile }) => {
   }
 
   const handleSubmit = (event) => {
-    console.log(info)
+    console.log(info);
     event.preventDefault();
     updateProfile(auth.uid, info);
     closeModal();
@@ -42,21 +46,38 @@ const ProfilePage = ({ auth, profile, updateProfile }) => {
     }));
   };
 
-  const handleAvailability = event => {
-    console.log('hiya')
-    if(profile.availableForFika) {
-
-      setInfo(info => ({
-        ...info,
-        availableForFika: !profile.availableForFika
-      }))
-    } else {
-      setInfo(info => ({
-        ...info,
-        availableForFika: true
-      }))
-    }
+  function handleChange(e) {
+    setFile(e.target.files[0]);
   }
+
+  function handleUpload(e) {
+    e.preventDefault();
+    const uploadTask = storage.ref(`/images/${file.name}`).put(file);
+    uploadTask.on("state_changed", console.log, console.error, () => {
+      storage
+        .ref("images")
+        .child(file.name)
+        .getDownloadURL()
+        .then((url) => {
+          setFile(null);
+          setURL(url);
+        });
+    });
+  }
+
+  const handleAvailability = (event) => {
+    if (profile.availableForFika) {
+      setInfo((info) => ({
+        ...info,
+        availableForFika: !profile.availableForFika,
+      }));
+    } else {
+      setInfo((info) => ({
+        ...info,
+        availableForFika: true,
+      }));
+    }
+  };
 
   return (
     <div className="profile-page">
@@ -73,6 +94,7 @@ const ProfilePage = ({ auth, profile, updateProfile }) => {
                 <FaPen onClick={openModal} />
               </div>
               <p>
+              <img src={url} alt="" />
                 Department: {profile.department} <br></br> Team: {profile.team}
                 <br></br> Email: {profile.email}
               </p>
@@ -85,8 +107,11 @@ const ProfilePage = ({ auth, profile, updateProfile }) => {
                 </p>
               </div>
               <span>
-              <GiCoffeeCup /> {profile.availableForFika ? 'Available For Fika' : 'Not available for Fika'}
-            </span>
+                <GiCoffeeCup />{" "}
+                {profile.availableForFika
+                  ? "Available For Fika"
+                  : "Not available for Fika"}
+              </span>
               <div className="profile-bio">
                 <p>{profile.bio ? profile.bio : "Add your bio here."}</p>
               </div>
@@ -100,7 +125,7 @@ const ProfilePage = ({ auth, profile, updateProfile }) => {
         contentLabel="Example Modal"
       >
         <h4>Update your profile.</h4>
-        
+
         <form onSubmit={handleSubmit}>
           <input
             type="text"
@@ -122,11 +147,15 @@ const ProfilePage = ({ auth, profile, updateProfile }) => {
               profile.location ? profile.location : "Add your location here."
             }
           />
-        
+
           <textarea type="text" onChange={handleInputChange} name="bio" />
 
           <label>
-            <input type="checkbox" onChange={handleAvailability} defaultChecked={profile.availableForFika} />
+            <input
+              type="checkbox"
+              onChange={handleAvailability}
+              defaultChecked={profile.availableForFika}
+            />
             <span>
               <GiCoffeeCup /> Available For Fika
             </span>
@@ -138,6 +167,12 @@ const ProfilePage = ({ auth, profile, updateProfile }) => {
             <button onClick={closeModal}>close</button>
           </p>
         </form>
+        <div>
+          <form onSubmit={handleUpload}>
+            <input type="file" onChange={handleChange} />
+            <button disabled={!file}>upload to firebase</button>
+          </form>
+        </div>
       </Modal>
     </div>
   );
