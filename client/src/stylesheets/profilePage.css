@@ -38,7 +38,7 @@
 }
 
 .profile-bio {
-  margin-top: 10px;
+  margin: 10px;
   border: 1px solid grey;
   border-radius: 5px;
   padding: 15px;
@@ -51,6 +51,7 @@
 .profile-info {
   border: 0.3px solid rgb(247, 245, 245);
   border-radius: 15px;
+  margin-top: 50px;
   /* width: 400px; */
   /* padding: 15px; */
   -webkit-box-shadow: 10px 10px 15px -2px rgba(168, 163, 168, 1);

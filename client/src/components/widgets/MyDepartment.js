@@ -12,20 +12,26 @@ const MyDepartment = ({ profile, getDepartmentMembers, departmentMembers }) => {
 
   return (
     <Card>
-      <div className='team-title'>
+      <div className="card-title">
         <h5>My Department</h5>
         <p>{profile.department}</p>
       </div>
-      <div className='teamMembers'>
-        {departmentMembers.map(member => {
+      <div className="teamMembers">
+        {departmentMembers.map((member) => {
           return (
             <>
-              <div className='member-card'>
+              <div className="member-card">
                 {/* <Link to={`/profiles/${auth.uid}`}></Link> */}
-                <div className='member-avatar'>
-                  <img src={member.imgURL} />
+                <div className="member-avatar">
+                  <img
+                    src={
+                      member.imgURL
+                        ? member.imgURL
+                        : 'https://cdn.statically.io/img/avatarfiles.alphacoders.com/866/86635.png'
+                    }
+                  />
                 </div>
-                <div clasName='member-name'>
+                <div clasName="member-name">
                   {member.firstName} {member.lastName}
                 </div>
               </div>
@@ -37,16 +43,16 @@ const MyDepartment = ({ profile, getDepartmentMembers, departmentMembers }) => {
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     profile: state.firebase.profile,
     departmentMembers: state.profileData.departmentMembers,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    getDepartmentMembers: department =>
+    getDepartmentMembers: (department) =>
       dispatch(getDepartmentMembers(department)),
   };
 };
