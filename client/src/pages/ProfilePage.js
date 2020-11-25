@@ -4,7 +4,7 @@ import { Redirect, useParams } from 'react-router-dom';
 import { FaPen } from 'react-icons/fa';
 import { MdLocationOn } from 'react-icons/md';
 import { GiCoffeeCup } from 'react-icons/gi';
-import Modal from 'react-modal';
+import ProfileModal from '../components/layout/ProfileModal';
 import {
   updateProfile,
   updateProfileImage,
@@ -22,67 +22,21 @@ const ProfilePage = ({
   getProfileById,
 }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [info, setInfo] = useState('');
-  const [file, setFile] = useState(null);
 
   const profileId = useParams().userId;
 
-  useEffect(() => {
-    setInfo(profileData);
-    getProfileById(profileId);
-  }, [profileData]);
+  function openModal() {
+    setModalIsOpen(true);
+  }
 
-  Modal.setAppElement('#root');
+  useEffect(() => {
+    getProfileById(profileId);
+  }, [profileData, profile]);
 
   if (!auth.uid) {
     return <Redirect to='/signin' />;
   }
 
-  function openModal() {
-    console.log(profileData);
-    setModalIsOpen(true);
-  }
-
-  function closeModal() {
-    setModalIsOpen(false);
-  }
-
-  const handleSubmit = event => {
-    event.preventDefault();
-    closeModal();
-    updateProfile(auth.uid, info);
-  };
-
-  const handleInputChange = event => {
-    setInfo(info => ({
-      ...info,
-      [event.target.name]: event.target.value,
-    }));
-  };
-
-  function handleChange(e) {
-    setFile(e.target.files[0]);
-  }
-
-  function handleUpload(e) {
-    e.preventDefault();
-
-    updateProfileImage(auth.uid, file);
-  }
-
-  const handleAvailability = event => {
-    if (profile.availableForFika) {
-      setInfo(info => ({
-        ...info,
-        availableForFika: !profile.availableForFika,
-      }));
-    } else {
-      setInfo(info => ({
-        ...info,
-        availableForFika: true,
-      }));
-    }
-  };
   return (
     <div className='profile-page'>
       <section>
@@ -135,63 +89,14 @@ const ProfilePage = ({
           </>
         )}
       </section>
-      <Modal
-        className='Modal'
-        overlayClassName='Overlay'
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        contentLabel='Example Modal'>
-        <h4>Update your profile.</h4>
-
-        <form onSubmit={handleSubmit}>
-          <input
-            type='text'
-            onChange={handleInputChange}
-            name='firstName'
-            placeholder={profileData.firstName}
-          />
-          <input
-            type='text'
-            onChange={handleInputChange}
-            name='lastName'
-            placeholder={profileData.lastName}
-          />
-          <input
-            type='text'
-            onChange={handleInputChange}
-            name='location'
-            placeholder={
-              profileData.location
-                ? profileData.location
-                : 'Add your location here.'
-            }
-          />
-
-          <textarea type='text' onChange={handleInputChange} name='bio' />
-
-          <label>
-            <input
-              type='checkbox'
-              onChange={handleAvailability}
-              defaultChecked={profileData.availableForFika}
-            />
-            <span>
-              <GiCoffeeCup /> Available For Fika
-            </span>
-          </label>
-          <button type='submit'>Save Changes</button>
-        </form>
-        <div>
-          <form onSubmit={handleUpload}>
-            <input type='file' onChange={handleChange} />
-            <br></br>
-            <button disabled={!file}>upload to firebase</button>
-          </form>
-        </div>
-        <p></p>
-        <button onClick={closeModal}>close</button>
-        <p></p>
-      </Modal>
+      <ProfileModal
+        auth={auth}
+        profile={profile}
+        modalIsOpen={modalIsOpen}
+        setModalIsOpen={setModalIsOpen}
+        updateProfile={updateProfile}
+        updateProfileImage={updateProfileImage}
+      />
     </div>
   );
 };

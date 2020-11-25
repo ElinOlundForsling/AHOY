@@ -14,6 +14,7 @@ export const updateProfile = (userId, userData) => {
   return async (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
     try {
+      console.log(userData);
       await firestore
         .collection('users')
         .doc(userId)
