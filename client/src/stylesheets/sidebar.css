@@ -11,6 +11,11 @@
   padding-top: 30px;
 }
 
+.side-bar .ahoy-dashboard {
+  background-color: red;
+  color: white;
+}
+
 .side-bar p {
   text-align: center;
   line-height: 4rem;
@@ -43,6 +48,7 @@
   margin: 0 auto;
   margin-bottom: 10px;
   border-radius: 50%;
+  object-fit: cover;
 }
 
 .side-bar p:hover {
