@@ -3,12 +3,13 @@ const initState = {
   };
   
   const profileReducer = (state = initState, action) => {
-    console.log('reducer');
     switch (action.type) {
       case 'PROFILE_SUCCESS':
-        console.log('PAYLOAD', action.payload);
-        return { ...state, profile: action.payload };
+        return state;
       default:
+
+
+      
         return state;
     }
   };

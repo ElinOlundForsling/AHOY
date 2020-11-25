@@ -24,7 +24,7 @@ const ProfilePage = ({ auth, profile, updateProfile }) => {
 
   const handleSubmit = event => {
     event.preventDefault();
-    updateProfile(auth.uid);
+    updateProfile(auth.uid, info);
   };
 
   const handleInputChange = event => {
@@ -46,8 +46,15 @@ const ProfilePage = ({ auth, profile, updateProfile }) => {
           Department: {profile.department} <br></br> Team: {profile.team}
           <br></br> Email: {profile.email}
         </p>
-        <p>Bio text goes here</p>
+        <div className="profile-bio">
+        <p>
+          {profile.bio ? (profile.bio) : "Add your bio here."}
+        </p>
+     
+        </div>
+      
       </div>
+      
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
@@ -58,10 +65,12 @@ const ProfilePage = ({ auth, profile, updateProfile }) => {
         <input type='text' name='lastName' placeholder={profile.lastName} /> */}
         <form onSubmit={handleSubmit}>
           <textarea type='text' onChange={handleInputChange} name='bio' />
-          <button type='submit'>Sign Up</button>
+          <button type='submit'>Save Changes</button>
         </form>
       </Modal>
+
     </div>
+    
   );
 };
 
