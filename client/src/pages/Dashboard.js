@@ -11,7 +11,7 @@ const Dashboard = ({ auth, profile }) => {
   if (!auth.uid) {
     return <Redirect to='/signin' />;
   }
-  console.log(sidebarIsOpen);
+
   return (
     <main>
       <section className='sidebar-layout'>

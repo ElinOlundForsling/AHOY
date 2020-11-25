@@ -60,10 +60,10 @@ const Profile = ({
                   alt=''
                 />
               </div>
-              <div className='profile-pen' id='edit-profile-pen'>
-                {auth.uid === profileId && <FaPen onClick={openModal} />}
-              </div>
               <div className='card-title'>
+                <div className='profile-pen' id='edit-profile-pen'>
+                  {auth.uid === profileId && <FaPen onClick={openModal} />}
+                </div>
                 <h5>
                   {profileData.firstName} {profileData.lastName}
                 </h5>
