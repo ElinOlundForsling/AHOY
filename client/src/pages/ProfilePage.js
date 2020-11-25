@@ -8,6 +8,7 @@ import Modal from "react-modal";
 import { updateProfile } from "../store/actions/profileActions";
 import "../stylesheets/profilePage.css";
 import { storage } from "../config/fbConfig";
+import firebase from "../config/fbConfig";
 
 const ProfilePage = ({ auth, profile, updateProfile }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -59,8 +60,19 @@ const ProfilePage = ({ auth, profile, updateProfile }) => {
         .child(file.name)
         .getDownloadURL()
         .then((url) => {
-          setFile(null);
-          setURL(url);
+          firebase
+            .firestore()
+            .collection("users")
+            .doc(auth.uid)
+            .set(
+              {
+                imgURL: url,
+              },
+              { merge: true }
+            )
+            .then(() => {
+              setURL("");
+            });
         });
     });
   }
@@ -93,8 +105,10 @@ const ProfilePage = ({ auth, profile, updateProfile }) => {
               <div className="profile-pen">
                 <FaPen onClick={openModal} />
               </div>
+              <div className="profile-image">
+                <img src={profile.imgURL ? profile.imgURL : ""} alt="" />
+              </div>
               <p>
-              <img src={url} alt="" />
                 Department: {profile.department} <br></br> Team: {profile.team}
                 <br></br> Email: {profile.email}
               </p>

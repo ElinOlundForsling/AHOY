@@ -11,6 +11,16 @@
       width: 600px;
     }
   }
+
+  .profile-image img {
+    float: right;
+  max-width: 150px;
+  max-height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 10px;
+  box-shadow: 2px 7px red;
+  }
   
   .profile-page {
     display: flex;
