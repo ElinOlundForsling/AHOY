@@ -13,7 +13,7 @@ import {
 import '../stylesheets/profilePage.css';
 import '../stylesheets/modal.css';
 
-const ProfilePage = ({
+const Profile = ({
   auth,
   profile,
   profileData,
@@ -31,6 +31,7 @@ const ProfilePage = ({
 
   useEffect(() => {
     getProfileById(profileId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [profileData, profile]);
 
   if (!auth.uid) {
@@ -79,6 +80,11 @@ const ProfilePage = ({
                 {profileData.availableForFika
                   ? 'Available For Fika'
                   : 'Not available for Fika'}
+                {profileData.availableForFika && auth.uid !== profileId ? (
+                  <button>ASK FOR FIKA</button>
+                ) : (
+                  ''
+                )}
               </span>
               <div className='profile-bio'>
                 <p>
@@ -119,4 +125,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProfilePage);
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);

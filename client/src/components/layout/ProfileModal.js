@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
 import { GiCoffeeCup } from 'react-icons/gi';
-// import {
-//   updateProfile,
-//   updateProfileImage,
-// } from '../../store/actions/profileActions';
 
 const ProfileModal = ({
   auth,

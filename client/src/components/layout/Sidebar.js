@@ -1,7 +1,11 @@
 import '../../stylesheets/sidebar.css';
+import '../../stylesheets/dashboard.css';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { signOut } from '../../store/actions/authActions';
 import React from 'react';
 
-const Sidebar = ({ width, height, children }) => {
+const Sidebar = ({ width, height, children, profile, auth, signOut }) => {
   const [xPosition, setX] = React.useState(-width);
 
   const toggleMenu = () => {
@@ -24,10 +28,20 @@ const Sidebar = ({ width, height, children }) => {
           width: width,
           minHeight: height,
         }}>
+        <img
+          src={
+            profile.imgURL
+              ? profile.imgURL
+              : 'https://cdn.statically.io/img/avatarfiles.alphacoders.com/866/86635.png'
+          }
+          alt=''
+          className='dashboard-avatar'
+        />
         <p>Profile</p>
         <p>Deparment</p>
         <p>Calendar</p>
         <p>Settings</p>
+        <p>Sign out</p>
         <button
           onClick={() => toggleMenu()}
           className='toggle-menu'
@@ -40,4 +54,10 @@ const Sidebar = ({ width, height, children }) => {
   );
 };
 
-export default Sidebar;
+const mapDispatchToProps = dispatch => {
+  return {
+    signOut: () => dispatch(signOut()),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(Sidebar);

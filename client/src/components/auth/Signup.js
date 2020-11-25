@@ -8,7 +8,7 @@ import {
 } from '../../store/actions/departmentActions';
 import Select from 'react-select';
 
-const SignUpForm = ({
+const Signup = ({
   signUp,
   teams,
   departments,
@@ -182,4 +182,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignUpForm);
+export default connect(mapStateToProps, mapDispatchToProps)(Signup);

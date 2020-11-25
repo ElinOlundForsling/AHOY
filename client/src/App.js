@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Navbar from './components/layout/Navbar';
-import ProfilePage from './pages/ProfilePage';
-import SignIn from './components/auth/SignIn';
+import Profile from './pages/Profile';
+import Signin from './components/auth/Signin';
 import Signup from './components/auth/Signup';
-import { Dashboard } from './pages/Dashboard';
+import Dashboard from './pages/Dashboard';
 
 function App() {
   return (
@@ -13,9 +13,9 @@ function App() {
         <Navbar />
         <Switch>
           <Route exact path='/' component={Dashboard} />
-          <Route exact path='/:userId' component={ProfilePage} />
-          <Route path='/signin' component={SignIn} />
+          <Route exact path='/profiles/:userId' component={Profile} />
           <Route path='/signup' component={Signup} />
+          <Route path='/signin' component={Signin} />
         </Switch>
       </div>
     </BrowserRouter>

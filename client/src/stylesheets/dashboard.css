@@ -1,0 +1,11 @@
+.dashboard-welcome h4 {
+  color: grey;
+  text-align: center;
+}
+
+.side-bar img {
+  height: 100px;
+  width: 100px;
+  margin: 0 auto;
+  margin-bottom: 10px;
+}
