@@ -11,31 +11,28 @@ const MyDepartment = ({ profile, getDepartmentMembers, departmentMembers }) => {
   }, [profile]);
 
   return (
-    <Card>
-      <div className="card-title">
-        <h5>My Department</h5>
-        <p>{profile.department}</p>
-      </div>
+    <Card heading="My department" subHeading={profile.department}>
       <div className="teamMembers">
         {departmentMembers.map((member) => {
           return (
-            <>
+            <div key={member.id}>
               <div className="member-card">
-                {/* <Link to={`/profiles/${auth.uid}`}></Link> */}
-                <div className="member-avatar">
-                  <img
-                    src={
-                      member.imgURL
-                        ? member.imgURL
-                        : 'https://cdn.statically.io/img/avatarfiles.alphacoders.com/866/86635.png'
-                    }
-                  />
-                </div>
-                <div clasName="member-name">
-                  {member.firstName} {member.lastName}
-                </div>
+                <Link to={`/profiles/${member.id}`}>
+                  <div className="member-avatar">
+                    <img
+                      src={
+                        member.imgURL
+                          ? member.imgURL
+                          : 'https://cdn.statically.io/img/avatarfiles.alphacoders.com/866/86635.png'
+                      }
+                    />
+                  </div>
+                  <div clasName="member-name">
+                    {member.firstName} {member.lastName}
+                  </div>
+                </Link>
               </div>
-            </>
+            </div>
           );
         })}
       </div>
