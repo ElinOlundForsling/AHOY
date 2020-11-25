@@ -89,14 +89,12 @@ export const getDepartmentMembers = department => {
         .get();
 
       const data = snapshot.docs.map(doc => doc.data());
-
       const ids = snapshot.docs.map(doc => doc.id);
-
-      data = data.map((d, index) => {
-        d.id = ids[index];
+      const newData = data.map((d, index) => {
+        return { ...d, id: ids[index] };
       });
 
-      dispatch(getDepartmentSuccess(data));
+      dispatch(getDepartmentSuccess(newData));
     } catch (error) {
       console.error('ERROR!: ', error.message);
     }

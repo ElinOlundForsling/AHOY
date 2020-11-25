@@ -51,9 +51,9 @@ const Sidebar = ({
             className='dashboard-avatar'
           />
           <Link to={`/profiles/${auth.uid}`}>Profile</Link>
-          <Link>Department</Link>
-          <Link>Calendar</Link>
-          <Link>Settings</Link>
+          <Link to='/'>Department</Link>
+          <Link to='/'>Calendar</Link>
+          <Link to='/'>Settings</Link>
           <div className='sign-out'>
             <a onClick={signOut}>Sign Out</a>
           </div>

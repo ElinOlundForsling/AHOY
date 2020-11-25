@@ -13,7 +13,7 @@ const MyDepartment = ({ profile, getDepartmentMembers, departmentMembers }) => {
   return (
     <Card>
       <div className='team-title'>
-        <h5>My Team</h5>
+        <h5>My Department</h5>
         <p>{profile.department}</p>
       </div>
       <div className='teamMembers'>

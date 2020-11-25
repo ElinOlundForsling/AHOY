@@ -12,6 +12,7 @@ import {
 } from '../store/actions/profileActions';
 import '../stylesheets/profilePage.css';
 import '../stylesheets/modal.css';
+import '../stylesheets/Card.css';
 
 const Profile = ({
   auth,
@@ -62,9 +63,11 @@ const Profile = ({
               <div className='profile-pen' id='edit-profile-pen'>
                 {auth.uid === profileId && <FaPen onClick={openModal} />}
               </div>
-              <h5>
-                {profileData.firstName} {profileData.lastName}
-              </h5>
+              <div className='card-title'>
+                <h5>
+                  {profileData.firstName} {profileData.lastName}
+                </h5>
+              </div>
               <p>
                 Department: {profileData.department} <br></br> Team:{' '}
                 {profileData.team}

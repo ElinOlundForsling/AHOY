@@ -18,9 +18,8 @@ const MyTeam = ({ profile, getTeamMembers, teamMembers }) => {
       </div>
       <div className='teamMembers'>
         {teamMembers.map(member => {
-          console.log(member);
           return (
-            <>
+            <div key={member.id}>
               <div className='member-card'>
                 <Link to={`/profiles/${member.id}`}>
                   <div className='member-avatar'>
@@ -38,7 +37,7 @@ const MyTeam = ({ profile, getTeamMembers, teamMembers }) => {
                   </div>
                 </Link>
               </div>
-            </>
+            </div>
           );
         })}
       </div>

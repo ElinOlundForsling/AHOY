@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Sidebar from '../components/layout/Sidebar';
 import MyTeam from '../components/widgets/MyTeam';
 import '../stylesheets/dashboard.css';
+import MyDepartment from '../components/widgets/MyDepartment';
 
 const Dashboard = ({ auth, profile }) => {
   const [sidebarIsOpen, setSidebarIsOpen] = useState(true);
@@ -27,6 +28,7 @@ const Dashboard = ({ auth, profile }) => {
         }>
         <div className='dashboard-welcome'></div>
         <MyTeam profile={profile} />
+        <MyDepartment profile={profile} />
       </section>
     </main>
   );
