@@ -1,33 +1,45 @@
-import React, { useState, useEffect } from "react";
-import { connect } from "react-redux";
-import { Redirect } from "react-router-dom";
-import { FaPen } from "react-icons/fa";
-import { MdLocationOn } from "react-icons/md";
-import { GiCoffeeCup } from "react-icons/gi";
-import Modal from "react-modal";
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { Redirect, useParams } from 'react-router-dom';
+import { FaPen } from 'react-icons/fa';
+import { MdLocationOn } from 'react-icons/md';
+import { GiCoffeeCup } from 'react-icons/gi';
+import Modal from 'react-modal';
 import {
   updateProfile,
   updateProfileImage,
-} from "../store/actions/profileActions";
-import "../stylesheets/profilePage.css";
-import "../stylesheets/modal.css";
+  getProfileById,
+} from '../store/actions/profileActions';
+import '../stylesheets/profilePage.css';
+import '../stylesheets/modal.css';
 
-const ProfilePage = ({ auth, profile, updateProfile, updateProfileImage }) => {
+const ProfilePage = ({
+  auth,
+  profile,
+  profileData,
+  updateProfile,
+  updateProfileImage,
+  getProfileById,
+}) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [info, setInfo] = useState("");
+  const [info, setInfo] = useState('');
   const [file, setFile] = useState(null);
 
-  useEffect(() => {
-    setInfo(profile);
-  }, [profile]);
+  const profileId = useParams().userId;
 
-  Modal.setAppElement('#root')
+  useEffect(() => {
+    setInfo(profileData);
+    getProfileById(profileId);
+  }, [profileData]);
+
+  Modal.setAppElement('#root');
 
   if (!auth.uid) {
-    return <Redirect to="/signin" />;
+    return <Redirect to='/signin' />;
   }
 
   function openModal() {
+    console.log(profileData);
     setModalIsOpen(true);
   }
 
@@ -35,14 +47,14 @@ const ProfilePage = ({ auth, profile, updateProfile, updateProfileImage }) => {
     setModalIsOpen(false);
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = event => {
     event.preventDefault();
     closeModal();
     updateProfile(auth.uid, info);
   };
 
-  const handleInputChange = (event) => {
-    setInfo((info) => ({
+  const handleInputChange = event => {
+    setInfo(info => ({
       ...info,
       [event.target.name]: event.target.value,
     }));
@@ -55,148 +67,150 @@ const ProfilePage = ({ auth, profile, updateProfile, updateProfileImage }) => {
   function handleUpload(e) {
     e.preventDefault();
 
-    updateProfileImage(auth.uid, file)
+    updateProfileImage(auth.uid, file);
   }
 
-  const handleAvailability = (event) => {
+  const handleAvailability = event => {
     if (profile.availableForFika) {
-      setInfo((info) => ({
+      setInfo(info => ({
         ...info,
         availableForFika: !profile.availableForFika,
       }));
     } else {
-      setInfo((info) => ({
+      setInfo(info => ({
         ...info,
         availableForFika: true,
       }));
     }
   };
-
   return (
-    <div className="profile-page">
+    <div className='profile-page'>
       <section>
-        {profile.isLoaded && (
+        {profileData.firstName && (
           <>
-            <div className="profile-welcome">
+            <div className='profile-welcome'>
               <h4>
-                Welcome, {profile.firstName} {profile.lastName}!
+                Welcome, {profileData.firstName} {profileData.lastName}!
               </h4>
             </div>
-            <div className="profile-info">
-              <div className="profile-image">
+            <div className='profile-info'>
+              <div className='profile-image'>
                 <img
                   src={
-                    profile.imgURL
-                      ? profile.imgURL
-                      : "https://cdn.statically.io/img/avatarfiles.alphacoders.com/866/86635.png"
+                    profileData.imgURL
+                      ? profileData.imgURL
+                      : 'https://cdn.statically.io/img/avatarfiles.alphacoders.com/866/86635.png'
                   }
-                  alt=""
+                  alt=''
                 />
               </div>
-              <div className="profile-pen" id="edit-profile-pen">
-                <FaPen onClick={openModal} />
+              <div className='profile-pen' id='edit-profile-pen'>
+                {auth.uid === profileId && <FaPen onClick={openModal} />}
               </div>
               <p>
-                Department: {profile.department} <br></br> Team: {profile.team}
-                <br></br> Email: {profile.email}
+                Department: {profileData.department} <br></br> Team:{' '}
+                {profileData.team}
+                <br></br> Email: {profileData.email}
               </p>
-              <div className="profile-location">
+              <div className='profile-location'>
                 <p>
-                  <MdLocationOn />{" "}
-                  {profile.location
-                    ? profile.location
-                    : "Add your location here."}
+                  <MdLocationOn />{' '}
+                  {profileData.location
+                    ? profileData.location
+                    : 'Add your location here.'}
                 </p>
               </div>
-              <span className="profile-fika">
-                <GiCoffeeCup />{" "}
-                {profile.availableForFika
-                  ? "Available For Fika"
-                  : "Not available for Fika"}
+              <span className='profile-fika'>
+                <GiCoffeeCup />{' '}
+                {profileData.availableForFika
+                  ? 'Available For Fika'
+                  : 'Not available for Fika'}
               </span>
-              <div className="profile-bio">
-                <p>{profile.bio ? profile.bio : "Add your bio here."}</p>
+              <div className='profile-bio'>
+                <p>
+                  {profileData.bio ? profileData.bio : 'Add your bio here.'}
+                </p>
               </div>
             </div>
           </>
         )}
       </section>
       <Modal
-        className="Modal"
-        overlayClassName="Overlay"
+        className='Modal'
+        overlayClassName='Overlay'
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
-        contentLabel="Example Modal"
-      >
+        contentLabel='Example Modal'>
         <h4>Update your profile.</h4>
 
         <form onSubmit={handleSubmit}>
           <input
-            type="text"
+            type='text'
             onChange={handleInputChange}
-            name="firstName"
-            placeholder={profile.firstName}
+            name='firstName'
+            placeholder={profileData.firstName}
           />
           <input
-            type="text"
+            type='text'
             onChange={handleInputChange}
-            name="lastName"
-            placeholder={profile.lastName}
+            name='lastName'
+            placeholder={profileData.lastName}
           />
           <input
-            type="text"
+            type='text'
             onChange={handleInputChange}
-            name="location"
+            name='location'
             placeholder={
-              profile.location ? profile.location : "Add your location here."
+              profileData.location
+                ? profileData.location
+                : 'Add your location here.'
             }
           />
 
-          <textarea type="text" onChange={handleInputChange} name="bio" />
+          <textarea type='text' onChange={handleInputChange} name='bio' />
 
           <label>
             <input
-              type="checkbox"
+              type='checkbox'
               onChange={handleAvailability}
-              defaultChecked={profile.availableForFika}
+              defaultChecked={profileData.availableForFika}
             />
             <span>
               <GiCoffeeCup /> Available For Fika
             </span>
           </label>
-          <button type="submit">Save Changes</button>
+          <button type='submit'>Save Changes</button>
         </form>
         <div>
           <form onSubmit={handleUpload}>
-            <input type="file" onChange={handleChange} />
+            <input type='file' onChange={handleChange} />
             <br></br>
             <button disabled={!file}>upload to firebase</button>
           </form>
         </div>
-        <p>
-        
-        </p>
-          <button onClick={closeModal}>close</button>
-        <p>
-        </p>
+        <p></p>
+        <button onClick={closeModal}>close</button>
+        <p></p>
       </Modal>
     </div>
   );
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     auth: state.firebase.auth,
     profile: state.firebase.profile,
+    profileData: state.profileData.profileData,
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
     updateProfile: (userId, userData) =>
       dispatch(updateProfile(userId, userData)),
     updateProfileImage: (userId, file) =>
       dispatch(updateProfileImage(userId, file)),
+    getProfileById: userId => dispatch(getProfileById(userId)),
   };
 };
 
