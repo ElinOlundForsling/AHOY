@@ -5,11 +5,12 @@ export const getProfileSuccess = () => {
 export const updateProfile = (userId, userData) => {
   return async (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
-
-    console.log(userData, userId);
-    const snapshot = await firestore.collection("users").doc(userId).set(
+    await firestore.collection("users").doc(userId).set(
       {
-        bio: userData,
+        firstName: userData.firstName,
+        lastName: userData.lastName,
+        initials: userData.firstName[0] + userData.lastName[0],
+        bio: userData.bio,
       },
       { merge: true }
     );

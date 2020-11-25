@@ -7,9 +7,6 @@ const initState = {
       case 'PROFILE_SUCCESS':
         return state;
       default:
-
-
-      
         return state;
     }
   };
