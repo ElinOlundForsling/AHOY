@@ -1,0 +1,30 @@
+.teamMembers {
+  display: flex;
+  /* align-items: center; */
+  flex-wrap: wrap;
+  /* text-align: center; */
+  color: black;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0 15px;
+  overflow: auto;
+  max-height: 350px;
+}
+
+.member-card {
+  text-align: center;
+  width: 130px;
+  padding: 10px;
+}
+
+.member-name {
+  color: black;
+}
+
+.member-avatar img {
+  height: 100px;
+  width: 100px;
+  margin: 0 auto;
+  border-radius: 50%;
+  object-fit: cover;
+}

@@ -1,0 +1,74 @@
+.side-bar {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid;
+  border-radius: 0;
+  border-color: rgba(64, 194, 133, 0.693);
+  background-color: rgb(255, 255, 255);
+  transition: 0.8s ease;
+  z-index: 99;
+  padding-top: 30px;
+}
+
+.side-bar .ahoy-dashboard {
+  background-color: red;
+  color: white;
+}
+
+.side-bar p {
+  text-align: center;
+  line-height: 4rem;
+  margin: 0;
+}
+
+.side-bar a {
+  text-align: center;
+  line-height: 4rem;
+  margin: 0;
+  color: #577590;
+}
+
+.sign-out {
+  text-align: center;
+  line-height: 4rem;
+  margin: 0;
+  color: #577590;
+  margin-top: 200px;
+}
+
+.sign-out a:hover {
+  color: red !important;
+  background-color: white !important;
+}
+
+.side-bar img {
+  height: 100px;
+  width: 100px;
+  margin: 0 auto;
+  margin-bottom: 10px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.side-bar p:hover {
+  background-color: orange;
+  color: white;
+}
+
+.side-bar a:hover {
+  background-color: orange;
+  color: white;
+}
+
+.toggle-menu {
+  height: 50px;
+  border-top-right-radius: 10rem;
+  border-bottom-right-radius: 9rem;
+  width: 25px;
+  position: absolute;
+  outline: none;
+  z-index: 1;
+  background-color: rgba(64, 194, 133, 0.693);
+  border-color: rgba(64, 194, 133, 0.693);
+}

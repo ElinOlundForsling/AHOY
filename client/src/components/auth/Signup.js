@@ -8,7 +8,7 @@ import {
 } from '../../store/actions/departmentActions';
 import Select from 'react-select';
 
-const SignUpForm = ({
+const Signup = ({
   signUp,
   teams,
   departments,
@@ -141,14 +141,16 @@ const SignUpForm = ({
             />
           </div>
           <div className='input-field col s12'>
-            <div className='input-field col s12'>
-              <Select
-                value={teamOption}
-                onChange={handleTeamChange}
-                options={createTeams()}
-                className='browser-default'
-              />
-            </div>
+            {departmentOption && (
+              <div className='input-field col s12'>
+                <Select
+                  value={teamOption}
+                  onChange={handleTeamChange}
+                  options={createTeams()}
+                  className='browser-default'
+                />
+              </div>
+            )}
           </div>
           <div className='input-field'>
             <button type='submit' className='btn pink lighten-1 z-depth-0'>
@@ -182,4 +184,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignUpForm);
+export default connect(mapStateToProps, mapDispatchToProps)(Signup);

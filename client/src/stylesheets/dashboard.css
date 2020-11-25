@@ -1,0 +1,18 @@
+.dashboard-welcome h4 {
+  color: grey;
+  text-align: center;
+}
+
+.dashboard-layout {
+  position: absolute;
+  margin-left: 230px;
+}
+
+.dashboard-layout-fullscreen {
+  position: absolute;
+  margin-left: 30px;
+}
+
+.sidebar-layout {
+  position: fixed;
+}
