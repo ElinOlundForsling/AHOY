@@ -1,0 +1,31 @@
+.Modal {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  right: 40px;
+  bottom: 40px;
+  background-color: #fff;
+  padding: 15px 35px;
+  height: 500px;
+  border-radius: 5px;
+  -webkit-box-shadow: 7px 3px 15px -2px rgba(168, 163, 168, 0.51);
+  -moz-box-shadow: 7px 3px 15px -2px rgba(168, 163, 168, 0.51);
+  box-shadow: 7px 3px 15px -2px rgba(168, 163, 168, 0.51);
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  .Modal {
+    margin: 0 150px;
+  }
+}
+
+
+.Overlay {
+  position: fixed;
+  top: 55px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #f7bcbe;
+}

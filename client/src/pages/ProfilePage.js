@@ -5,21 +5,23 @@ import { FaPen } from "react-icons/fa";
 import { MdLocationOn } from "react-icons/md";
 import { GiCoffeeCup } from "react-icons/gi";
 import Modal from "react-modal";
-import { updateProfile } from "../store/actions/profileActions";
+import {
+  updateProfile,
+  updateProfileImage,
+} from "../store/actions/profileActions";
 import "../stylesheets/profilePage.css";
-import { storage } from "../config/fbConfig";
-import firebase from "../config/fbConfig";
+import "../stylesheets/modal.css";
 
-const ProfilePage = ({ auth, profile, updateProfile }) => {
+const ProfilePage = ({ auth, profile, updateProfile, updateProfileImage }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [info, setInfo] = useState("");
-  const allInputs = { imgUrl: "" };
   const [file, setFile] = useState(null);
-  const [url, setURL] = useState("");
 
   useEffect(() => {
     setInfo(profile);
   }, [profile]);
+
+  Modal.setAppElement('#root')
 
   if (!auth.uid) {
     return <Redirect to="/signin" />;
@@ -34,10 +36,9 @@ const ProfilePage = ({ auth, profile, updateProfile }) => {
   }
 
   const handleSubmit = (event) => {
-    console.log(info);
     event.preventDefault();
-    updateProfile(auth.uid, info);
     closeModal();
+    updateProfile(auth.uid, info);
   };
 
   const handleInputChange = (event) => {
@@ -53,28 +54,8 @@ const ProfilePage = ({ auth, profile, updateProfile }) => {
 
   function handleUpload(e) {
     e.preventDefault();
-    const uploadTask = storage.ref(`/images/${file.name}`).put(file);
-    uploadTask.on("state_changed", console.log, console.error, () => {
-      storage
-        .ref("images")
-        .child(file.name)
-        .getDownloadURL()
-        .then((url) => {
-          firebase
-            .firestore()
-            .collection("users")
-            .doc(auth.uid)
-            .set(
-              {
-                imgURL: url,
-              },
-              { merge: true }
-            )
-            .then(() => {
-              setURL("");
-            });
-        });
-    });
+
+    updateProfileImage(auth.uid, file)
   }
 
   const handleAvailability = (event) => {
@@ -97,16 +78,23 @@ const ProfilePage = ({ auth, profile, updateProfile }) => {
         {profile.isLoaded && (
           <>
             <div className="profile-welcome">
-              <h2>
+              <h4>
                 Welcome, {profile.firstName} {profile.lastName}!
-              </h2>
+              </h4>
             </div>
             <div className="profile-info">
-              <div className="profile-pen">
-                <FaPen onClick={openModal} />
-              </div>
               <div className="profile-image">
-                <img src={profile.imgURL ? profile.imgURL : ""} alt="" />
+                <img
+                  src={
+                    profile.imgURL
+                      ? profile.imgURL
+                      : "https://cdn.statically.io/img/avatarfiles.alphacoders.com/866/86635.png"
+                  }
+                  alt=""
+                />
+              </div>
+              <div className="profile-pen" id="edit-profile-pen">
+                <FaPen onClick={openModal} />
               </div>
               <p>
                 Department: {profile.department} <br></br> Team: {profile.team}
@@ -120,7 +108,7 @@ const ProfilePage = ({ auth, profile, updateProfile }) => {
                     : "Add your location here."}
                 </p>
               </div>
-              <span>
+              <span className="profile-fika">
                 <GiCoffeeCup />{" "}
                 {profile.availableForFika
                   ? "Available For Fika"
@@ -134,6 +122,8 @@ const ProfilePage = ({ auth, profile, updateProfile }) => {
         )}
       </section>
       <Modal
+        className="Modal"
+        overlayClassName="Overlay"
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
         contentLabel="Example Modal"
@@ -174,19 +164,21 @@ const ProfilePage = ({ auth, profile, updateProfile }) => {
               <GiCoffeeCup /> Available For Fika
             </span>
           </label>
-          <p>
-            <button type="submit">Save Changes</button>
-          </p>
-          <p>
-            <button onClick={closeModal}>close</button>
-          </p>
+          <button type="submit">Save Changes</button>
         </form>
         <div>
           <form onSubmit={handleUpload}>
             <input type="file" onChange={handleChange} />
+            <br></br>
             <button disabled={!file}>upload to firebase</button>
           </form>
         </div>
+        <p>
+        
+        </p>
+          <button onClick={closeModal}>close</button>
+        <p>
+        </p>
       </Modal>
     </div>
   );
@@ -203,6 +195,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     updateProfile: (userId, userData) =>
       dispatch(updateProfile(userId, userData)),
+    updateProfileImage: (userId, file) =>
+      dispatch(updateProfileImage(userId, file)),
   };
 };
 

@@ -1,52 +1,59 @@
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
-    .profile-info {
-      width: 90vw;
-    }
+  .profile-info {
+    width: 90vw;
+    margin: 0 20px !important;
   }
-  
-  /* Large devices (laptops/desktops, 992px and up) */
-  @media only screen and (min-width: 992px) {
-    .profile-info {
-      width: 600px;
-    }
-  }
+}
 
-  .profile-image img {
-    float: right;
-  max-width: 150px;
-  max-height: 150px;
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  .profile-info {
+    width: 600px;
+  }
+}
+
+.profile-image img {
+  float: right;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
   object-fit: cover;
   margin-right: 10px;
-  box-shadow: 2px 7px red;
-  }
-  
-  .profile-page {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    align-content: center;
+  -webkit-box-shadow: 5px 3px 10px -2px rgba(168, 163, 168, 0.51);
+  -moz-box-shadow: 5px 3px 10px -2px rgba(168, 163, 168, 0.51);
+  box-shadow: 5px 3px 10px -2px rgba(168, 163, 168, 0.51);
+}
+
+.profile-page {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: center;
 }
 
 .profile-welcome {
-    font-size: 1rem !important;
-    text-align: left;
+  font-size: 1rem !important;
+  text-align: center;
 }
 
 .profile-bio {
-    border: 1px solid grey;
-    border-radius: 5px;
-    padding: 15px;
+  margin-top: 10px;
+  border: 1px solid grey;
+  border-radius: 5px;
+  padding: 15px;
 }
 
 .profile-bio p {
-    color: grey;
+  color: grey;
 }
 
 .profile-info {
-    border: 1px solid grey;
-    border-radius: 5px;
-    /* width: 400px; */
-    padding: 15px;
-  }
+  border: 0.3px solid rgb(247, 245, 245);
+  border-radius: 5px;
+  /* width: 400px; */
+  padding: 15px;
+  -webkit-box-shadow: 10px 10px 15px -2px rgba(168, 163, 168, 1);
+  -moz-box-shadow: 10px 10px 15px -2px rgba(168, 163, 168, 1);
+  box-shadow: 10px 10px 15px -2px rgba(168, 163, 168, 1);
+}
