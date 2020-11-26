@@ -8,11 +8,9 @@
 }
 
 .dashboard-layout {
-  position: absolute;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  align-content: space-around;
+  column-count: 3;
+  column-gap: 10px;
+  padding: 20px;
   transition: 0.8s ease;
 }
 
