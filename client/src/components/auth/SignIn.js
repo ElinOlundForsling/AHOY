@@ -4,7 +4,6 @@ import { signIn } from '../../store/actions/authActions';
 import { Redirect } from 'react-router-dom';
 
 const Signin = ({ authError, signIn, auth }) => {
-  console.log('Am I here?');
   const [credentials, setCredentials] = useState({ email: '', password: '' });
 
   const handleSubmit = event => {

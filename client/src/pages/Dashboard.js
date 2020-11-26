@@ -6,6 +6,7 @@ import Sidebar from '../components/layout/Sidebar';
 import MyTeam from '../components/widgets/MyTeam';
 import Fika from '../components/widgets/Fika';
 import MyDepartment from '../components/widgets/MyDepartment';
+import Calender from '../components/widgets/Calender';
 
 const Dashboard = ({ auth, profile }) => {
   const [sidebarIsOpen, setSidebarIsOpen] = useState(true);
@@ -34,6 +35,7 @@ const Dashboard = ({ auth, profile }) => {
         <Fika />
         <MyDepartment profile={profile} />
         <MyTeam profile={profile} />
+        <Calender />
       </section>
     </main>
   );

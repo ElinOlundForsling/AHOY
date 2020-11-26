@@ -21,7 +21,6 @@ const Sidebar = ({
   const [xPosition, setX] = React.useState(-width);
 
   const toggleMenu = () => {
-    console.log('Toggle');
     if (xPosition < 0) {
       setX(0);
       setSidebarIsOpen(true);

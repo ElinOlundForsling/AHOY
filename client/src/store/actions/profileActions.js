@@ -30,7 +30,6 @@ export const updateProfile = (userId, userData) => {
   return async (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
     try {
-      console.log(userId, userData);
       await firestore
         .collection('users')
         .doc(userId)
@@ -75,7 +74,6 @@ export const updateProfileImage = (userId, file) => {
         .child(file.name)
         .getDownloadURL()
         .then(url => {
-          console.log('URL: ', url);
           firestore.collection('users').doc(userId).set(
             {
               imgURL: url,
@@ -166,9 +164,9 @@ export const getRandomMember = () => {
       });
 
       const availableMembers = newData.filter(mem => mem.availableForFika);
-      console.log(availableMembers);
+      const randomNum = Math.floor(Math.random() * availableMembers.length);
 
-      dispatch(getAllSuccess(newData));
+      dispatch(getRandomSuccess(availableMembers[randomNum]));
     } catch (error) {
       console.error('ERROR!: ', error.message);
     }

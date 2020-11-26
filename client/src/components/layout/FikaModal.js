@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import Modal from 'react-modal';
 import { connect } from 'react-redux';
 import { getRandomMember } from '../../store/actions/profileActions';
+import '../../stylesheets/modal.css';
 
 const FikaModal = ({
   modalIsOpen,
@@ -14,7 +15,6 @@ const FikaModal = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   Modal.setAppElement('#root');
-
   function closeModal() {
     setModalIsOpen(false);
   }
@@ -24,18 +24,22 @@ const FikaModal = ({
   };
 
   const handleRequest = event => {
+    getRandomMember();
     event.preventDefault();
   };
 
   return (
     <Modal
-      className='Modal'
+      className='fika-modal'
       overlayClassName='Overlay'
       isOpen={modalIsOpen}
       onRequestClose={closeModal}
       contentLabel='Example Modal'>
       <h4>Random Fika</h4>
-      <p>{randomMember.name}</p>
+      <p>
+        {randomMember.firstName} {randomMember.lastName}
+      </p>
+      <img src={randomMember.imgURL} />
       <button type='submit' onClick={handleShuffle}>
         Shuffle
       </button>

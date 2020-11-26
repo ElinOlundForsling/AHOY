@@ -27,7 +27,7 @@ const MyDepartment = ({ profile, getDepartmentMembers, departmentMembers }) => {
                       }
                     />
                   </div>
-                  <div clasName='member-name'>
+                  <div className='member-name'>
                     {member.firstName} {member.lastName}
                   </div>
                 </Link>
