@@ -6,6 +6,7 @@ import Sidebar from '../components/layout/Sidebar';
 import MyTeam from '../components/widgets/MyTeam';
 import Fika from '../components/widgets/Fika';
 import Pong from '../components/widgets/Pong';
+import Faq from '../components/widgets/Faq';
 import MyDepartment from '../components/widgets/MyDepartment';
 
 const Dashboard = ({ auth, profile }) => {
@@ -36,6 +37,7 @@ const Dashboard = ({ auth, profile }) => {
         <Fika />
         <MyDepartment profile={profile} />
         <Pong />
+        <Faq />
         <MyTeam profile={profile} />
         
       </section>

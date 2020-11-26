@@ -8,6 +8,7 @@
 
   background-color: #fff;
   /* break-inside: avoid; */
+  
   border-radius: 15px;
   -webkit-box-shadow: 5px 5px 15px 0px rgba(101, 76, 79, 0.2);
   -moz-box-shadow: 5px 5px 15px 0px rgba(101, 76, 79, 0.2);
@@ -48,4 +49,5 @@
   padding-right: 15px;
   padding-top: 10px;
   padding-bottom: 0px;
+  /* max-height: 350px; */
 }
