@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import '../stylesheets/dashboard.css';
 import Sidebar from '../components/layout/Sidebar';
 import MyTeam from '../components/widgets/MyTeam';
-import '../stylesheets/dashboard.css';
+import Fika from '../components/widgets/Fika';
 import MyDepartment from '../components/widgets/MyDepartment';
 
 const Dashboard = ({ auth, profile }) => {
@@ -28,11 +29,11 @@ const Dashboard = ({ auth, profile }) => {
         `}>
         <div className='dashboard-welcome'></div>
         <MyTeam profile={profile} />
+        <Fika />
+        <MyDepartment profile={profile} />
+        <Fika />
         <MyDepartment profile={profile} />
         <MyTeam profile={profile} />
-        <MyDepartment profile={profile} />
-        <MyTeam profile={profile} />
-        <MyDepartment profile={profile} />
       </section>
     </main>
   );

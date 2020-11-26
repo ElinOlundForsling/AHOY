@@ -91,7 +91,12 @@ const ProfileModal = ({
           }
         />
 
-        <textarea type='text' onChange={handleInputChange} name='bio' />
+        <textarea
+          type='text'
+          onChange={handleInputChange}
+          name='bio'
+          placeholder='Your bio here.'
+        />
 
         <label>
           <input
@@ -103,6 +108,7 @@ const ProfileModal = ({
             <GiCoffeeCup /> Available For Fika
           </span>
         </label>
+        <br></br>
         <button type='submit'>Save Changes</button>
       </form>
       <hr />

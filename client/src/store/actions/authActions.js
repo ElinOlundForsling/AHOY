@@ -45,6 +45,8 @@ export const signUp = newUser => {
             email: newUser.email,
             department: newUser.department,
             team: newUser.team,
+            joinDate: Date.now(),
+            availableForFika: true,
           });
       })
       .then(() => {

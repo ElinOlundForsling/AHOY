@@ -58,7 +58,6 @@ const Signup = ({
 
   const handleSubmit = event => {
     event.preventDefault();
-    console.log(credentials);
     signUp(credentials);
   };
 

@@ -22,6 +22,10 @@ export const getAllSuccess = data => {
   return { type: 'ALL_SUCCESS', payload: data };
 };
 
+export const getRandomSuccess = data => {
+  return { type: 'RANDOM_SUCCESS', payload: data };
+};
+
 export const updateProfile = (userId, userData) => {
   return async (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
@@ -141,6 +145,28 @@ export const getAllMembers = () => {
       const newData = data.map((d, index) => {
         return { ...d, id: ids[index] };
       });
+
+      dispatch(getAllSuccess(newData));
+    } catch (error) {
+      console.error('ERROR!: ', error.message);
+    }
+  };
+};
+
+export const getRandomMember = () => {
+  return async (dispatch, getState, { getFirestore }) => {
+    const firestore = getFirestore();
+    try {
+      const snapshot = await firestore.collection('users').get();
+
+      const data = snapshot.docs.map(doc => doc.data());
+      const ids = snapshot.docs.map(doc => doc.id);
+      const newData = data.map((d, index) => {
+        return { ...d, id: ids[index] };
+      });
+
+      const availableMembers = newData.filter(mem => mem.availableForFika);
+      console.log(availableMembers);
 
       dispatch(getAllSuccess(newData));
     } catch (error) {
