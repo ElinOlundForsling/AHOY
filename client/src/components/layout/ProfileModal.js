@@ -105,9 +105,17 @@ const ProfileModal = ({
         </label>
         <button type='submit'>Save Changes</button>
       </form>
+      <hr />
       <div>
+        <label for='file'>Upload</label>
         <form onSubmit={handleUpload}>
-          <input type='file' onChange={handleChange} />
+          <input
+            type='file'
+            onChange={handleChange}
+            name='file'
+            id='file'
+            className='custom-file-input'
+          />
           <br></br>
           <button disabled={!file}>upload to firebase</button>
         </form>

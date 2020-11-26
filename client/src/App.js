@@ -1,10 +1,10 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import Navbar from './components/layout/Navbar';
 import Profile from './pages/Profile';
 import Signin from './components/auth/Signin';
 import Signup from './components/auth/Signup';
 import Dashboard from './pages/Dashboard';
+import './stylesheets/App.css';
 
 function App() {
   return (

@@ -3,14 +3,25 @@
   text-align: center;
 }
 
-.dashboard-layout {
-  position: absolute;
-  margin-left: 230px;
+.main {
+  background-color: #fcf4ef;
 }
 
-.dashboard-layout-fullscreen {
+.dashboard-layout {
   position: absolute;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-content: space-around;
+  transition: 0.8s ease;
+}
+
+.dashboard-fullscreen {
   margin-left: 30px;
+}
+
+.dashboard-sidebar {
+  margin-left: 230px;
 }
 
 .sidebar-layout {

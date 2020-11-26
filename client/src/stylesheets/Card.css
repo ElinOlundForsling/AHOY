@@ -1,12 +1,17 @@
 .card {
-  width: 300px;
-  border-radius: 5px;
+  flex: 0 1 30%;
+  min-width: 300px;
   background-color: #fff;
   margin: 20px;
   border-radius: 15px;
+  -webkit-box-shadow: 5px 5px 15px 0px rgba(101, 76, 79, 0.2);
+  -moz-box-shadow: 5px 5px 15px 0px rgba(101, 76, 79, 0.2);
+  box-shadow: 5px 5px 15px 0px rgba(101, 76, 79, 0.2);
 }
 
 .card-title {
+  font-family: 'Roboto Slab', serif;
+  display: block;
   border-radius: 15px 15px 0 0;
   text-align: center;
   background-color: #f9c74f;

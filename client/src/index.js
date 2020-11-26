@@ -4,16 +4,16 @@ import App from './App';
 import { createStore, applyMiddleware, compose } from 'redux';
 import rootReducer from './store/reducers/rootReducer';
 import { Provider } from 'react-redux';
+import { ReactReduxFirebaseProvider, getFirebase } from 'react-redux-firebase';
 import thunk from 'redux-thunk';
 import {
   createFirestoreInstance,
   getFirestore,
   reduxFirestore,
 } from 'redux-firestore';
-import { ReactReduxFirebaseProvider, getFirebase } from 'react-redux-firebase';
-import fbConfig, {storage} from './config/fbConfig';
+import fbConfig, { storage } from './config/fbConfig';
 import firebase from 'firebase/app';
-
+import './stylesheets/materialize.css';
 
 //for render on auth ready
 import { useSelector } from 'react-redux';
@@ -22,7 +22,9 @@ import { isLoaded } from 'react-redux-firebase';
 const store = createStore(
   rootReducer,
   compose(
-    applyMiddleware(thunk.withExtraArgument({ getFirestore, getFirebase, storage})),
+    applyMiddleware(
+      thunk.withExtraArgument({ getFirestore, getFirebase, storage }),
+    ),
     reduxFirestore(firebase, fbConfig),
   ),
 );

@@ -18,6 +18,10 @@ export const getDepartmentSuccess = data => {
   return { type: 'DEPARTMENT_SUCCESS', payload: data };
 };
 
+export const getAllSuccess = data => {
+  return { type: 'ALL_SUCCESS', payload: data };
+};
+
 export const updateProfile = (userId, userData) => {
   return async (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
@@ -54,6 +58,31 @@ export const getProfileById = userId => {
     } catch (error) {
       console.error('ERROR!: ', error.message);
     }
+  };
+};
+
+export const updateProfileImage = (userId, file) => {
+  return (dispatch, getState, { getFirestore, storage }) => {
+    const firestore = getFirestore();
+    const uploadTask = storage.ref(`/images/${file.name}`).put(file);
+    uploadTask.on('state_changed', console.log, console.error, () => {
+      storage
+        .ref('images')
+        .child(file.name)
+        .getDownloadURL()
+        .then(url => {
+          console.log('URL: ', url);
+          firestore.collection('users').doc(userId).set(
+            {
+              imgURL: url,
+            },
+            { merge: true },
+          );
+        })
+        .catch(error => console.error(error));
+    });
+
+    dispatch(getProfileImageSuccess());
   };
 };
 
@@ -101,27 +130,21 @@ export const getDepartmentMembers = department => {
   };
 };
 
-export const updateProfileImage = (userId, file) => {
-  return (dispatch, getState, { getFirestore, storage }) => {
+export const getAllMembers = () => {
+  return async (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
-    const uploadTask = storage.ref(`/images/${file.name}`).put(file);
-    uploadTask.on('state_changed', console.log, console.error, () => {
-      storage
-        .ref('images')
-        .child(file.name)
-        .getDownloadURL()
-        .then(url => {
-          console.log('URL: ', url);
-          firestore.collection('users').doc(userId).set(
-            {
-              imgURL: url,
-            },
-            { merge: true },
-          );
-        })
-        .catch(error => console.error(error));
-    });
+    try {
+      const snapshot = await firestore.collection('users').get();
 
-    dispatch(getProfileImageSuccess());
+      const data = snapshot.docs.map(doc => doc.data());
+      const ids = snapshot.docs.map(doc => doc.id);
+      const newData = data.map((d, index) => {
+        return { ...d, id: ids[index] };
+      });
+
+      dispatch(getAllSuccess(newData));
+    } catch (error) {
+      console.error('ERROR!: ', error.message);
+    }
   };
 };

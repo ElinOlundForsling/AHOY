@@ -1,6 +1,9 @@
 .side-bar {
   height: 100vh;
   display: flex;
+  font-family: 'Roboto', sans-serif;
+  letter-spacing: 0.05rem;
+  font-weight: 500;
   flex-direction: column;
   border-right: 1px solid;
   border-radius: 0;
@@ -27,6 +30,15 @@
   line-height: 4rem;
   margin: 0;
   color: #577590;
+}
+
+.side-bar span {
+  display: inline-flex;
+  align-items: center;
+}
+
+.sidebar-icon {
+  font-size: 1.2em;
 }
 
 .sign-out {

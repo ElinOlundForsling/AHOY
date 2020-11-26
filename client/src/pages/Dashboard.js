@@ -13,7 +13,7 @@ const Dashboard = ({ auth, profile }) => {
   }
 
   return (
-    <main>
+    <main className='main'>
       <section className='sidebar-layout'>
         <Sidebar
           width={200}
@@ -23,10 +23,14 @@ const Dashboard = ({ auth, profile }) => {
         />
       </section>
       <section
-        className={
-          sidebarIsOpen ? 'dashboard-layout' : 'dashboard-layout-fullscreen'
-        }>
+        className={`dashboard-layout
+          ${sidebarIsOpen ? 'dashboard-sidebar' : 'dashboard-fullscreen'}
+        `}>
         <div className='dashboard-welcome'></div>
+        <MyTeam profile={profile} />
+        <MyDepartment profile={profile} />
+        <MyTeam profile={profile} />
+        <MyDepartment profile={profile} />
         <MyTeam profile={profile} />
         <MyDepartment profile={profile} />
       </section>

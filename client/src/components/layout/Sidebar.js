@@ -4,6 +4,10 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { signOut } from '../../store/actions/authActions';
 import React from 'react';
+import { CgProfile, CgCalendar, CgStyle } from 'react-icons/cg';
+import { BsGrid } from 'react-icons/bs';
+import { AiOutlineSetting } from 'react-icons/ai';
+import { VscSignOut } from 'react-icons/vsc';
 
 const Sidebar = ({
   width,
@@ -35,47 +39,75 @@ const Sidebar = ({
     <React.Fragment>
       {profile.isLoaded && (
         <div
-          className="side-bar"
+          className='side-bar'
           style={{
             transform: `translatex(${xPosition}px)`,
             width: width,
             minHeight: height,
-          }}
-        >
+          }}>
           <img
             src={
               profile.imgURL
                 ? profile.imgURL
                 : 'https://cdn.statically.io/img/avatarfiles.alphacoders.com/866/86635.png'
             }
-            alt=""
-            className="dashboard-avatar"
+            alt=''
+            className='dashboard-avatar'
           />
-          <Link to={`/profiles/${auth.uid}`}>Profile</Link>
-          <Link to="/">Department</Link>
-          <Link to="/">Calendar</Link>
-          <Link to="/">Settings</Link>
-          <div className="sign-out">
-            <a onClick={signOut}>Sign Out</a>
+          <Link to={`/profiles/${auth.uid}`}>
+            <span>
+              <CgProfile className='sidebar-icon' />
+              &nbsp; Profile
+            </span>
+          </Link>
+          <Link to='/'>
+            <span>
+              <CgStyle className='sidebar-icon' />
+              &nbsp; Department
+            </span>
+          </Link>
+          <Link to='/'>
+            <span>
+              <CgCalendar className='sidebar-icon' />
+              &nbsp; Calendar
+            </span>
+          </Link>
+          <Link to='/'>
+            {' '}
+            <span>
+              <AiOutlineSetting className='sidebar-icon' />
+              &nbsp; Settings
+            </span>
+          </Link>
+          <div className='sign-out'>
+            <a onClick={signOut}>
+              {' '}
+              <span>
+                <VscSignOut className='sidebar-icon' />
+                &nbsp; Sign Out
+              </span>
+            </a>
           </div>
-          <Link className="ahoy-dashboard" to="/">
-            AHOY
+          <Link className='ahoy-dashboard' to='/'>
+            <span>
+              <BsGrid className='sidebar-icon' />
+              &nbsp; AHOY Dashboard
+            </span>
           </Link>
           <button
             onClick={() => toggleMenu()}
-            className="toggle-menu"
+            className='toggle-menu'
             style={{
               transform: `translate(${width}px, 20vh)`,
-            }}
-          ></button>
-          <div className="content">{children}</div>
+            }}></button>
+          <div className='content'>{children}</div>
         </div>
       )}
     </React.Fragment>
   );
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
     signOut: () => dispatch(signOut()),
   };
