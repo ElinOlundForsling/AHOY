@@ -7,7 +7,6 @@ import MyTeam from '../components/widgets/MyTeam';
 import Fika from '../components/widgets/Fika';
 import Pong from '../components/widgets/Pong';
 import MyDepartment from '../components/widgets/MyDepartment';
-import Calender from '../components/widgets/Calender';
 
 const Dashboard = ({ auth, profile }) => {
   const [sidebarIsOpen, setSidebarIsOpen] = useState(true);
@@ -38,7 +37,7 @@ const Dashboard = ({ auth, profile }) => {
         <MyDepartment profile={profile} />
         <Pong />
         <MyTeam profile={profile} />
-        <Calender />
+        
       </section>
     </main>
   );
