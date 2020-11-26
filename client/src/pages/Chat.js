@@ -1,21 +1,52 @@
-import React, { useState } from 'react';
-import { sendMessage } from '../store/actions/messageActions';
+import React, { useState, useEffect, useRef } from 'react';
+import { sendMessage, getMessages } from '../store/actions/messageActions';
 import { connect } from 'react-redux';
 
-export const Chat = ({ auth, profileData, profile, chatId, sendMessage }) => {
-  const [message, setMessage] = useState('');
+export const Chat = ({
+  auth,
+  profileData,
+  profile,
+  chatId,
+  sendMessage,
+  getMessages,
+  messages,
+}) => {
+  const [params, setParams] = useState({});
 
   const handleSubmit = event => {
     event.preventDefault();
-    sendMessage(chatId, auth.uid, profileData.id, message);
+    sendMessage(params);
   };
 
+  const isFirstRun = useRef(true);
+  useEffect(() => {
+    if (isFirstRun.current) {
+      isFirstRun.current = false;
+      return;
+    }
+    getMessages(chatId);
+  }, [chatId, sendMessage]);
+
   const handleInputChange = event => {
-    setMessage(event.target.value);
+    setParams({
+      chatId,
+      senderId: auth.uid,
+      senderName: profile.firstName,
+      recipientId: profileData.id,
+      text: event.target.value,
+    });
   };
 
   return (
     <div>
+      {messages &&
+        messages.map(message => {
+          return (
+            <p>
+              {message.senderName}: {message.text}
+            </p>
+          );
+        })}
       <form onSubmit={handleSubmit}>
         <textarea type='text' onChange={handleInputChange} name='message' />
         <button type='submit'>Send Message</button>
@@ -28,6 +59,7 @@ const mapStateToProps = state => {
   return {
     auth: state.firebase.auth,
     chatId: state.chat.chatId,
+    messages: state.chat.messages,
     profile: state.firebase.profile,
     profileData: state.profileData.profileData,
   };
@@ -35,8 +67,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    sendMessage: (senderId, senderName, recipientId, text) =>
-      dispatch(sendMessage(senderId, senderName, recipientId, text)),
+    sendMessage: params => dispatch(sendMessage(params)),
+    getMessages: chatId => dispatch(getMessages(chatId)),
   };
 };
 

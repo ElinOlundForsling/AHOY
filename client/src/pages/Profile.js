@@ -34,8 +34,8 @@ const Profile = ({
     setModalIsOpen(true);
   }
 
-  const handleChatClick = e => {
-    getChat(auth.uid, profileData.id);
+  const handleChatClick = async e => {
+    const chatId = await getChat(auth.uid, profileData.id);
   };
 
   useEffect(() => {

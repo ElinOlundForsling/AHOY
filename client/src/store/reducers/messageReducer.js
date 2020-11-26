@@ -6,11 +6,11 @@ const initState = {
 const messageReducer = (state = initState, action) => {
   switch (action.type) {
     case 'SEND_SUCCESS':
-      // const messageLog = state.messages.push(action.payload);
       return state;
     case 'CHAT_SUCCESS':
-      console.log('Payload: ', action.payload);
       return { ...state, chatId: action.payload };
+    case 'GET_MESSAGES_SUCCESS':
+      return { ...state, messages: action.payload };
     default:
       return state;
   }
