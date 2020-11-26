@@ -2,7 +2,8 @@ import React, { useEffect } from 'react';
 import Modal from 'react-modal';
 import { connect } from 'react-redux';
 import { getRandomMember } from '../../store/actions/profileActions';
-import '../../stylesheets/modal.css';
+// import '../../stylesheets/modal.css';
+import '../../stylesheets/fikaModal.css';
 
 const FikaModal = ({
   modalIsOpen,
@@ -19,47 +20,56 @@ const FikaModal = ({
     setModalIsOpen(false);
   }
 
-  const handleShuffle = event => {
+  const handleShuffle = (event) => {
     event.preventDefault();
   };
 
-  const handleRequest = event => {
+  const handleRequest = (event) => {
     getRandomMember();
     event.preventDefault();
   };
 
   return (
     <Modal
-      className='fika-modal'
-      overlayClassName='Overlay'
+      className="fika-modal"
+      overlayClassName="Overlay"
       isOpen={modalIsOpen}
       onRequestClose={closeModal}
-      contentLabel='Example Modal'>
+      contentLabel="Example Modal"
+    >
       <h4>Random Fika</h4>
       <p>
         {randomMember.firstName} {randomMember.lastName}
       </p>
-      <img src={randomMember.imgURL} />
-      <button type='submit' onClick={handleShuffle}>
-        Shuffle
-      </button>
-      <button type='submit' onClick={handleRequest}>
-        Request
-      </button>
-      <p></p>
-      <button onClick={closeModal}>close</button>
-      <p></p>
+      <img
+        src={
+          randomMember.imgURL
+            ? randomMember.imgURL
+            : 'https://cdn.statically.io/img/avatarfiles.alphacoders.com/866/86635.png'
+        }
+        alt=""
+      />
+      <div>
+        <button type="submit" onClick={handleRequest}>
+          Shuffle
+        </button>
+        <button type="submit" onClick={handleShuffle}>
+          Request
+        </button>
+
+        <button onClick={closeModal}>close</button>
+      </div>
     </Modal>
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     randomMember: state.profileData.randomMember,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     getRandomMember: () => dispatch(getRandomMember()),
   };

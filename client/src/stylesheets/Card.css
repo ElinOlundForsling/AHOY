@@ -1,12 +1,28 @@
 .card {
-  flex: 0 1 30%;
-  min-width: 300px;
+  margin: 0;
+
+  display: grid;
+  grid-template-rows: auto;
+  grid-gap: .5rem;
+  margin: .5rem 0;
+
   background-color: #fff;
-  margin: 20px;
+  /* break-inside: avoid; */
+  
   border-radius: 15px;
   -webkit-box-shadow: 5px 5px 15px 0px rgba(101, 76, 79, 0.2);
   -moz-box-shadow: 5px 5px 15px 0px rgba(101, 76, 79, 0.2);
   box-shadow: 5px 5px 15px 0px rgba(101, 76, 79, 0.2);
+}
+
+.card-content > img {
+  grid-row: 1 / -1;
+  grid-column: 1;
+}
+
+.card-content img {
+  max-width: 100%;
+  display: block;
 }
 
 .card-title {
@@ -33,4 +49,5 @@
   padding-right: 15px;
   padding-top: 10px;
   padding-bottom: 0px;
+  /* max-height: 350px; */
 }

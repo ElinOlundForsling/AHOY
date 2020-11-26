@@ -4,19 +4,21 @@ import { connect } from 'react-redux';
 import '../stylesheets/dashboard.css';
 import Sidebar from '../components/layout/Sidebar';
 import MyTeam from '../components/widgets/MyTeam';
+import LatestHires from '../components/widgets/LatestHires';
 import Fika from '../components/widgets/Fika';
+import Pong from '../components/widgets/Pong';
+import Faq from '../components/widgets/Faq';
 import MyDepartment from '../components/widgets/MyDepartment';
-import Calender from '../components/widgets/Calender';
 
 const Dashboard = ({ auth, profile }) => {
   const [sidebarIsOpen, setSidebarIsOpen] = useState(true);
   if (!auth.uid) {
-    return <Redirect to='/signin' />;
+    return <Redirect to="/signin" />;
   }
 
   return (
-    <main className='main'>
-      <section className='sidebar-layout'>
+    <main className="main">
+      <section className="sidebar-layout">
         <Sidebar
           width={200}
           auth={auth}
@@ -27,21 +29,25 @@ const Dashboard = ({ auth, profile }) => {
       <section
         className={`dashboard-layout
           ${sidebarIsOpen ? 'dashboard-sidebar' : 'dashboard-fullscreen'}
-        `}>
-        <div className='dashboard-welcome'></div>
+        `}
+      >
+        <div className="dashboard-welcome"></div>
+        <LatestHires profiles={profile} />
         <MyTeam profile={profile} />
         <Fika />
         <MyDepartment profile={profile} />
+        <Pong />
         <Fika />
         <MyDepartment profile={profile} />
+        <Pong />
+        <Faq />
         <MyTeam profile={profile} />
-        <Calender />
       </section>
     </main>
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     auth: state.firebase.auth,
     profile: state.firebase.profile,

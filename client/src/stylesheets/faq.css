@@ -1,0 +1,4 @@
+.faq-card {
+    overflow: auto;
+  max-height: 350px;
+}
