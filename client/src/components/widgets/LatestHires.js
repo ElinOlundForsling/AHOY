@@ -4,6 +4,7 @@ import { getLatestHires } from '../../store/actions/departmentActions';
 import Card from '../layout/Card';
 import { Link } from 'react-router-dom';
 import '../../stylesheets/myDepartment.css';
+import '../../stylesheets/latestHires.css';
 
 const LatestHires = ({ getLatestHires, latestHires }) => {
   useEffect(() => {
@@ -12,7 +13,7 @@ const LatestHires = ({ getLatestHires, latestHires }) => {
 
   return (
     <Card heading="Latest Hires" subHeading={'Say hi to your new colleagues'}>
-      <div className="teamMembers">
+      <div className="latest-hires">
         {latestHires.map((hire) => {
           return (
             <div key={hire.id}>
