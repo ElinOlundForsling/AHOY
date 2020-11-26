@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Redirect, useParams } from 'react-router-dom';
+import { Redirect, useParams, Link } from 'react-router-dom';
 import { FaPen } from 'react-icons/fa';
 import { MdLocationOn } from 'react-icons/md';
 import { GiCoffeeCup } from 'react-icons/gi';
@@ -11,6 +11,7 @@ import {
   updateProfileImage,
   getProfileById,
 } from '../store/actions/profileActions';
+import { getChat } from '../store/actions/messageActions';
 import '../stylesheets/profilePage.css';
 import '../stylesheets/modal.css';
 import '../stylesheets/card.css';
@@ -22,6 +23,7 @@ const Profile = ({
   updateProfile,
   updateProfileImage,
   getProfileById,
+  getChat,
 }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [sidebarIsOpen, setSidebarIsOpen] = useState(true);
@@ -31,6 +33,10 @@ const Profile = ({
   function openModal() {
     setModalIsOpen(true);
   }
+
+  const handleChatClick = e => {
+    getChat(auth.uid, profileData.id);
+  };
 
   useEffect(() => {
     getProfileById(profileId);
@@ -89,6 +95,9 @@ const Profile = ({
                       : 'Add your location here.'}
                   </p>
                 </div>
+                <Link to='/chat'>
+                  <button onClick={handleChatClick}>CHAT</button>
+                </Link>
                 <span className='profile-fika'>
                   <GiCoffeeCup />{' '}
                   {profileData.availableForFika
@@ -137,6 +146,7 @@ const mapDispatchToProps = dispatch => {
     updateProfileImage: (userId, file) =>
       dispatch(updateProfileImage(userId, file)),
     getProfileById: userId => dispatch(getProfileById(userId)),
+    getChat: (id1, id2) => dispatch(getChat(id1, id2)),
   };
 };
 

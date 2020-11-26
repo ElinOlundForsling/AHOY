@@ -57,6 +57,7 @@ export const getProfileById = userId => {
     try {
       const snapshot = await firestore.collection('users').doc(userId).get();
       const data = snapshot.data();
+      data.id = userId;
       dispatch(getProfileDataSuccess(data));
     } catch (error) {
       console.error('ERROR!: ', error.message);
