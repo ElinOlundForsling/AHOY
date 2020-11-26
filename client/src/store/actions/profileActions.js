@@ -173,3 +173,24 @@ export const getRandomMember = () => {
     }
   };
 };
+
+export const updateProfileAdmin = (userId, userData) => {
+  return async (dispatch, getState, { getFirestore }) => {
+    const firestore = getFirestore();
+    try {
+      await firestore.collection('users').doc(userId).set(
+        {
+          firstName: userData.firstName,
+          lastName: userData.lastName,
+          email: userData.email,
+          department: userData.department,
+          team: userData.team,
+        },
+        { merge: true },
+      );
+      dispatch(getProfileSuccess());
+    } catch (error) {
+      console.error('ERROR!: ', error.message);
+    }
+  };
+};

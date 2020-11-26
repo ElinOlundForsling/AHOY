@@ -1,0 +1,66 @@
+.collapse {
+  overflow: hidden;
+  transition: 0.4s max-height;
+}
+
+.collapse > div {
+  overflow: auto;
+}
+
+.toggle-button {
+  padding: 10px;
+  display: block;
+  background: #333;
+  color: white;
+  width: 100%;
+  border: 0;
+  cursor: pointer;
+}
+
+.avatar-small {
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
+}
+
+.admin-member-form {
+  display: flex;
+  flex-direction: column;
+  background-color: beige;
+  border-radius: 3px;
+  padding: 1em;
+}
+.row {
+  display: flex;
+  justify-content: center;
+}
+.column {
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+}
+.input-group {
+  display: flex;
+}
+.input-group > label {
+  margin-right: 1em;
+  padding: 0.5em 0;
+}
+.admin-member-form input,
+.admin-member-form select {
+  flex: 6;
+  padding: 0.5em;
+  margin-bottom: 1em;
+}
+.admin-member-form button {
+  padding: 1em;
+  background: gray;
+  color: white;
+  border: 0;
+}
+.admin-member-form fieldset {
+  border: 0;
+}
+.extras > label {
+  display: block;
+}
