@@ -6,7 +6,7 @@
   bottom: 40px;
   background-color: #fff;
   padding: 15px 35px;
-  height: 500px;
+  height: 600px;
   border-radius: 5px;
   -webkit-box-shadow: 7px 3px 15px -2px rgba(168, 163, 168, 0.51);
   -moz-box-shadow: 7px 3px 15px -2px rgba(168, 163, 168, 0.51);
@@ -59,32 +59,61 @@
   background-color: #f7bcbe;
 }
 
-[type='file'] {
-  border: 0;
-  clip: rect(0, 0, 0, 0);
-  height: 1px;
-  overflow: hidden;
-  padding: 0;
-  position: absolute !important;
-  white-space: nowrap;
-  width: 1px;
+.file-upload-wrapper {
+  position: relative;
+  width: 100%;
+  height: 40px;
 }
-
-[type='file'] + label {
-  background-color: #000;
-  border-radius: 4rem;
-  color: #fff;
-  cursor: pointer;
+.file-upload-wrapper:after {
+  content: 'Select an image';
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #fff;
+  padding: 10px 15px;
+  display: block;
+  width: calc(100% - 40px);
+  pointer-events: none;
+  z-index: 20;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 5px 10px 10px 5px;
+  font-weight: 300;
+  font-family: 'Quicksand', sans-serif;
+}
+.file-upload-wrapper:before {
+  content: 'Upload';
+  position: absolute;
+  top: 0;
+  right: 0;
   display: inline-block;
-  padding-left: 2rem 4rem;
-  font-family: 'Roboto Slab', serif;
+  background: #43aa8b;
+  color: #fff;
+  font-weight: 500;
+  font-family: 'Roboto Slab', sans-serif;
+  z-index: 25;
+  font-size: 1.1rem;
+  line-height: 60px;
+  padding: 0 15px;
+  text-transform: uppercase;
+  pointer-events: none;
+  border-radius: 0 15px 15px 0;
 }
-
-[type='file']:focus + label,
-[type='file'] + label:hover {
-  background-color: #f15d22;
+.file-upload-wrapper:hover:before {
+  background: #43aa8b;
 }
-
-[type='file']:focus + label {
-  outline: 1px dotted #000;
+.file-upload-wrapper input {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 99;
+  height: 40px;
+  margin: 0;
+  padding: 0;
+  display: block;
+  cursor: pointer;
+  width: 100%;
 }
