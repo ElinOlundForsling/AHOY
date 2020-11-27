@@ -13,9 +13,12 @@ export const Chat = ({
   messages,
 }) => {
   const [params, setParams] = useState({});
+  const [chatText, setChatText] = useState('');
 
   const handleSubmit = event => {
     event.preventDefault();
+
+    setChatText('');
     sendMessage(params);
   };
 
@@ -29,6 +32,7 @@ export const Chat = ({
   }, [chatId, sendMessage, messages]);
 
   const handleInputChange = event => {
+    setChatText(event.target.value);
     setParams({
       chatId,
       senderId: auth.uid,
@@ -40,16 +44,25 @@ export const Chat = ({
 
   return (
     <div className='chat-page'>
-      {messages &&
-        messages.map(message => {
-          return (
-            <p>
-              {message.senderName}: {message.text}
-            </p>
-          );
-        })}
+      <div className='chat-messages'>
+        {messages &&
+          messages.map(message => {
+            if (message.senderId === auth.uid) {
+              return (
+                <p className='sender-msg'>
+                  {message.senderName}: {message.text}
+                </p>
+              );
+            } else {
+              <p className='recepient-msg'>
+                {message.senderName}: {message.text}
+              </p>;
+            }
+          })}
+      </div>
       <form onSubmit={handleSubmit} className='chat-form'>
         <textarea
+          value={chatText}
           type='text'
           onChange={handleInputChange}
           name='message'

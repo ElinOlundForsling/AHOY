@@ -54,7 +54,7 @@ const FikaModal = ({
           Shuffle
         </button>
         <button type='submit' onClick={handleShuffle}>
-          Request
+          Ask
         </button>
 
         <button onClick={closeModal}>close</button>

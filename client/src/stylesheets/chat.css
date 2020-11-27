@@ -40,6 +40,11 @@
   border-radius: 5px;
 }
 
+.chat-messages {
+  overflow: auto;
+  max-height: 350px;
+}
+
 .chat-button {
   font-family: 'Roboto Slab', sans-serif;
   background-color: #43aa8b;
