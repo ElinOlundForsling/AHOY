@@ -2,3 +2,7 @@
     overflow: auto;
   max-height: 350px;
 }
+
+.faq-card h3 {
+  margin-top: 1rem;
+}

@@ -1,15 +1,10 @@
 .latest-hires {
   display: flex;
-  /* align-items: center; */
   flex-wrap: wrap;
-  /* text-align: center; */
   color: black;
   flex-direction: column;
-  justify-content: space-around;
-  /* padding: 0 15px; */
   overflow: auto;
   max-height: 350px;
-  align-items: flex-start;
 }
 
 .latest-hires img {
@@ -18,4 +13,15 @@
   margin: 0 auto;
   border-radius: 50%;
   object-fit: cover;
+}
+
+.latest-hired-card {
+  text-align: center;
+  width: 130px;
+  padding: 10px;
+  height: 150px;
+}
+
+.latest-hired-name p {
+  color: grey;
 }

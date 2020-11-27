@@ -25,7 +25,7 @@ export const Chat = ({
       return;
     }
     getMessages(chatId);
-  }, [chatId, sendMessage]);
+  }, [chatId, sendMessage, messages]);
 
   const handleInputChange = event => {
     setParams({

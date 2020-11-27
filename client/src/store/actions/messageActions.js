@@ -61,6 +61,7 @@ export const getMessages = chatId => {
       .collection('messages')
       .doc(chatId)
       .collection('msg')
+      .orderBy('date', 'desc')
       .get();
     const data = snapshot.docs.map(doc => doc.data());
 

@@ -1,18 +1,41 @@
-import React, { useState } from "react";
+import React from "react";
+import ReactDOM from "react-dom";
 import Card from "../layout/Card";
-import "../../stylesheets/widget-image.css";
 
 import '../../stylesheets/faq.css';
 
 const Faq = () => {
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = React.useState("");
+  const [searchResults, setSearchResults] = React.useState([]);
+  const handleChange = e => {
+    setSearchTerm(e.target.value);
+  };
+  React.useEffect(() => {
+    const results = information.filter(person =>
+      person.toLowerCase().includes(searchTerm)
+    );
+    setSearchResults(results);
+  }, [searchTerm]);
 
-  function openModal() {
-    setModalIsOpen(true);
-  }
+  const information = [
+    "Office",
+    "Paperwork",
+    "IT",
+  ];
 
   return (
     <Card heading="FAQ" subHeading="Got questions?" className="faq-component">
+      <input
+        type="text"
+        placeholder="Search"
+        value={searchTerm}
+        onChange={handleChange}
+      />
+      <ul>
+        {searchResults.map(item => (
+          <li>{item}</li>
+        ))}
+      </ul>
       <div className="faq-card">
         <h3>What will my first day look like?</h3>
         <p>

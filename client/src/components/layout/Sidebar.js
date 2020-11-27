@@ -53,6 +53,8 @@ const Sidebar = ({
             alt=''
             className='dashboard-avatar'
           />
+          <p>Hi, {profile.firstName}</p>
+
           <Link to={`/profiles/${auth.uid}`}>
             <span>
               <CgProfile className='sidebar-icon' />
@@ -90,7 +92,7 @@ const Sidebar = ({
           <Link className='ahoy-dashboard' to='/'>
             <span>
               <BsGrid className='sidebar-icon' />
-              &nbsp; AHOY Dashboard
+              &nbsp;  Dashboard
             </span>
           </Link>
           <button
