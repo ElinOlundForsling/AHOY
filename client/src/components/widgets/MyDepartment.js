@@ -11,7 +11,10 @@ const MyDepartment = ({ profile, getDepartmentMembers, departmentMembers }) => {
   }, [profile]);
 
   return (
-    <Card heading='My department' subHeading={profile.department}>
+    <Card
+      heading='My department'
+      subHeading={profile.department}
+      className='department-component'>
       <div className='teamMembers'>
         {departmentMembers.map(member => {
           return (
@@ -30,6 +33,11 @@ const MyDepartment = ({ profile, getDepartmentMembers, departmentMembers }) => {
                   <div className='member-name'>
                     {member.firstName} {member.lastName}
                   </div>
+                  {member.isOnline ? (
+                    <p style={{ color: 'green' }}>Online</p>
+                  ) : (
+                    <p style={{ color: 'red' }}>Offline</p>
+                  )}
                 </Link>
               </div>
             </div>

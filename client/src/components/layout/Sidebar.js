@@ -53,13 +53,13 @@ const Sidebar = ({
             alt=''
             className='dashboard-avatar'
           />
+          <p>Hi, {profile.firstName}</p>
           <Link to={'/'}>
             <span>
               <BsGrid className='sidebar-icon' />
               &nbsp; Dashboard
             </span>
           </Link>
-          <p>Hi, {profile.firstName}</p>
 
           <Link to={`/profiles/${auth.uid}`}>
             <span>
@@ -87,7 +87,7 @@ const Sidebar = ({
             </span>
           </Link>
           <div className='sign-out'>
-            <a onClick={signOut}>
+            <a onClick={() => signOut(auth)}>
               {' '}
               <span>
                 <VscSignOut className='sidebar-icon' />
@@ -116,7 +116,7 @@ const Sidebar = ({
 
 const mapDispatchToProps = dispatch => {
   return {
-    signOut: () => dispatch(signOut()),
+    signOut: auth => dispatch(signOut(auth)),
   };
 };
 

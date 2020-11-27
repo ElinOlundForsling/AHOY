@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { sendMessage, getMessages } from '../store/actions/messageActions';
 import { connect } from 'react-redux';
+import '../stylesheets/chat.css';
 
 export const Chat = ({
   auth,
@@ -12,9 +13,12 @@ export const Chat = ({
   messages,
 }) => {
   const [params, setParams] = useState({});
+  const [chatText, setChatText] = useState('');
 
   const handleSubmit = event => {
     event.preventDefault();
+
+    setChatText('');
     sendMessage(params);
   };
 
@@ -28,6 +32,7 @@ export const Chat = ({
   }, [chatId, sendMessage, messages]);
 
   const handleInputChange = event => {
+    setChatText(event.target.value);
     setParams({
       chatId,
       senderId: auth.uid,
@@ -38,19 +43,38 @@ export const Chat = ({
   };
 
   return (
-    <div>
-      {messages &&
-        messages.map(message => {
-          return (
-            <p>
-              {message.senderName}: {message.text}
-            </p>
-          );
-        })}
-      <form onSubmit={handleSubmit}>
-        <textarea type='text' onChange={handleInputChange} name='message' />
-        <button type='submit'>Send Message</button>
-      </form>
+    <div className='chat-page'>
+      <div className='chat-container'>
+        <div className='chat-messages'>
+          {messages &&
+            messages.map(message => {
+              if (message.senderId === auth.uid) {
+                return (
+                  <p className='sender-msg msg-bubble'>{message.text} :You</p>
+                );
+              } else {
+                return (
+                  <p className='recepient-msg msg-bubble'>
+                    {message.senderName}: {message.text}
+                  </p>
+                );
+              }
+            })}
+        </div>
+        <form onSubmit={handleSubmit} className='chat-form'>
+          <textarea
+            value={chatText}
+            type='text'
+            onChange={handleInputChange}
+            name='message'
+            className='chat-text-area'
+            placeholder='Start a discussion...'
+          />
+          <button type='submit' className='chat-button'>
+            Send Message
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

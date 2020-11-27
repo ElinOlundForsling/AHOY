@@ -20,41 +20,41 @@ const FikaModal = ({
     setModalIsOpen(false);
   }
 
-  const handleShuffle = (event) => {
+  const handleShuffle = event => {
     event.preventDefault();
   };
 
-  const handleRequest = (event) => {
+  const handleRequest = event => {
     getRandomMember();
     event.preventDefault();
   };
 
   return (
     <Modal
-      className="fika-modal"
-      overlayClassName="Overlay"
+      className='fika-modal'
+      overlayClassName='Overlay'
       isOpen={modalIsOpen}
       onRequestClose={closeModal}
-      contentLabel="Example Modal"
-    >
-      <h4>Random Fika</h4>
+      contentLabel='Example Modal'>
+      <h4>Random Fika with:</h4>
       <p>
         {randomMember.firstName} {randomMember.lastName}
       </p>
+      <span>{randomMember.department}</span>
       <img
         src={
           randomMember.imgURL
             ? randomMember.imgURL
             : 'https://cdn.statically.io/img/avatarfiles.alphacoders.com/866/86635.png'
         }
-        alt=""
+        alt=''
       />
-      <div>
-        <button type="submit" onClick={handleRequest}>
+      <div className='fika-modal-button'>
+        <button type='submit' onClick={handleRequest}>
           Shuffle
         </button>
-        <button type="submit" onClick={handleShuffle}>
-          Request
+        <button type='submit' onClick={handleShuffle}>
+          Ask
         </button>
 
         <button onClick={closeModal}>close</button>
@@ -63,13 +63,13 @@ const FikaModal = ({
   );
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     randomMember: state.profileData.randomMember,
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
     getRandomMember: () => dispatch(getRandomMember()),
   };

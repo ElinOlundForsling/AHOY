@@ -3,12 +3,12 @@
 
   display: grid;
   grid-template-rows: auto;
-  grid-gap: .5rem;
-  margin: .5rem 0;
+  grid-gap: 0.5rem;
+  margin: 0.5rem 0;
 
   background-color: #fff;
   /* break-inside: avoid; */
-  
+
   border-radius: 15px;
   -webkit-box-shadow: 5px 5px 15px 0px rgba(101, 76, 79, 0.2);
   -moz-box-shadow: 5px 5px 15px 0px rgba(101, 76, 79, 0.2);
@@ -31,7 +31,7 @@
   border-radius: 15px 15px 0 0;
   text-align: center;
   margin: 0px;
-  background-color: #f9c74f;
+  background-color: var(--color-2);
   width: 100%;
 }
 
