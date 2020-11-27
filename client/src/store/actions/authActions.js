@@ -1,11 +1,19 @@
 export const signIn = (credentials) => {
-  return (dispatch, getState, { getFirebase }) => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firebase = getFirebase();
+    const firestore = getFirestore();
+
     firebase
       .auth()
       .signInWithEmailAndPassword(credentials.email, credentials.password)
-      .then(() => {
+      .then((res) => {
         dispatch({ type: 'LOGIN_SUCCESS' });
+        return firestore.collection('users').doc(res.user.uid).set(
+          {
+            isOnline: true,
+          },
+          { merge: true }
+        );
       })
       .catch((error) => {
         dispatch({ type: 'LOGIN_ERROR', error });
@@ -13,15 +21,24 @@ export const signIn = (credentials) => {
   };
 };
 
-export const signOut = () => {
-  return (dispatch, getState, { getFirebase }) => {
+export const signOut = (auth) => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firebase = getFirebase();
+    const firestore = getFirestore();
 
     firebase
       .auth()
       .signOut()
       .then(() => {
         dispatch({ type: 'SIGNOUT_SUCCESS' });
+      })
+      .then(() => {
+        return firestore.collection('users').doc(auth.uid).set(
+          {
+            isOnline: false,
+          },
+          { merge: true }
+        );
       });
   };
 };
@@ -48,6 +65,7 @@ export const signUp = (newUser) => {
             team: newUser.team,
             joinDate: date,
             availableForFika: true,
+            isOnline: true,
           });
       })
       .then(() => {

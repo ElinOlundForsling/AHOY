@@ -1,0 +1,17 @@
+.avatar-card {
+  text-align: center;
+  width: 130px;
+  padding: 10px;
+}
+
+.avatar-name {
+  color: black;
+}
+
+.avatar-image-normal img {
+  height: 100px;
+  width: 100px;
+  margin: 0 auto;
+  border-radius: 50%;
+  object-fit: cover;
+}
