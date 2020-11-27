@@ -1,5 +1,6 @@
 .avatar-card {
   text-align: center;
+  position: relative;
   width: 130px;
   padding: 10px;
 }
@@ -14,4 +15,30 @@
   margin: 0 auto;
   border-radius: 50%;
   object-fit: cover;
+}
+
+.logged-in {
+  background: #44b700;
+  position: absolute;
+  top: 80px;
+  border: 2px solid white;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  bottom: 0;
+  left: 90px;
+  z-index: 10;
+}
+
+.logged-out {
+  background: #d72121;
+  position: absolute;
+  top: 80px;
+  border: 2px solid white;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  bottom: 0;
+  left: 90px;
+  z-index: 10;
 }

@@ -17,14 +17,10 @@ const Avatar = ({ id, imgURL, firstName, lastName, isOnline }) => {
                 }
               />
             </div>
+            <div class={isOnline ? 'logged-in' : 'logged-out'}></div>
             <div className="avatar-name">
               {firstName} {lastName}
             </div>
-            {isOnline ? (
-              <p style={{ color: 'green' }}>Online</p>
-            ) : (
-              <p style={{ color: 'red' }}>Offline</p>
-            )}
           </Link>
         </div>
       </div>
