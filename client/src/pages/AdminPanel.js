@@ -41,6 +41,11 @@ const AdminPanel = ({
     setIsOpen(isOpen => !isOpen);
   };
 
+  const handleDelete = e => {
+    e.preventDefault();
+    console.log(e.target.name);
+  };
+
   return (
     <section className='admin-memberlist'>
       {allMembers &&
@@ -57,19 +62,27 @@ const AdminPanel = ({
                     <div class='row'>
                       <div class='column'>
                         <div class='input-group'>
-                          <label for='customer_name'>First Name </label>
+                          <label for='first_name'>First Name </label>
                           <input
-                            id='customer_name'
+                            id='first_name'
                             placeholder={member.firstName}
                           />
                         </div>
                         <div class='input-group'>
-                          <label for='phone_number'>Last Name </label>
-                          <input type='tel' id='phone_number' />
+                          <label for='last_name'>Last Name </label>
+                          <input
+                            type='tel'
+                            id='last_name'
+                            placeholder={member.lastName}
+                          />
                         </div>
                         <div class='input-group'>
                           <label for='email_address'>Email </label>
-                          <input type='email' id='email_address' />
+                          <input
+                            type='email'
+                            id='email_address'
+                            placeholder={member.email}
+                          />
                         </div>
                         <div class='input-group'>
                           <label for='admin_form_department'>Department</label>
@@ -165,7 +178,9 @@ const AdminPanel = ({
 
                     <div class='row'>
                       <button id='submit'>Update user</button>&nbsp;
-                      <button id='submit'>Delete user</button>
+                      <button name={member.id} onClick={handleDelete}>
+                        Delete user
+                      </button>
                     </div>
                   </form>
                 </section>

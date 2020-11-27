@@ -7,7 +7,7 @@ import React from 'react';
 import { CgProfile, CgCalendar, CgStyle } from 'react-icons/cg';
 import { BsGrid } from 'react-icons/bs';
 import { AiOutlineSetting } from 'react-icons/ai';
-import { VscSignOut } from 'react-icons/vsc';
+import { VscSignOut, VscKey } from 'react-icons/vsc';
 
 const Sidebar = ({
   width,
@@ -53,6 +53,12 @@ const Sidebar = ({
             alt=''
             className='dashboard-avatar'
           />
+          <Link to={'/'}>
+            <span>
+              <BsGrid className='sidebar-icon' />
+              &nbsp; Dashboard
+            </span>
+          </Link>
           <Link to={`/profiles/${auth.uid}`}>
             <span>
               <CgProfile className='sidebar-icon' />
@@ -87,10 +93,10 @@ const Sidebar = ({
               </span>
             </a>
           </div>
-          <Link className='ahoy-dashboard' to='/'>
+          <Link to='/admin'>
             <span>
-              <BsGrid className='sidebar-icon' />
-              &nbsp; AHOY Dashboard
+              <VscKey className='sidebar-icon' />
+              &nbsp; Admin Panel
             </span>
           </Link>
           <button
