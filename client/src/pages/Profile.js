@@ -24,6 +24,7 @@ const Profile = ({
   updateProfileImage,
   getProfileById,
   getChat,
+  chatId,
 }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [sidebarIsOpen, setSidebarIsOpen] = useState(true);
@@ -33,15 +34,13 @@ const Profile = ({
   function openModal() {
     setModalIsOpen(true);
   }
-
-  const handleChatClick = async e => {
-    const chatId = await getChat(auth.uid, profileData.id);
-  };
-
   useEffect(() => {
     getProfileById(profileId);
+    if (profileData.id) {
+      getChat(auth.uid, profileData.id);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [profileData, profile]);
+  }, [profileData]);
 
   if (!auth.uid) {
     return <Redirect to='/signin' />;
@@ -96,10 +95,8 @@ const Profile = ({
                   </p>
                 </div>
                 {auth.uid !== profileId && (
-                  <Link to='/chat'>
-                    <button onClick={handleChatClick} className='chat-button'>
-                      CHAT
-                    </button>
+                  <Link to={`/chat/${chatId}`}>
+                    <button className='chat-button'>CHAT</button>
                   </Link>
                 )}
                 <span className='profile-fika'>
@@ -137,6 +134,7 @@ const Profile = ({
 
 const mapStateToProps = state => {
   return {
+    chatId: state.chat.chatId,
     auth: state.firebase.auth,
     profile: state.firebase.profile,
     profileData: state.profileData.profileData,

@@ -1,5 +1,6 @@
 const initState = {
   chatId: null,
+  userIds: [],
   messages: [],
 };
 
@@ -11,6 +12,8 @@ const messageReducer = (state = initState, action) => {
       return { ...state, chatId: action.payload };
     case 'GET_MESSAGES_SUCCESS':
       return { ...state, messages: action.payload };
+    case 'GET_ID_SUCCESS':
+      return { ...state, userIds: action.payload };
     default:
       return state;
   }

@@ -9,6 +9,7 @@ import '../../stylesheets/latestHires.css';
 const LatestHires = ({ getLatestHires, latestHires }) => {
   useEffect(() => {
     getLatestHires();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [latestHires]);
 
   return (

@@ -8,6 +8,7 @@ import '../../stylesheets/myDepartment.css';
 const MyDepartment = ({ profile, getDepartmentMembers, departmentMembers }) => {
   useEffect(() => {
     getDepartmentMembers(profile.department);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [profile]);
 
   return (
