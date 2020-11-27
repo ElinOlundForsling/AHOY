@@ -18,11 +18,18 @@ export const getDepartmentSuccess = data => {
   return { type: 'DEPARTMENT_SUCCESS', payload: data };
 };
 
+export const getAllSuccess = data => {
+  return { type: 'ALL_SUCCESS', payload: data };
+};
+
+export const getRandomSuccess = data => {
+  return { type: 'RANDOM_SUCCESS', payload: data };
+};
+
 export const updateProfile = (userId, userData) => {
   return async (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
     try {
-      console.log(userId, userData);
       await firestore
         .collection('users')
         .doc(userId)
@@ -50,10 +57,35 @@ export const getProfileById = userId => {
     try {
       const snapshot = await firestore.collection('users').doc(userId).get();
       const data = snapshot.data();
+      data.id = userId;
       dispatch(getProfileDataSuccess(data));
     } catch (error) {
       console.error('ERROR!: ', error.message);
     }
+  };
+};
+
+export const updateProfileImage = (userId, file) => {
+  return (dispatch, getState, { getFirestore, storage }) => {
+    const firestore = getFirestore();
+    const uploadTask = storage.ref(`/images/${file.name}`).put(file);
+    uploadTask.on('state_changed', console.log, console.error, () => {
+      storage
+        .ref('images')
+        .child(file.name)
+        .getDownloadURL()
+        .then(url => {
+          firestore.collection('users').doc(userId).set(
+            {
+              imgURL: url,
+            },
+            { merge: true },
+          );
+        })
+        .catch(error => console.error(error));
+    });
+
+    dispatch(getProfileImageSuccess());
   };
 };
 
@@ -101,27 +133,64 @@ export const getDepartmentMembers = department => {
   };
 };
 
-export const updateProfileImage = (userId, file) => {
-  return (dispatch, getState, { getFirestore, storage }) => {
+export const getAllMembers = () => {
+  return async (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
-    const uploadTask = storage.ref(`/images/${file.name}`).put(file);
-    uploadTask.on('state_changed', console.log, console.error, () => {
-      storage
-        .ref('images')
-        .child(file.name)
-        .getDownloadURL()
-        .then(url => {
-          console.log('URL: ', url);
-          firestore.collection('users').doc(userId).set(
-            {
-              imgURL: url,
-            },
-            { merge: true },
-          );
-        })
-        .catch(error => console.error(error));
-    });
+    try {
+      const snapshot = await firestore.collection('users').get();
 
-    dispatch(getProfileImageSuccess());
+      const data = snapshot.docs.map(doc => doc.data());
+      const ids = snapshot.docs.map(doc => doc.id);
+      const newData = data.map((d, index) => {
+        return { ...d, id: ids[index] };
+      });
+
+      dispatch(getAllSuccess(newData));
+    } catch (error) {
+      console.error('ERROR!: ', error.message);
+    }
+  };
+};
+
+export const getRandomMember = () => {
+  return async (dispatch, getState, { getFirestore }) => {
+    const firestore = getFirestore();
+    try {
+      const snapshot = await firestore.collection('users').get();
+
+      const data = snapshot.docs.map(doc => doc.data());
+      const ids = snapshot.docs.map(doc => doc.id);
+      const newData = data.map((d, index) => {
+        return { ...d, id: ids[index] };
+      });
+
+      const availableMembers = newData.filter(mem => mem.availableForFika);
+      const randomNum = Math.floor(Math.random() * availableMembers.length);
+
+      dispatch(getRandomSuccess(availableMembers[randomNum]));
+    } catch (error) {
+      console.error('ERROR!: ', error.message);
+    }
+  };
+};
+
+export const updateProfileAdmin = (userId, userData) => {
+  return async (dispatch, getState, { getFirestore }) => {
+    const firestore = getFirestore();
+    try {
+      await firestore.collection('users').doc(userId).set(
+        {
+          firstName: userData.firstName,
+          lastName: userData.lastName,
+          email: userData.email,
+          department: userData.department,
+          team: userData.team,
+        },
+        { merge: true },
+      );
+      dispatch(getProfileSuccess());
+    } catch (error) {
+      console.error('ERROR!: ', error.message);
+    }
   };
 };

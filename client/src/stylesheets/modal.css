@@ -1,22 +1,61 @@
 .Modal {
   position: absolute;
-  top: 40px;
-  left: 40px;
-  right: 40px;
-  bottom: 40px;
-  background-color: #fff;
+  margin: 0 auto;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* right: 40px;
+  bottom: 40px; */
+  background-color: #fbfef9;
   padding: 15px 35px;
-  height: 500px;
+  height: 600px;
+  width: 800px;
   border-radius: 5px;
   -webkit-box-shadow: 7px 3px 15px -2px rgba(168, 163, 168, 0.51);
   -moz-box-shadow: 7px 3px 15px -2px rgba(168, 163, 168, 0.51);
   box-shadow: 7px 3px 15px -2px rgba(168, 163, 168, 0.51);
 }
 
+.Modal h4 {
+  font-family: 'Roboto', sans-serif;
+  text-align: center;
+}
+
+.Modal button {
+  font-family: 'Roboto Slab', sans-serif;
+  background-color: #43aa8b;
+  color: #fff;
+  border-radius: 15px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin: 5px;
+  border: 0px;
+}
+
+.Modal:focus {
+  outline: 0;
+}
+
+.Modal button:focus {
+  outline: 0;
+}
+
+.Modal hr {
+  border: 1px solid #43aa8b;
+}
+
+@media only screen and (max-width: 600px) {
+  .Modal {
+    width: 100vw;
+  }
+}
+
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
   .Modal {
-    margin: 0 150px;
+    margin: 0;
   }
 }
 
@@ -26,5 +65,64 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #f7bcbe;
+  background-color: none;
+}
+
+.file-upload-wrapper {
+  position: relative;
+  width: 100%;
+  height: 40px;
+}
+.file-upload-wrapper:after {
+  content: 'Select an image';
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #fff;
+  padding: 10px 15px;
+  display: block;
+  width: calc(100% - 40px);
+  pointer-events: none;
+  z-index: 20;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 5px 10px 10px 5px;
+  font-weight: 300;
+  font-family: 'Quicksand', sans-serif;
+}
+.file-upload-wrapper:before {
+  content: 'Upload';
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: inline-block;
+  background: #43aa8b;
+  color: #fff;
+  font-weight: 500;
+  font-family: 'Roboto Slab', sans-serif;
+  z-index: 25;
+  font-size: 1.1rem;
+  line-height: 60px;
+  padding: 0 15px;
+  text-transform: uppercase;
+  pointer-events: none;
+  border-radius: 0 15px 15px 0;
+}
+.file-upload-wrapper:hover:before {
+  background: #43aa8b;
+}
+.file-upload-wrapper input {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 99;
+  height: 40px;
+  margin: 0;
+  padding: 0;
+  display: block;
+  cursor: pointer;
+  width: 100%;
 }

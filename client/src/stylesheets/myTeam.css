@@ -5,8 +5,8 @@
   /* text-align: center; */
   color: black;
   flex-direction: row;
-  justify-content: space-between;
-  padding: 0 15px;
+  justify-content: space-around;
+  /* padding: 0 15px; */
   overflow: auto;
   max-height: 350px;
 }

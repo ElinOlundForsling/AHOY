@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { signUp } from '../../store/actions/authActions';
 import {
@@ -7,6 +7,7 @@ import {
   getTeamByDepartment,
 } from '../../store/actions/departmentActions';
 import Select from 'react-select';
+import Header from '../layout/Header';
 
 const Signup = ({
   signUp,
@@ -58,7 +59,6 @@ const Signup = ({
 
   const handleSubmit = event => {
     event.preventDefault();
-    console.log(credentials);
     signUp(credentials);
   };
 
@@ -93,6 +93,7 @@ const Signup = ({
 
   return (
     <>
+      <Header />
       <div className='container'>
         <form onSubmit={handleSubmit} className='white'>
           <h5 className='grey-text text-darken-3'>Sign Up</h5>
@@ -156,6 +157,7 @@ const Signup = ({
             <button type='submit' className='btn pink lighten-1 z-depth-0'>
               Sign Up
             </button>
+            <Link to={'/signin'}> Already a member?</Link>
             <div className='red-text center'>
               {authError ? <p>{authError}</p> : null}
             </div>

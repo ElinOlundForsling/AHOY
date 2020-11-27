@@ -2,6 +2,8 @@ const initState = {
   profileData: {},
   teamMembers: [],
   departmentMembers: [],
+  allMembers: [],
+  randomMember: {},
 };
 
 const profileReducer = (state = initState, action) => {
@@ -16,6 +18,10 @@ const profileReducer = (state = initState, action) => {
       return { ...state, teamMembers: action.payload };
     case 'DEPARTMENT_SUCCESS':
       return { ...state, departmentMembers: action.payload };
+    case 'ALL_SUCCESS':
+      return { ...state, allMembers: action.payload };
+    case 'RANDOM_SUCCESS':
+      return { ...state, randomMember: action.payload };
     default:
       return state;
   }

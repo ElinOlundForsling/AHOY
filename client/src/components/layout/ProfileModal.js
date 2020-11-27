@@ -91,7 +91,12 @@ const ProfileModal = ({
           }
         />
 
-        <textarea type='text' onChange={handleInputChange} name='bio' />
+        <textarea
+          type='text'
+          onChange={handleInputChange}
+          name='bio'
+          placeholder='Your bio here.'
+        />
 
         <label>
           <input
@@ -103,11 +108,22 @@ const ProfileModal = ({
             <GiCoffeeCup /> Available For Fika
           </span>
         </label>
+        <br></br>
         <button type='submit'>Save Changes</button>
       </form>
+      <hr />
       <div>
+        <label for='file'>Upload</label>
         <form onSubmit={handleUpload}>
-          <input type='file' onChange={handleChange} />
+          <div class='file-upload-wrapper' data-text='Select your file!'>
+            <input
+              name='file-upload-field'
+              type='file'
+              class='file-upload-field'
+              onChange={handleChange}
+              value=''
+            />
+          </div>
           <br></br>
           <button disabled={!file}>upload to firebase</button>
         </form>

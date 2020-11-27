@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import '../stylesheets/dashboard.css';
+import '../stylesheets/index.css';
 import Sidebar from '../components/layout/Sidebar';
 import MyTeam from '../components/widgets/MyTeam';
-import '../stylesheets/dashboard.css';
+import LatestHires from '../components/widgets/LatestHires';
+import Fika from '../components/widgets/Fika';
+import Pong from '../components/widgets/Pong';
+import Faq from '../components/widgets/Faq';
 import MyDepartment from '../components/widgets/MyDepartment';
 
 const Dashboard = ({ auth, profile }) => {
@@ -13,7 +18,7 @@ const Dashboard = ({ auth, profile }) => {
   }
 
   return (
-    <main>
+    <main className='main'>
       <section className='sidebar-layout'>
         <Sidebar
           width={200}
@@ -23,12 +28,15 @@ const Dashboard = ({ auth, profile }) => {
         />
       </section>
       <section
-        className={
-          sidebarIsOpen ? 'dashboard-layout' : 'dashboard-layout-fullscreen'
-        }>
-        <div className='dashboard-welcome'></div>
+        className={`dashboard-layout
+          ${sidebarIsOpen ? 'dashboard-sidebar' : 'dashboard-fullscreen'}
+        `}>
+        <LatestHires profiles={profile} />
         <MyTeam profile={profile} />
+        <Fika />
         <MyDepartment profile={profile} />
+        <Pong />
+        <Faq />
       </section>
     </main>
   );

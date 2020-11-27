@@ -1,0 +1,14 @@
+.faq-card {
+  overflow: auto;
+  max-height: 350px;
+}
+
+.faq-card h6 {
+  margin-top: 1rem;
+  font-family: 'Roboto', sans-serif;
+}
+
+.faq-component .card-title {
+  background-color: var(--color-5) !important;
+  color: white;
+}

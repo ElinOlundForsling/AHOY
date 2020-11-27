@@ -1,9 +1,13 @@
-export const getDepartmentsSuccess = departments => {
+export const getDepartmentsSuccess = (departments) => {
   return { type: 'DEPARTMENTS_SUCCESS', payload: departments };
 };
 
-export const getTeamsSuccess = teams => {
+export const getTeamsSuccess = (teams) => {
   return { type: 'TEAMS_SUCCESS', payload: teams };
+};
+
+export const getLatestHiresSuccess = (hires) => {
+  return { type: 'LATEST_HIRES_SUCCESS', payload: hires };
 };
 
 export const getDepartments = () => {
@@ -11,12 +15,32 @@ export const getDepartments = () => {
     const firestore = getFirestore();
 
     const snapshot = await firestore.collection('departments').get();
-    const data = snapshot.docs.map(doc => doc.data());
+    const data = snapshot.docs.map((doc) => doc.data());
     dispatch(getDepartmentsSuccess(data));
   };
 };
 
-export const getTeamByDepartment = department => {
+export const getLatestHires = () => {
+  return async (dispatch, getState, { getFirestore }) => {
+    const firestore = getFirestore();
+
+    const snapshot = await firestore
+      .collection('users')
+      .orderBy('joinDate', 'desc')
+      .get();
+
+    const data = snapshot.docs.map((doc) => doc.data());
+
+    const ids = snapshot.docs.map((doc) => doc.id);
+    const newData = data.map((d, index) => {
+      return { ...d, id: ids[index] };
+    });
+
+    dispatch(getLatestHiresSuccess(newData));
+  };
+};
+
+export const getTeamByDepartment = (department) => {
   return async (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
     const getOptions = {
@@ -27,13 +51,13 @@ export const getTeamByDepartment = department => {
       .where('name', '==', department)
       .get(getOptions);
 
-    const id = departmentId.docs.map(doc => doc.id);
+    const id = departmentId.docs.map((doc) => doc.id);
     const snapshot = await firestore
       .collection('departments')
       .doc(id[0])
       .collection('teams')
       .get();
-    const data = snapshot.docs.map(doc => doc.data());
+    const data = snapshot.docs.map((doc) => doc.data());
     dispatch(getTeamsSuccess(data));
   };
 };

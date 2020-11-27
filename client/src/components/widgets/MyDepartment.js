@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { getDepartmentMembers } from '../../store/actions/profileActions';
-import '../../stylesheets/myDepartment.css';
 import Card from '../layout/Card';
 import { Link } from 'react-router-dom';
+import '../../stylesheets/myDepartment.css';
 
 const MyDepartment = ({ profile, getDepartmentMembers, departmentMembers }) => {
   useEffect(() => {
@@ -11,14 +11,17 @@ const MyDepartment = ({ profile, getDepartmentMembers, departmentMembers }) => {
   }, [profile]);
 
   return (
-    <Card heading="My department" subHeading={profile.department}>
-      <div className="teamMembers">
-        {departmentMembers.map((member) => {
+    <Card
+      heading='My department'
+      subHeading={profile.department}
+      className='department-component'>
+      <div className='teamMembers'>
+        {departmentMembers.map(member => {
           return (
             <div key={member.id}>
-              <div className="member-card">
+              <div className='member-card'>
                 <Link to={`/profiles/${member.id}`}>
-                  <div className="member-avatar">
+                  <div className='member-avatar'>
                     <img
                       src={
                         member.imgURL
@@ -27,9 +30,14 @@ const MyDepartment = ({ profile, getDepartmentMembers, departmentMembers }) => {
                       }
                     />
                   </div>
-                  <div clasName="member-name">
+                  <div className='member-name'>
                     {member.firstName} {member.lastName}
                   </div>
+                  {member.isOnline ? (
+                    <p style={{ color: 'green' }}>Online</p>
+                  ) : (
+                    <p style={{ color: 'red' }}>Offline</p>
+                  )}
                 </Link>
               </div>
             </div>
@@ -40,16 +48,16 @@ const MyDepartment = ({ profile, getDepartmentMembers, departmentMembers }) => {
   );
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     profile: state.firebase.profile,
     departmentMembers: state.profileData.departmentMembers,
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
-    getDepartmentMembers: (department) =>
+    getDepartmentMembers: department =>
       dispatch(getDepartmentMembers(department)),
   };
 };

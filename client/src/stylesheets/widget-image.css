@@ -1,0 +1,14 @@
+.img-fullsize {
+  margin: 0 auto;
+  width: 100%;
+  height: auto;
+}
+
+.fika-component .card-title {
+  background-color: var(--color-7) !important;
+  color: white;
+}
+
+.pong-component .card-title {
+  background-color: var(--color-4) !important;
+}
