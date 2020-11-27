@@ -53,13 +53,13 @@ const Sidebar = ({
             alt=''
             className='dashboard-avatar'
           />
+          <p>Hi, {profile.firstName}</p>
           <Link to={'/'}>
             <span>
               <BsGrid className='sidebar-icon' />
               &nbsp; Dashboard
             </span>
           </Link>
-          <p>Hi, {profile.firstName}</p>
 
           <Link to={`/profiles/${auth.uid}`}>
             <span>

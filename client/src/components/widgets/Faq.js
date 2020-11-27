@@ -1,33 +1,30 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import Card from "../layout/Card";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Card from '../layout/Card';
 
 import '../../stylesheets/faq.css';
+import '../../stylesheets/index.css';
 
 const Faq = () => {
-  const [searchTerm, setSearchTerm] = React.useState("");
+  const [searchTerm, setSearchTerm] = React.useState('');
   const [searchResults, setSearchResults] = React.useState([]);
   const handleChange = e => {
     setSearchTerm(e.target.value);
   };
   React.useEffect(() => {
     const results = information.filter(person =>
-      person.toLowerCase().includes(searchTerm)
+      person.toLowerCase().includes(searchTerm),
     );
     setSearchResults(results);
   }, [searchTerm]);
 
-  const information = [
-    "Office",
-    "Paperwork",
-    "IT",
-  ];
+  const information = ['Office', 'Paperwork', 'IT'];
 
   return (
-    <Card heading="FAQ" subHeading="Got questions?" className="faq-component">
+    <Card heading='FAQ' subHeading='Got questions?' className='faq-component'>
       <input
-        type="text"
-        placeholder="Search"
+        type='text'
+        placeholder='Search'
         value={searchTerm}
         onChange={handleChange}
       />
@@ -36,7 +33,7 @@ const Faq = () => {
           <li>{item}</li>
         ))}
       </ul>
-      <div className="faq-card">
+      <div className='faq-card'>
         <h3>What will my first day look like?</h3>
         <p>
           Even experienced new hires have first-day nerves. Your employee
@@ -61,7 +58,7 @@ const Faq = () => {
         <p>
           Whether interns, graduates, managers or C-Suite, all new hires want to
           have a positive impact. They want to know your expectations so they
-          can meet – and exceed – them.{" "}
+          can meet – and exceed – them.{' '}
         </p>
       </div>
     </Card>

@@ -96,7 +96,9 @@ const Profile = ({
                   </p>
                 </div>
                 <Link to='/chat'>
-                  <button onClick={handleChatClick}>CHAT</button>
+                  <button onClick={handleChatClick} className='chat-button'>
+                    CHAT
+                  </button>
                 </Link>
                 <span className='profile-fika'>
                   <GiCoffeeCup />{' '}
@@ -104,7 +106,7 @@ const Profile = ({
                     ? 'Available For Fika'
                     : 'Not available for Fika'}
                   {profileData.availableForFika && auth.uid !== profileId ? (
-                    <button>ASK FOR FIKA</button>
+                    <button className='ask-fika-button'>ASK FOR FIKA</button>
                   ) : (
                     ''
                   )}

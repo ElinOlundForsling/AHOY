@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 import {
   getAllMembers,
@@ -7,6 +7,7 @@ import {
 import '../stylesheets/admin-panel.css';
 
 const Collapse = props => {
+  console.log(props.isOpen);
   return (
     <div
       className='collapse'
@@ -27,48 +28,59 @@ const AdminPanel = ({
 }) => {
   // const [changes, setChanges] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
-  const [isOpen2, setIsOpen2] = useState(false);
+  const [members, setMembers] = useState(allMembers);
+
+  const isFirstRun = useRef(true);
   useEffect(() => {
     getAllMembers();
-    setIsOpen2(
-      allMembers.map(mem => {
-        return { memberid: mem.id, isOpen: false };
-      }),
-    );
+    if (isFirstRun.current) {
+      isFirstRun.current = false;
+      return;
+    }
   }, [getAllMembers]);
 
-  const toggle = () => {
-    setIsOpen(isOpen => !isOpen);
-  };
+  useEffect(() => {
+    setMembers(allMembers);
+  }, [allMembers]);
 
-  const handleDelete = e => {
-    e.preventDefault();
-    console.log(e.target.name);
+  const toggle = e => {
+    const newMembers = members.map(mem => {
+      if (mem.id === e.target.id) {
+        if (mem.isOpen) {
+          mem.isOpen = false;
+        } else {
+          mem.isOpen = true;
+        }
+      }
+      return mem;
+    });
+
+    setMembers(newMembers);
   };
 
   return (
     <section className='admin-memberlist'>
-      {allMembers &&
-        allMembers.map(member => {
+      {members &&
+        members.map(member => {
           return (
             <article>
-              <button onClick={toggle} className='toggle-button'>
+              <button onClick={toggle} id={member.id} className='toggle-button'>
                 <img src={member.imgURL} className='avatar-small' />
                 {member.firstName}&nbsp;{member.lastName}
               </button>
-              <Collapse isOpen={isOpen}>
+              <Collapse isOpen={member.isOpen}>
                 <section className='sample-content'>
-                  <form class='myForm'>
-                    <div class='row'>
-                      <div class='column'>
-                        <div class='input-group'>
+                  <form className='myForm'>
+                    <div className='row'>
+                      <div className='column'>
+                        <div className='input-group'>
                           <label for='first_name'>First Name </label>
                           <input
                             id='first_name'
                             placeholder={member.firstName}
                           />
                         </div>
-                        <div class='input-group'>
+                        <div className='input-group'>
                           <label for='last_name'>Last Name </label>
                           <input
                             type='tel'
@@ -76,7 +88,7 @@ const AdminPanel = ({
                             placeholder={member.lastName}
                           />
                         </div>
-                        <div class='input-group'>
+                        <div className='input-group'>
                           <label for='email_address'>Email </label>
                           <input
                             type='email'
@@ -84,7 +96,7 @@ const AdminPanel = ({
                             placeholder={member.email}
                           />
                         </div>
-                        <div class='input-group'>
+                        <div className='input-group'>
                           <label for='admin_form_department'>Department</label>
                           <select id='admin_form_department'>
                             <option value='' selected='selected' disabled>
@@ -95,7 +107,7 @@ const AdminPanel = ({
                             <option value='hr'>HR</option>
                           </select>
                         </div>
-                        <div class='input-group'>
+                        <div className='input-group'>
                           <label for='admin_form_teams'>Team</label>
                           <select id='admin_form_teams'>
                             <option value='' selected='selected' disabled>
@@ -107,8 +119,8 @@ const AdminPanel = ({
                           </select>
                         </div>
                       </div>
-                      <div class='column'>
-                        <fieldset class='taxi'>
+                      <div className='column'>
+                        <fieldset className='taxi'>
                           <legend>Employment Type</legend>
                           <label>
                             {' '}
@@ -152,7 +164,7 @@ const AdminPanel = ({
                           </label>
                         </fieldset>
 
-                        <fieldset class='extras'>
+                        <fieldset className='extras'>
                           <legend>Extra field?</legend>
                           <label>
                             {' '}
@@ -176,11 +188,8 @@ const AdminPanel = ({
                       </div>
                     </div>
 
-                    <div class='row'>
+                    <div className='row'>
                       <button id='submit'>Update user</button>&nbsp;
-                      <button name={member.id} onClick={handleDelete}>
-                        Delete user
-                      </button>
                     </div>
                   </form>
                 </section>

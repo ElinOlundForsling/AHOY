@@ -1,8 +1,13 @@
 .faq-card {
-    overflow: auto;
+  overflow: auto;
   max-height: 350px;
 }
 
 .faq-card h3 {
   margin-top: 1rem;
+}
+
+.faq-component .card-title {
+  background-color: var(--color-5) !important;
+  color: white;
 }

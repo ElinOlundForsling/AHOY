@@ -50,14 +50,14 @@
 }
 
 .profile-bio {
-  margin: 10px;
-  border: 1px solid grey;
+  margin: 20px 10px;
+  border: 1px dotted grey;
   border-radius: 5px;
   padding: 15px;
 }
 
 .profile-bio p {
-  color: grey;
+  color: black;
 }
 
 .profile-info {
@@ -77,4 +77,32 @@
 
 .profile-fika {
   padding-left: 15px;
+}
+
+.ask-fika-button {
+  font-family: 'Roboto Slab', sans-serif;
+  background-color: #43aa8b;
+  color: #fff;
+  border-radius: 15px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  margin-left: 20px;
+  padding-right: 10px;
+  margin: 5px;
+  border: 0px;
+}
+
+.chat-button {
+  float: right;
+  font-family: 'Roboto Slab', sans-serif;
+  background-color: #43aa8b;
+  color: #fff;
+  border-radius: 15px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin: 5px 20px 5px 5px;
+  border: 0px;
 }

@@ -12,14 +12,17 @@ const LatestHires = ({ getLatestHires, latestHires }) => {
   }, [latestHires]);
 
   return (
-    <Card heading="Latest Hires" subHeading={'Say hi to your new colleagues'}>
-      <div className="latest-hires">
-        {latestHires.map((hire) => {
+    <Card
+      heading='Latest Hires'
+      subHeading={'Say hi to your new colleagues'}
+      className='latest-hires-component'>
+      <div className='latest-hires'>
+        {latestHires.map(hire => {
           return (
             <div key={hire.id}>
-              <div className="latest-hired-card">
+              <div className='latest-hired-card'>
                 <Link to={`/profiles/${hire.id}`}>
-                  <div className="hire-avatar">
+                  <div className='hire-avatar'>
                     <img
                       src={
                         hire.imgURL
@@ -28,7 +31,7 @@ const LatestHires = ({ getLatestHires, latestHires }) => {
                       }
                     />
                   </div>
-                  <div className="latest-hired-name">
+                  <div className='latest-hired-name'>
                     {hire.firstName} {hire.lastName}
                     <p>Joined: {hire.joinDate}</p>
                   </div>
@@ -42,13 +45,13 @@ const LatestHires = ({ getLatestHires, latestHires }) => {
   );
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     latestHires: state.departments.hires,
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
     getLatestHires: () => dispatch(getLatestHires()),
   };

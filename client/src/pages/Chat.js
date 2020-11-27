@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { sendMessage, getMessages } from '../store/actions/messageActions';
 import { connect } from 'react-redux';
+import '../stylesheets/chat.css';
 
 export const Chat = ({
   auth,
@@ -38,7 +39,7 @@ export const Chat = ({
   };
 
   return (
-    <div>
+    <div className='chat-page'>
       {messages &&
         messages.map(message => {
           return (
@@ -47,9 +48,17 @@ export const Chat = ({
             </p>
           );
         })}
-      <form onSubmit={handleSubmit}>
-        <textarea type='text' onChange={handleInputChange} name='message' />
-        <button type='submit'>Send Message</button>
+      <form onSubmit={handleSubmit} className='chat-form'>
+        <textarea
+          type='text'
+          onChange={handleInputChange}
+          name='message'
+          className='chat-text-area'
+          placeholder='Start a discussion...'
+        />
+        <button type='submit' className='chat-button'>
+          Send Message
+        </button>
       </form>
     </div>
   );
