@@ -87,7 +87,7 @@ const Sidebar = ({
             </span>
           </Link>
           <div className='sign-out'>
-            <a onClick={signOut}>
+            <a onClick={() => signOut(auth)}>
               {' '}
               <span>
                 <VscSignOut className='sidebar-icon' />
@@ -116,7 +116,7 @@ const Sidebar = ({
 
 const mapDispatchToProps = dispatch => {
   return {
-    signOut: () => dispatch(signOut()),
+    signOut: auth => dispatch(signOut(auth)),
   };
 };
 

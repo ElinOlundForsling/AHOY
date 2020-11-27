@@ -2,7 +2,7 @@
   display: flex;
   flex-wrap: wrap;
   color: black;
-  flex-direction: column;
+  flex-direction: column-reverse;
   overflow: auto;
   max-height: 350px;
 }
@@ -24,6 +24,7 @@
 
 .latest-hired-name p {
   color: grey;
+  font-size: 0.9rem;
 }
 
 .latest-hires-component .card-title {

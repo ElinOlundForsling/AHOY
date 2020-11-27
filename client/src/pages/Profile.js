@@ -95,11 +95,13 @@ const Profile = ({
                       : 'Add your location here.'}
                   </p>
                 </div>
-                <Link to='/chat'>
-                  <button onClick={handleChatClick} className='chat-button'>
-                    CHAT
-                  </button>
-                </Link>
+                {auth.uid !== profileId && (
+                  <Link to='/chat'>
+                    <button onClick={handleChatClick} className='chat-button'>
+                      CHAT
+                    </button>
+                  </Link>
+                )}
                 <span className='profile-fika'>
                   <GiCoffeeCup />{' '}
                   {profileData.availableForFika

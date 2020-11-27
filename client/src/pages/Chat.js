@@ -44,35 +44,37 @@ export const Chat = ({
 
   return (
     <div className='chat-page'>
-      <div className='chat-messages'>
-        {messages &&
-          messages.map(message => {
-            if (message.senderId === auth.uid) {
-              return (
-                <p className='sender-msg'>
-                  {message.senderName}: {message.text}
-                </p>
-              );
-            } else {
-              <p className='recepient-msg'>
-                {message.senderName}: {message.text}
-              </p>;
-            }
-          })}
+      <div className='chat-container'>
+        <div className='chat-messages'>
+          {messages &&
+            messages.map(message => {
+              if (message.senderId === auth.uid) {
+                return (
+                  <p className='sender-msg msg-bubble'>{message.text} :You</p>
+                );
+              } else {
+                return (
+                  <p className='recepient-msg msg-bubble'>
+                    {message.senderName}: {message.text}
+                  </p>
+                );
+              }
+            })}
+        </div>
+        <form onSubmit={handleSubmit} className='chat-form'>
+          <textarea
+            value={chatText}
+            type='text'
+            onChange={handleInputChange}
+            name='message'
+            className='chat-text-area'
+            placeholder='Start a discussion...'
+          />
+          <button type='submit' className='chat-button'>
+            Send Message
+          </button>
+        </form>
       </div>
-      <form onSubmit={handleSubmit} className='chat-form'>
-        <textarea
-          value={chatText}
-          type='text'
-          onChange={handleInputChange}
-          name='message'
-          className='chat-text-area'
-          placeholder='Start a discussion...'
-        />
-        <button type='submit' className='chat-button'>
-          Send Message
-        </button>
-      </form>
     </div>
   );
 };

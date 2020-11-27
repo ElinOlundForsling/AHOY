@@ -34,6 +34,11 @@ const MyTeam = ({ profile, getTeamMembers, teamMembers }) => {
                     {' '}
                     {member.firstName} {member.lastName}{' '}
                   </div>
+                  {member.isOnline ? (
+                    <p style={{ color: 'green' }}>Online</p>
+                  ) : (
+                    <p style={{ color: 'red' }}>Offline</p>
+                  )}
                 </Link>
               </div>
             </div>

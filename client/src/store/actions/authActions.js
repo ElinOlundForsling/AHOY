@@ -1,32 +1,49 @@
-export const signIn = (credentials) => {
-  return (dispatch, getState, { getFirebase }) => {
+export const signIn = credentials => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firebase = getFirebase();
+    const firestore = getFirestore();
+
     firebase
       .auth()
       .signInWithEmailAndPassword(credentials.email, credentials.password)
-      .then(() => {
+      .then(res => {
         dispatch({ type: 'LOGIN_SUCCESS' });
+        return firestore.collection('users').doc(res.user.uid).set(
+          {
+            isOnline: true,
+          },
+          { merge: true },
+        );
       })
-      .catch((error) => {
+      .catch(error => {
         dispatch({ type: 'LOGIN_ERROR', error });
       });
   };
 };
 
-export const signOut = () => {
-  return (dispatch, getState, { getFirebase }) => {
+export const signOut = auth => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firebase = getFirebase();
+    const firestore = getFirestore();
 
     firebase
       .auth()
       .signOut()
       .then(() => {
         dispatch({ type: 'SIGNOUT_SUCCESS' });
+      })
+      .then(() => {
+        return firestore.collection('users').doc(auth.uid).set(
+          {
+            isOnline: false,
+          },
+          { merge: true },
+        );
       });
   };
 };
 
-export const signUp = (newUser) => {
+export const signUp = newUser => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firebase = getFirebase();
     const firestore = getFirestore();
@@ -35,7 +52,7 @@ export const signUp = (newUser) => {
     firebase
       .auth()
       .createUserWithEmailAndPassword(newUser.email, newUser.password)
-      .then((res) => {
+      .then(res => {
         return firestore
           .collection('users')
           .doc(res.user.uid)
@@ -48,12 +65,13 @@ export const signUp = (newUser) => {
             team: newUser.team,
             joinDate: date,
             availableForFika: true,
+            isOnline: true,
           });
       })
       .then(() => {
         dispatch({ type: 'SIGNUP_SUCCESS' });
       })
-      .catch((error) => {
+      .catch(error => {
         dispatch({ type: 'SIGNUP_ERROR', error });
       });
   };

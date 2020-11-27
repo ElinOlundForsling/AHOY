@@ -4,7 +4,8 @@
   padding: 100px;
   height: auto;
   margin: 0 auto;
-  margin-top: 200px;
+  border-radius: 5px;
+  margin-top: 20px;
   background-color: #b6e2dd;
   -webkit-box-shadow: 5px 3px 10px -2px rgba(168, 163, 168, 0.51);
   -moz-box-shadow: 5px 3px 10px -2px rgba(168, 163, 168, 0.51);
@@ -43,6 +44,9 @@
 .chat-messages {
   overflow: auto;
   max-height: 350px;
+  display: flex;
+  flex-flow: column;
+  flex-direction: column-reverse;
 }
 
 .chat-button {
@@ -56,4 +60,32 @@
   padding-right: 10px;
   margin: 5px;
   border: 0px;
+}
+
+.msg-bubble {
+  display: flex;
+  width: auto;
+  flex-basis: 0;
+  font-size: 1.1rem !important;
+  padding: 10px;
+  margin: 10px;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+}
+
+.sender-msg {
+  background: rgb(238, 238, 238);
+  align-self: flex-end;
+  text-align: right;
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 5px;
+}
+
+.recepient-msg {
+  background-color: #577590;
+  align-self: flex-start;
+  color: #fff !important;
+  text-align: left;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 25px;
 }
