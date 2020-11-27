@@ -59,6 +59,8 @@ const Sidebar = ({
               &nbsp; Dashboard
             </span>
           </Link>
+          <p>Hi, {profile.firstName}</p>
+
           <Link to={`/profiles/${auth.uid}`}>
             <span>
               <CgProfile className='sidebar-icon' />

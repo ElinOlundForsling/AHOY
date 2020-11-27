@@ -17,7 +17,7 @@ const LatestHires = ({ getLatestHires, latestHires }) => {
         {latestHires.map((hire) => {
           return (
             <div key={hire.id}>
-              <div className="member-card">
+              <div className="latest-hired-card">
                 <Link to={`/profiles/${hire.id}`}>
                   <div className="hire-avatar">
                     <img
@@ -28,7 +28,7 @@ const LatestHires = ({ getLatestHires, latestHires }) => {
                       }
                     />
                   </div>
-                  <div className="member-name">
+                  <div className="latest-hired-name">
                     {hire.firstName} {hire.lastName}
                     <p>Joined: {hire.joinDate}</p>
                   </div>

@@ -20,13 +20,15 @@
 }
 
 .side-bar p {
-  text-align: center;
+  text-align: left;
+  padding-left: 1rem;
   line-height: 4rem;
   margin: 0;
 }
 
 .side-bar a {
-  text-align: center;
+  /* text-align: center; */
+  padding-left: 20%;
   line-height: 4rem;
   margin: 0;
   color: #577590;
@@ -42,11 +44,14 @@
 }
 
 .sign-out {
-  text-align: center;
+  /* text-align: center; */
+  padding-left: 20%;
   line-height: 4rem;
   margin: 0;
   color: #577590;
-  margin-top: 200px;
+  position: fixed;
+  bottom: 0;
+  /* margin-top: 200px; */
 }
 
 .sign-out a:hover {
@@ -58,14 +63,13 @@
   height: 100px;
   width: 100px;
   margin: 0 auto;
-  margin-bottom: 10px;
+  margin-bottom: 30px;
   border-radius: 50%;
   object-fit: cover;
 }
 
-.side-bar p:hover {
-  background-color: orange;
-  color: white;
+.side-bar p {
+  color: black;
 }
 
 .side-bar a:hover {
