@@ -15,7 +15,7 @@ const LatestHires = ({ getLatestHires, latestHires }) => {
       <div className="latest-hires">
         {latestHires.map((hire) => {
           return (
-            <div className="latest-hired-card">
+            <div key={hire.id} className="latest-hired-card">
               <Avatar
                 id={hire.id}
                 imgURL={hire.imgURL}

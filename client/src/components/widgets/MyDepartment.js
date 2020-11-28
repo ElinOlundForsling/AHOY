@@ -14,14 +14,16 @@ const MyDepartment = ({ profile, getDepartmentMembers, departmentMembers }) => {
       <div className="members">
         {departmentMembers.map((member) => {
           return (
-            <Avatar
-              id={member.id}
-              imgURL={member.imgURL}
-              firstName={member.firstName}
-              lastName={member.lastName}
-              isOnline={member.isOnline}
-              className="normal-size"
-            />
+            <div key={member.id}>
+              <Avatar
+                id={member.id}
+                imgURL={member.imgURL}
+                firstName={member.firstName}
+                lastName={member.lastName}
+                isOnline={member.isOnline}
+                className="normal-size"
+              />
+            </div>
           );
         })}
       </div>
