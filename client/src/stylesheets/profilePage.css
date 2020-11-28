@@ -24,17 +24,18 @@
   padding: 15px !important;
 }
 
-.profile-image img {
+.profile-image {
   float: right;
-  width: 100px;
+  /* width: 100px;
   height: 100px;
   border-radius: 50%;
-  object-fit: cover;
-  margin-top: 10px;
-  margin-right: 10px;
+  object-fit: cover; */
+  /* margin-right: 15px; */
+  /* border-radius: 50%; */
+  /* object-fit: cover;
   -webkit-box-shadow: 5px 3px 10px -2px rgba(168, 163, 168, 0.51);
   -moz-box-shadow: 5px 3px 10px -2px rgba(168, 163, 168, 0.51);
-  box-shadow: 5px 3px 10px -2px rgba(168, 163, 168, 0.51);
+  box-shadow: 5px 3px 10px -2px rgba(168, 163, 168, 0.51); */
 }
 
 .profile-page {
@@ -50,14 +51,14 @@
 }
 
 .profile-bio {
-  margin: 20px 10px;
-  border: 1px dotted grey;
+  margin: 10px;
+  border: 1px solid grey;
   border-radius: 5px;
   padding: 15px;
 }
 
 .profile-bio p {
-  color: black;
+  color: grey;
 }
 
 .profile-info {
@@ -77,32 +78,4 @@
 
 .profile-fika {
   padding-left: 15px;
-}
-
-.ask-fika-button {
-  font-family: 'Roboto Slab', sans-serif;
-  background-color: #43aa8b;
-  color: #fff;
-  border-radius: 15px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  padding-left: 10px;
-  margin-left: 20px;
-  padding-right: 10px;
-  margin: 5px;
-  border: 0px;
-}
-
-.chat-button {
-  float: right;
-  font-family: 'Roboto Slab', sans-serif;
-  background-color: #43aa8b;
-  color: #fff;
-  border-radius: 15px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  padding-left: 10px;
-  padding-right: 10px;
-  margin: 5px 20px 5px 5px;
-  border: 0px;
 }
