@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { getLatestHires } from '../../store/actions/departmentActions';
 import Card from '../layout/Card';
 import Avatar from '../layout/Avatar';
-import '../../stylesheets/myDepartment.css';
 import '../../stylesheets/latestHires.css';
 
 const LatestHires = ({ getLatestHires, latestHires }) => {

@@ -7,14 +7,6 @@
   max-height: 350px;
 }
 
-.latest-hires img {
-  height: 50px;
-  width: 50px;
-  margin: 0 auto;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
 .latest-hired-card {
   /* text-align: center; */
   width: 130px;

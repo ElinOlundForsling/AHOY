@@ -12,7 +12,7 @@ const MyTeam = ({ profile, getTeamMembers, teamMembers }) => {
 
   return (
     <Card heading="My Team" subHeading={profile.team}>
-      <div className="teamMembers">
+      <div className="members">
         {teamMembers.map((member) => {
           return (
             <Avatar

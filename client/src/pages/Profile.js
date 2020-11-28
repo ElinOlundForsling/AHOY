@@ -66,8 +66,8 @@ const Profile = ({
                 <div className="profile-image">
                   <Avatar
                     imgURL={profileData.imgURL}
-                    isOnline={profileData.isOnline}
                     className="normal-size"
+                    isOnline={profileData.isOnline}
                   />
                 </div>
                 <div className="card-title profile-header">

@@ -24,17 +24,18 @@
   padding: 15px !important;
 }
 
-.profile-image img {
+.profile-image {
   float: right;
-  width: 100px;
+  /* width: 100px;
   height: 100px;
   border-radius: 50%;
-  object-fit: cover;
-  margin-top: 10px;
-  margin-right: 10px;
+  object-fit: cover; */
+  /* margin-right: 15px; */
+  /* border-radius: 50%; */
+  /* object-fit: cover;
   -webkit-box-shadow: 5px 3px 10px -2px rgba(168, 163, 168, 0.51);
   -moz-box-shadow: 5px 3px 10px -2px rgba(168, 163, 168, 0.51);
-  box-shadow: 5px 3px 10px -2px rgba(168, 163, 168, 0.51);
+  box-shadow: 5px 3px 10px -2px rgba(168, 163, 168, 0.51); */
 }
 
 .profile-page {
