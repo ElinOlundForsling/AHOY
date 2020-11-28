@@ -2,32 +2,20 @@
   display: flex;
   flex-wrap: wrap;
   color: black;
-  flex-direction: column-reverse;
+  flex-direction: column;
   overflow: auto;
   max-height: 350px;
 }
 
-.latest-hires img {
-  height: 50px;
-  width: 50px;
-  margin: 0 auto;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
 .latest-hired-card {
-  text-align: center;
+  /* text-align: center; */
   width: 130px;
   padding: 10px;
   height: 150px;
 }
 
-.latest-hired-name p {
+.latest-hired-name {
+  text-align: center;
   color: grey;
-  font-size: 0.9rem;
-}
-
-.latest-hires-component .card-title {
-  background-color: var(--color-6) !important;
-  color: white;
+  font-size: 12px;
 }
