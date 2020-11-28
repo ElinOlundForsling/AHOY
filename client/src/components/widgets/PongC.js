@@ -1,0 +1,17 @@
+import React from 'react';
+import Card from '../layout/Card';
+import '../../stylesheets/widget-image.css';
+
+const PongC = () => {
+  return (
+    <Card
+      heading="Virtual Pong"
+      subHeading="Find a Pong buddy"
+      className="fika-component"
+    >
+      <img src="/img/vr.svg" className="img-fullsize" />
+    </Card>
+  );
+};
+
+export default PongC;
