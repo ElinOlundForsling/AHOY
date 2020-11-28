@@ -36,7 +36,7 @@
   height: 18px;
   bottom: 0;
   left: 90px;
-  z-index: 10;
+  z-index: 1;
 }
 
 .logged-out {
@@ -49,5 +49,5 @@
   height: 18px;
   bottom: 0;
   left: 90px;
-  z-index: 10;
+  z-index: 1;
 }
