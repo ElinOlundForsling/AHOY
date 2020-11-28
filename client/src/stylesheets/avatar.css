@@ -3,18 +3,27 @@
   position: relative;
   width: 130px;
   padding: 10px;
+  padding-bottom: 0;
 }
 
 .avatar-name {
   color: black;
 }
 
-.avatar-image-normal img {
-  height: 100px;
-  width: 100px;
+.avatar-image {
   margin: 0 auto;
   border-radius: 50%;
   object-fit: cover;
+}
+
+.normal-size {
+  height: 100px;
+  width: 100px;
+}
+
+.small-size {
+  height: 50px;
+  width: 50px;
 }
 
 .logged-in {

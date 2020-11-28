@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { getLatestHires } from '../../store/actions/departmentActions';
 import Card from '../layout/Card';
-import { Link } from 'react-router-dom';
+import Avatar from '../layout/Avatar';
 import '../../stylesheets/myDepartment.css';
 import '../../stylesheets/latestHires.css';
 
@@ -16,23 +16,17 @@ const LatestHires = ({ getLatestHires, latestHires }) => {
       <div className="latest-hires">
         {latestHires.map((hire) => {
           return (
-            <div key={hire.id}>
-              <div className="latest-hired-card">
-                <Link to={`/profiles/${hire.id}`}>
-                  <div className="hire-avatar">
-                    <img
-                      src={
-                        hire.imgURL
-                          ? hire.imgURL
-                          : 'https://cdn.statically.io/img/avatarfiles.alphacoders.com/866/86635.png'
-                      }
-                    />
-                  </div>
-                  <div className="latest-hired-name">
-                    {hire.firstName} {hire.lastName}
-                    <p>Joined: {hire.joinDate}</p>
-                  </div>
-                </Link>
+            <div className="latest-hired-card">
+              <Avatar
+                id={hire.id}
+                imgURL={hire.imgURL}
+                firstName={hire.firstName}
+                lastName={hire.lastName}
+                isOnline={hire.isOnline}
+                className="small-size"
+              />
+              <div className="latest-hired-name">
+                <p className="latest-hired-name">{hire.joinDate}</p>
               </div>
             </div>
           );

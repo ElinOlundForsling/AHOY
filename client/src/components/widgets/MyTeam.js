@@ -21,6 +21,7 @@ const MyTeam = ({ profile, getTeamMembers, teamMembers }) => {
               firstName={member.firstName}
               lastName={member.lastName}
               isOnline={member.isOnline}
+              className="normal-size"
             />
           );
         })}

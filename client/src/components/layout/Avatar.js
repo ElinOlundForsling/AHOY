@@ -2,24 +2,31 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import '../../stylesheets/avatar.css';
 
-const Avatar = ({ id, imgURL, firstName, lastName, isOnline }) => {
+const Avatar = (props) => {
   return (
     <div>
-      <div key={id}>
+      <div key={props.id}>
         <div className="avatar-card">
-          <Link to={`/profiles/${id}`}>
-            <div className="avatar-image-normal">
+          <Link to={`/profiles/${props.id}`}>
+            <div>
               <img
+                className={`avatar-image ${props.className}`}
                 src={
-                  imgURL
-                    ? imgURL
+                  props.imgURL
+                    ? props.imgURL
                     : 'https://cdn.statically.io/img/avatarfiles.alphacoders.com/866/86635.png'
                 }
               />
             </div>
-            <div class={isOnline ? 'logged-in' : 'logged-out'}></div>
+            {props.className !== 'small-size' ? (
+              <div
+                className={props.isOnline ? 'logged-in' : 'logged-out'}
+              ></div>
+            ) : (
+              ''
+            )}
             <div className="avatar-name">
-              {firstName} {lastName}
+              {props.firstName} {props.lastName}
             </div>
           </Link>
         </div>

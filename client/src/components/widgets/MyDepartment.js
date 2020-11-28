@@ -21,6 +21,7 @@ const MyDepartment = ({ profile, getDepartmentMembers, departmentMembers }) => {
               firstName={member.firstName}
               lastName={member.lastName}
               isOnline={member.isOnline}
+              className="normal-size"
             />
           );
         })}

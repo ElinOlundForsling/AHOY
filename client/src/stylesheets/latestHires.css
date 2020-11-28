@@ -16,12 +16,14 @@
 }
 
 .latest-hired-card {
-  text-align: center;
+  /* text-align: center; */
   width: 130px;
   padding: 10px;
   height: 150px;
 }
 
-.latest-hired-name p {
+.latest-hired-name {
+  text-align: center;
   color: grey;
+  font-size: 12px;
 }
