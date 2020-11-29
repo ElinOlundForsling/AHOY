@@ -52,7 +52,7 @@ const Dashboard = ({ auth, profile }) => {
   }
 
   const addCard = (card) => {
-    setCards((cards) => [...cards, card]);
+    setCards((cards) => [card, ...cards]);
   };
 
   const deleteCard = (e) => {
