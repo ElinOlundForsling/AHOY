@@ -26,32 +26,61 @@ export const notificationCompanySuccess = data => {
   return { type: 'NOTIFICATION_COMPANY_SUCCESS', payload: data };
 };
 
-export const getAllNotificationIdsForUser = user => {
-  return async (dispatch, getState, { getFirestore }) => {
-    const firestore = getFirestore();
-
-    const snapshot = await firestore.collection('users').get();
-    const data = snapshot.docs.map(doc => doc.data());
-    dispatch(getDepartmentsSuccess(data));
-  };
-};
-
-export const getLatestHires = () => {
+export const getReadNotificationIdsForUser = userId => {
   return async (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
 
     const snapshot = await firestore
       .collection('users')
-      .orderBy('joinDate', 'desc')
+      .doc(userId)
+      .collection(notificationIds)
+      .where('readStatus', '==', 'read')
       .get();
-
     const data = snapshot.docs.map(doc => doc.data());
+    // more logic
+    dispatch(getDepartmentsSuccess(data));
+  };
+};
 
-    const ids = snapshot.docs.map(doc => doc.id);
-    const newData = data.map((d, index) => {
-      return { ...d, id: ids[index] };
+export const getUnreadNotificationIdsForUser = userId => {
+  return async (dispatch, getState, { getFirestore }) => {
+    const firestore = getFirestore();
+
+    const snapshot = await firestore
+      .collection('users')
+      .doc(userId)
+      .collection(notificationIds)
+      .where('readStatus', '==', 'unread')
+      .get();
+    const data = snapshot.docs.map(doc => doc.data());
+    dispatch(getDepartmentsSuccess(data));
+  };
+};
+
+export const getNotificationById = id => {
+  return async (dispatch, getState, { getFirestore }) => {
+    const firestore = getFirestore();
+
+    const snapshot = await firestore.collection('notifications').doc(id).get();
+    const data = snapshot.data();
+    dispatch(getDepartmentsSuccess(data));
+  };
+};
+
+export const getNotificationsByIds = ids => {
+  return async (dispatch, getState, { getFirestore }) => {
+    const firestore = getFirestore();
+
+    const notifications = [];
+    await ids.forEach(async id => {
+      const snapshot = await firestore
+        .collection('notifications')
+        .doc(id)
+        .get();
+      const data = await snapshot.data();
+      notifications.push(data);
     });
 
-    dispatch(getLatestHiresSuccess(newData));
+    dispatch(getDepartmentsSuccess(notifications));
   };
 };
