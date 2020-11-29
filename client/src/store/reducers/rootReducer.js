@@ -5,6 +5,7 @@ import { combineReducers } from 'redux';
 import { firestoreReducer } from 'redux-firestore';
 import { firebaseReducer } from 'react-redux-firebase';
 import messageReducer from './messageReducer';
+import notificationReducer from './notificationReducer';
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   profileData: profileReducer,
   firestore: firestoreReducer,
   firebase: firebaseReducer,
+  notifications: notificationReducer,
 });
 
 export default rootReducer;

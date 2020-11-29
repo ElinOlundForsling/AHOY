@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { getDepartmentMembers } from '../../store/actions/profileActions';
 import Card from '../layout/Card';
-import { Link } from 'react-router-dom';
+import Avatar from '../layout/Avatar';
 import '../../stylesheets/myDepartment.css';
 
 const MyDepartment = ({ profile, getDepartmentMembers, departmentMembers }) => {
@@ -12,35 +12,19 @@ const MyDepartment = ({ profile, getDepartmentMembers, departmentMembers }) => {
   }, [profile]);
 
   return (
-    <Card
-      heading='My department'
-      subHeading={profile.department}
-      className='department-component'>
-      <div className='teamMembers'>
-        {departmentMembers.map(member => {
+    <Card heading="My department" subHeading={profile.department} className='department-component'>
+      <div className="members">
+        {departmentMembers.map((member) => {
           return (
             <div key={member.id}>
-              <div className='member-card'>
-                <Link to={`/profiles/${member.id}`}>
-                  <div className='member-avatar'>
-                    <img
-                      src={
-                        member.imgURL
-                          ? member.imgURL
-                          : 'https://cdn.statically.io/img/avatarfiles.alphacoders.com/866/86635.png'
-                      }
-                    />
-                  </div>
-                  <div className='member-name'>
-                    {member.firstName} {member.lastName}
-                  </div>
-                  {member.isOnline ? (
-                    <p style={{ color: 'green' }}>Online</p>
-                  ) : (
-                    <p style={{ color: 'red' }}>Offline</p>
-                  )}
-                </Link>
-              </div>
+              <Avatar
+                id={member.id}
+                imgURL={member.imgURL}
+                firstName={member.firstName}
+                lastName={member.lastName}
+                isOnline={member.isOnline}
+                className="normal-size"
+              />
             </div>
           );
         })}
@@ -49,16 +33,16 @@ const MyDepartment = ({ profile, getDepartmentMembers, departmentMembers }) => {
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     profile: state.firebase.profile,
     departmentMembers: state.profileData.departmentMembers,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    getDepartmentMembers: department =>
+    getDepartmentMembers: (department) =>
       dispatch(getDepartmentMembers(department)),
   };
 };

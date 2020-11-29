@@ -51,7 +51,7 @@ const AdminPanel = ({
       {members &&
         members.map(member => {
           return (
-            <article>
+            <article key={member.id}>
               <button onClick={toggle} id={member.id} className='toggle-button'>
                 <img src={member.imgURL} className='avatar-small' />
                 {member.firstName}&nbsp;{member.lastName}
