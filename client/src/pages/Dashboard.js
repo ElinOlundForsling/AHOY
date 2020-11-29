@@ -1,17 +1,18 @@
-import React, { useState } from 'react';
-import { Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { IoMdRemoveCircleOutline } from 'react-icons/io';
-import '../stylesheets/dashboard.css';
-import '../stylesheets/index.css';
-import Sidebar from '../components/layout/Sidebar';
-import MyTeam from '../components/widgets/MyTeam';
-import LatestHires from '../components/widgets/LatestHires';
-import Fika from '../components/widgets/Fika';
-import Pong from '../components/widgets/Pong';
-import Faq from '../components/widgets/Faq';
-import MyDepartment from '../components/widgets/MyDepartment';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import React, { useState } from "react";
+import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import { IoMdRemoveCircleOutline } from "react-icons/io";
+import "../stylesheets/dashboard.css";
+import "../stylesheets/index.css";
+import "../stylesheets/buttonChoices.css";
+import Sidebar from "../components/layout/Sidebar";
+import MyTeam from "../components/widgets/MyTeam";
+import LatestHires from "../components/widgets/LatestHires";
+import Fika from "../components/widgets/Fika";
+import Pong from "../components/widgets/Pong";
+import Faq from "../components/widgets/Faq";
+import MyDepartment from "../components/widgets/MyDepartment";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 const Dashboard = ({ auth, profile }) => {
   const [sidebarIsOpen, setSidebarIsOpen] = useState(true);
@@ -61,48 +62,152 @@ const Dashboard = ({ auth, profile }) => {
 
   return (
     <main className="main">
-      <button
-        style={{
-          backgroundColor: 'var(--color-5',
-          color: 'white',
-          fontSize: '20px',
-        }}
-        onClick={() => addCard(<Faq />)}
-      >
-        FAQ
-      </button>
-      <button
-        style={{ backgroundColor: 'var(--color-4)', color: 'white', fontSize: '20px' }}
-        onClick={() => addCard(<Pong />)}
-      >
-        PONG
-      </button>
-      <button
-        style={{ backgroundColor: 'var(--color-6)', color: 'white', fontSize: '20px' }}
-        onClick={() =>
-          addCard(<MyTeam deleteCard={deleteCard} profile={profile} />)
-        }
-      >
-        TEAMS
-      </button>
-      <button
-        style={{ backgroundColor: 'var(--color-1)', color: 'white', fontSize: '20px' }}
-        onClick={() => addCard(<MyDepartment profile={profile} />)}
-      >
-        DEPARTMENT
-      </button>
-      <button
-        style={{ backgroundColor: 'var(--color-7)', color: 'white', fontSize: '20px' }}
-        onClick={() => addCard(<Fika />)}
-      >
-        VIRTUAL FIKA
-      </button>
-      <button
-        style={{ backgroundColor: 'var(--color-3)', color: 'white', fontSize: '20px' }}
-        onClick={() => addCard(<LatestHires profiles={profile} />)}
-      >
-        LATEST HIRES
-      </button>
+
+<nav role="navigation">
+  <ul>
+
+    <li class="dropdown"><p>Widgets</p>
+      <ul class="dropdown">
+        <button
+          style={{
+            backgroundColor: "var(--color-5",
+            color: "white",
+            fontSize: "1rem",
+          }}
+          onClick={() => addCard(<Faq />)}
+        >
+          FAQ
+        </button>
+        <button
+          style={{
+            backgroundColor: "var(--color-4)",
+            color: "white",
+            fontSize: "1rem",
+          }}
+          onClick={() => addCard(<Pong />)}
+        >
+          PONG
+        </button>
+        <button
+          style={{
+            backgroundColor: "var(--color-6)",
+            color: "white",
+            fontSize: "1rem",
+          }}
+          onClick={() =>
+            addCard(<MyTeam deleteCard={deleteCard} profile={profile} />)
+          }
+        >
+          TEAMS
+        </button>
+        <button
+          style={{
+            backgroundColor: "var(--color-1)",
+            color: "white",
+            fontSize: "1rem",
+          }}
+          onClick={() => addCard(<MyDepartment profile={profile} />)}
+        >
+          DEPARTMENT
+        </button>
+        <button
+          style={{
+            backgroundColor: "var(--color-7)",
+            color: "white",
+            fontSize: "1rem",
+          }}
+          onClick={() => addCard(<Fika />)}
+        >
+          VIRTUAL FIKA
+        </button>
+        <button
+          style={{
+            backgroundColor: "var(--color-3)",
+            color: "white",
+            fontSize: "1rem",
+          }}
+          onClick={() => addCard(<LatestHires profiles={profile} />)}
+        >
+          LATEST HIRES
+        </button>
+        
+      </ul>
+    </li>
+
+  </ul>
+</nav>
+
+
+      {/* <div className="button-choice">
+        <button
+          style={{
+            backgroundColor: "var(--color-5",
+            color: "white",
+            fontSize: "20px",
+          }}
+          onClick={() => addCard(<Faq />)}
+        >
+          FAQ
+        </button>
+
+        <button
+          style={{
+            backgroundColor: "var(--color-4)",
+            color: "white",
+            fontSize: "20px",
+          }}
+          onClick={() => addCard(<Pong />)}
+        >
+          PONG
+        </button>
+
+        <button
+          style={{
+            backgroundColor: "var(--color-6)",
+            color: "white",
+            fontSize: "20px",
+          }}
+          onClick={() =>
+            addCard(<MyTeam deleteCard={deleteCard} profile={profile} />)
+          }
+        >
+          TEAMS
+        </button>
+
+        <button
+          style={{
+            backgroundColor: "var(--color-1)",
+            color: "white",
+            fontSize: "20px",
+          }}
+          onClick={() => addCard(<MyDepartment profile={profile} />)}
+        >
+          DEPARTMENT
+        </button>
+
+        <button
+          style={{
+            backgroundColor: "var(--color-7)",
+            color: "white",
+            fontSize: "20px",
+          }}
+          onClick={() => addCard(<Fika />)}
+        >
+          VIRTUAL FIKA
+        </button>
+
+        <button
+          style={{
+            backgroundColor: "var(--color-3)",
+            color: "white",
+            fontSize: "20px",
+          }}
+          onClick={() => addCard(<LatestHires profiles={profile} />)}
+        >
+          LATEST HIRES
+        </button>
+
+      </div> */}
       <section className="sidebar-layout">
         <Sidebar
           width={200}
@@ -115,14 +220,14 @@ const Dashboard = ({ auth, profile }) => {
       <DragDropContext onDragEnd={onDragEnd}>
         <section
           className={`dashboard-layout
-            ${sidebarIsOpen ? 'dashboard-sidebar' : 'dashboard-fullscreen'}
+            ${sidebarIsOpen ? "dashboard-sidebar" : "dashboard-fullscreen"}
           `}
         >
           {cards.map((content, index) => (
             <Droppable droppableId={`drop-zone-${index}`} key={index}>
               {(provided, snapshot) => (
                 <div
-                  style={{ position: 'relative' }}
+                  style={{ position: "relative" }}
                   ref={provided.innerRef}
                   {...provided.droppableProps}
                 >
@@ -137,11 +242,11 @@ const Dashboard = ({ auth, profile }) => {
                         {content}
                         <IoMdRemoveCircleOutline
                           style={{
-                            color: 'white',
-                            position: 'absolute',
-                            fontSize: '25px',
-                            top: '12px',
-                            right: '4px',
+                            color: "white",
+                            position: "absolute",
+                            fontSize: "25px",
+                            top: "12px",
+                            right: "4px",
                           }}
                           onClick={(e) => {
                             deleteCard(
