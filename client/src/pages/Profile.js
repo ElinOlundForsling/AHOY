@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Redirect, useParams, Link } from 'react-router-dom';
 import { FaPen } from 'react-icons/fa';
 import { MdLocationOn } from 'react-icons/md';
+
 import { GiCoffeeCup } from 'react-icons/gi';
 import Sidebar from '../components/layout/Sidebar';
 import Avatar from '../components/layout/Avatar';

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { IoMdRemoveCircleOutline } from 'react-icons/io';
 import '../stylesheets/dashboard.css';
 import '../stylesheets/index.css';
 import Sidebar from '../components/layout/Sidebar';
@@ -78,7 +79,9 @@ const Dashboard = ({ auth, profile }) => {
       </button>
       <button
         style={{ backgroundColor: 'orange', color: 'white', fontSize: '20px' }}
-        onClick={() => addCard(<MyTeam profile={profile} />)}
+        onClick={() =>
+          addCard(<MyTeam deleteCard={deleteCard} profile={profile} />)
+        }
       >
         TEAMS
       </button>
@@ -118,7 +121,11 @@ const Dashboard = ({ auth, profile }) => {
           {cards.map((content, index) => (
             <Droppable droppableId={`drop-zone-${index}`} key={index}>
               {(provided, snapshot) => (
-                <div ref={provided.innerRef} {...provided.droppableProps}>
+                <div
+                  style={{ position: 'relative' }}
+                  ref={provided.innerRef}
+                  {...provided.droppableProps}
+                >
                   <Draggable draggableId={`${index}`} index={index}>
                     {(provided, snapshot) => (
                       <div
@@ -128,8 +135,28 @@ const Dashboard = ({ auth, profile }) => {
                         style={provided.draggableProps.style}
                       >
                         {content}
-                        <button
-                          style={{ backgroundColor: 'red', color: 'white' }}
+                        <IoMdRemoveCircleOutline
+                          style={{
+                            color: 'white',
+                            position: 'absolute',
+                            fontSize: '25px',
+                            top: '12px',
+                            right: '4px',
+                          }}
+                          onClick={(e) => {
+                            deleteCard(
+                              e.target.parentElement.dataset.rbdDraggableId
+                            );
+                          }}
+                        />
+                        {/* <button
+                          style={{
+                            backgroundColor: 'red',
+                            color: 'white',
+                            position: 'absolute',
+                            top: '30px',
+                            right: '10px',
+                          }}
                           onClick={(e) => {
                             deleteCard(
                               e.target.parentElement.dataset.rbdDraggableId
@@ -137,7 +164,7 @@ const Dashboard = ({ auth, profile }) => {
                           }}
                         >
                           DELETE
-                        </button>
+                        </button> */}
                       </div>
                     )}
                   </Draggable>
