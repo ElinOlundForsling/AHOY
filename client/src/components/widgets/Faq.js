@@ -4,6 +4,7 @@ import Card from '../layout/Card';
 
 import '../../stylesheets/faq.css';
 import '../../stylesheets/index.css';
+import '../../stylesheets/card.css';
 
 const Faq = () => {
   const [searchTerm, setSearchTerm] = React.useState('');
@@ -18,7 +19,7 @@ const Faq = () => {
     setSearchResults(results);
   }, [searchTerm]);
 
-  const information = ['Office', 'Paperwork', 'IT'];
+  const information = [''];
 
   return (
     <Card heading='FAQ' subHeading='Got questions?' className='faq-component'>

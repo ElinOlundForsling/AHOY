@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { getDepartmentMembers } from '../../store/actions/profileActions';
 import Card from '../layout/Card';
 import Avatar from '../layout/Avatar';
+import '../../stylesheets/myDepartment.css';
 
 const MyDepartment = ({ profile, getDepartmentMembers, departmentMembers }) => {
   useEffect(() => {
@@ -10,18 +11,20 @@ const MyDepartment = ({ profile, getDepartmentMembers, departmentMembers }) => {
   }, [profile]);
 
   return (
-    <Card heading="My department" subHeading={profile.department}>
+    <Card heading="My department" subHeading={profile.department} className='department-component'>
       <div className="members">
         {departmentMembers.map((member) => {
           return (
-            <Avatar
-              id={member.id}
-              imgURL={member.imgURL}
-              firstName={member.firstName}
-              lastName={member.lastName}
-              isOnline={member.isOnline}
-              className="normal-size"
-            />
+            <div key={member.id}>
+              <Avatar
+                id={member.id}
+                imgURL={member.imgURL}
+                firstName={member.firstName}
+                lastName={member.lastName}
+                isOnline={member.isOnline}
+                className="normal-size"
+              />
+            </div>
           );
         })}
       </div>

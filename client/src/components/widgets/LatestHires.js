@@ -11,11 +11,11 @@ const LatestHires = ({ getLatestHires, latestHires }) => {
   }, [latestHires]);
 
   return (
-    <Card heading="Latest Hires" subHeading={'Say hi to your new colleagues'}>
+    <Card heading="Latest Hires" subHeading={'Say hi to your new colleagues'} className='latest-hires-component'>
       <div className="latest-hires">
         {latestHires.map((hire) => {
           return (
-            <div className="latest-hired-card">
+            <div key={hire.id} className="latest-hired-card">
               <Avatar
                 id={hire.id}
                 imgURL={hire.imgURL}

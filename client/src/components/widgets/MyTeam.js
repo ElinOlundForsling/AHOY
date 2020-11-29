@@ -11,18 +11,21 @@ const MyTeam = ({ profile, getTeamMembers, teamMembers }) => {
   }, [profile]);
 
   return (
-    <Card heading="My Team" subHeading={profile.team}>
+    <Card heading="My Team" subHeading={profile.team} className='team-component'>
       <div className="members">
         {teamMembers.map((member) => {
           return (
-            <Avatar
-              id={member.id}
-              imgURL={member.imgURL}
-              firstName={member.firstName}
-              lastName={member.lastName}
-              isOnline={member.isOnline}
-              className="normal-size"
-            />
+            <div key={member.id}>
+              <Avatar
+                key={member.id}
+                id={member.id}
+                imgURL={member.imgURL}
+                firstName={member.firstName}
+                lastName={member.lastName}
+                isOnline={member.isOnline}
+                className="normal-size"
+              />
+            </div>
           );
         })}
       </div>
