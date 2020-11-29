@@ -63,7 +63,7 @@ const Dashboard = ({ auth, profile }) => {
     <main className="main">
       <button
         style={{
-          backgroundColor: 'green',
+          backgroundColor: 'var(--color-5',
           color: 'white',
           fontSize: '20px',
         }}
@@ -72,13 +72,13 @@ const Dashboard = ({ auth, profile }) => {
         FAQ
       </button>
       <button
-        style={{ backgroundColor: 'blue', color: 'white', fontSize: '20px' }}
+        style={{ backgroundColor: 'var(--color-4)', color: 'white', fontSize: '20px' }}
         onClick={() => addCard(<Pong />)}
       >
         PONG
       </button>
       <button
-        style={{ backgroundColor: 'orange', color: 'white', fontSize: '20px' }}
+        style={{ backgroundColor: 'var(--color-6)', color: 'white', fontSize: '20px' }}
         onClick={() =>
           addCard(<MyTeam deleteCard={deleteCard} profile={profile} />)
         }
@@ -86,19 +86,19 @@ const Dashboard = ({ auth, profile }) => {
         TEAMS
       </button>
       <button
-        style={{ backgroundColor: 'red', color: 'white', fontSize: '20px' }}
+        style={{ backgroundColor: 'var(--color-1)', color: 'white', fontSize: '20px' }}
         onClick={() => addCard(<MyDepartment profile={profile} />)}
       >
         DEPARTMENT
       </button>
       <button
-        style={{ backgroundColor: 'purple', color: 'white', fontSize: '20px' }}
+        style={{ backgroundColor: 'var(--color-7)', color: 'white', fontSize: '20px' }}
         onClick={() => addCard(<Fika />)}
       >
         VIRTUAL FIKA
       </button>
       <button
-        style={{ backgroundColor: 'green', color: 'white', fontSize: '20px' }}
+        style={{ backgroundColor: 'var(--color-3)', color: 'white', fontSize: '20px' }}
         onClick={() => addCard(<LatestHires profiles={profile} />)}
       >
         LATEST HIRES

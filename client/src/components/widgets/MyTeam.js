@@ -11,7 +11,7 @@ const MyTeam = ({ profile, getTeamMembers, teamMembers }) => {
   }, [profile]);
 
   return (
-    <Card heading="My Team" subHeading={profile.team}>
+    <Card heading="My Team" subHeading={profile.team} className='team-component'>
       <div className="members">
         {teamMembers.map((member) => {
           return (

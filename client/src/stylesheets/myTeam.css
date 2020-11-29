@@ -10,3 +10,7 @@
   overflow: auto;
   max-height: 350px;
 }
+
+.team-component .card-title{
+  background-color: var(--color-6) !important;
+}

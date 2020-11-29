@@ -11,7 +11,7 @@ const LatestHires = ({ getLatestHires, latestHires }) => {
   }, [latestHires]);
 
   return (
-    <Card heading="Latest Hires" subHeading={'Say hi to your new colleagues'}>
+    <Card heading="Latest Hires" subHeading={'Say hi to your new colleagues'} className='latest-hires-component'>
       <div className="latest-hires">
         {latestHires.map((hire) => {
           return (

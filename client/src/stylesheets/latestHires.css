@@ -19,3 +19,7 @@
   color: grey;
   font-size: 12px;
 }
+
+.latest-hires-component .card-title {
+  background-color: var(--color-3) !important;
+}
