@@ -16,7 +16,7 @@ function App() {
         <Switch>
           <Route exact path='/' component={Dashboard} />
           <Route exact path='/profiles/:userId' component={Profile} />
-          <Route path='/chat' component={Chat} />
+          <Route path='/chat/:chatId' component={Chat} />
           <Route path='/pong' component={Pong} />
           <Route path='/signup' component={Signup} />
           <Route path='/admin' component={AdminPanel} />

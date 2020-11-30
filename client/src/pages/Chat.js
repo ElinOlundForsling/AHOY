@@ -1,15 +1,20 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { sendMessage, getMessages } from '../store/actions/messageActions';
+import { useParams } from 'react-router-dom';
+import {
+  sendMessage,
+  getMessages,
+  getUserIds,
+} from '../store/actions/messageActions';
 import { connect } from 'react-redux';
 import '../stylesheets/chat.css';
 
 export const Chat = ({
   auth,
-  profileData,
   profile,
-  chatId,
   sendMessage,
   getMessages,
+  getUserIds,
+  userIds,
   messages,
 }) => {
   const [params, setParams] = useState({});
@@ -17,27 +22,31 @@ export const Chat = ({
 
   const handleSubmit = event => {
     event.preventDefault();
-
     setChatText('');
     sendMessage(params);
   };
 
   const isFirstRun = useRef(true);
+  const chat = useParams().chatId;
+
   useEffect(() => {
+    getMessages(chat);
+    getUserIds(chat);
+
     if (isFirstRun.current) {
       isFirstRun.current = false;
       return;
     }
-    getMessages(chatId);
-  }, [chatId, sendMessage, messages]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sendMessage, messages]);
 
   const handleInputChange = event => {
     setChatText(event.target.value);
     setParams({
-      chatId,
+      chatId: chat,
       senderId: auth.uid,
       senderName: profile.firstName,
-      recipientId: profileData.id,
+      recipientId: userIds[0] === auth.uid ? userIds[0] : userIds[1],
       text: event.target.value,
     });
   };
@@ -82,8 +91,8 @@ export const Chat = ({
 const mapStateToProps = state => {
   return {
     auth: state.firebase.auth,
-    chatId: state.chat.chatId,
     messages: state.chat.messages,
+    userIds: state.chat.userIds,
     profile: state.firebase.profile,
     profileData: state.profileData.profileData,
   };
@@ -93,6 +102,7 @@ const mapDispatchToProps = dispatch => {
   return {
     sendMessage: params => dispatch(sendMessage(params)),
     getMessages: chatId => dispatch(getMessages(chatId)),
+    getUserIds: chatId => dispatch(getUserIds(chatId)),
   };
 };
 
