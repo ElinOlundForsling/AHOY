@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { getTeamMembers } from '../../store/actions/profileActions';
 import '../../stylesheets/myTeam.css';
 import Card from '../layout/Card';
-import { Link } from 'react-router-dom';
+import Avatar from '../layout/Avatar';
 
 const MyTeam = ({ profile, getTeamMembers, teamMembers }) => {
   useEffect(() => {
@@ -11,36 +11,20 @@ const MyTeam = ({ profile, getTeamMembers, teamMembers }) => {
   }, [profile]);
 
   return (
-    <Card
-      heading='My Team'
-      subHeading={profile.team}
-      className='team-component'>
-      <div className='teamMembers'>
-        {teamMembers.map(member => {
+    <Card heading="My Team" subHeading={profile.team} className='team-component'>
+      <div className="members">
+        {teamMembers.map((member) => {
           return (
             <div key={member.id}>
-              <div className='member-card'>
-                <Link to={`/profiles/${member.id}`}>
-                  <div className='member-avatar'>
-                    <img
-                      src={
-                        member.imgURL
-                          ? member.imgURL
-                          : 'https://cdn.statically.io/img/avatarfiles.alphacoders.com/866/86635.png'
-                      }
-                    />
-                  </div>
-                  <div className='member-name'>
-                    {' '}
-                    {member.firstName} {member.lastName}{' '}
-                  </div>
-                  {member.isOnline ? (
-                    <p style={{ color: 'green' }}>Online</p>
-                  ) : (
-                    <p style={{ color: 'red' }}>Offline</p>
-                  )}
-                </Link>
-              </div>
+              <Avatar
+                key={member.id}
+                id={member.id}
+                imgURL={member.imgURL}
+                firstName={member.firstName}
+                lastName={member.lastName}
+                isOnline={member.isOnline}
+                className="normal-size"
+              />
             </div>
           );
         })}
@@ -49,16 +33,16 @@ const MyTeam = ({ profile, getTeamMembers, teamMembers }) => {
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     profile: state.firebase.profile,
     teamMembers: state.profileData.teamMembers,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    getTeamMembers: team => dispatch(getTeamMembers(team)),
+    getTeamMembers: (team) => dispatch(getTeamMembers(team)),
   };
 };
 

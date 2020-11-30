@@ -5,6 +5,7 @@
 
 .main {
   background-color: #fcf4ef;
+  min-height: 100vh;
 }
 
 .dashboard-layout {
@@ -12,13 +13,12 @@
   /* column-gap: 10px; */
 
   grid-auto-flow: row dense;
+  padding: 50px;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   grid-gap: .5rem;
-  align-items: flex-start;
-
-
-  padding: 20px;
+  /* align-items: flex-start; */
+  
   transition: 0.8s ease;
 }
 
@@ -33,3 +33,4 @@
 .sidebar-layout {
   position: fixed;
 }
+

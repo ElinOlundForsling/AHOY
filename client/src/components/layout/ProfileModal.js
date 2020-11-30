@@ -15,6 +15,7 @@ const ProfileModal = ({
 
   useEffect(() => {
     setInfo(profile);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [profile]);
 
   Modal.setAppElement('#root');

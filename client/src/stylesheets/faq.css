@@ -12,3 +12,7 @@
   background-color: var(--color-5) !important;
   color: white;
 }
+
+.card .card-content input {
+  height: 20px !important;
+}

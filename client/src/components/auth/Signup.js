@@ -138,7 +138,6 @@ const Signup = ({
               value={departmentOption}
               onChange={handleDepartmentChange}
               options={createOptions()}
-              className='browser-default'
             />
           </div>
           <div className='input-field col s12'>
@@ -148,7 +147,6 @@ const Signup = ({
                   value={teamOption}
                   onChange={handleTeamChange}
                   options={createTeams()}
-                  className='browser-default'
                 />
               </div>
             )}

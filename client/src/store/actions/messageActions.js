@@ -10,6 +10,10 @@ export const getMessagesSuccess = messages => {
   return { type: 'GET_MESSAGES_SUCCESS', payload: messages };
 };
 
+export const idSuccess = messages => {
+  return { type: 'GET_ID_SUCCESS', payload: messages };
+};
+
 export const getChat = (id1, id2) => {
   return async (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
@@ -73,7 +77,6 @@ export const sendMessage = params => {
   return async (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
     const { senderId, recipientId, text, senderName, chatId } = params;
-    console.log(senderId, recipientId, text, senderName, chatId);
 
     await firestore.collection('messages').doc(chatId).collection('msg').add({
       senderId,
@@ -83,5 +86,16 @@ export const sendMessage = params => {
       date: Date.now(),
     });
     dispatch(sendSuccess());
+  };
+};
+
+export const getUserIds = chatId => {
+  return async (dispatch, getState, { getFirestore }) => {
+    const firestore = getFirestore();
+
+    const snapshot = await firestore.collection('messages').doc(chatId).get();
+    const data = snapshot.data().userIds;
+
+    dispatch(idSuccess(data));
   };
 };

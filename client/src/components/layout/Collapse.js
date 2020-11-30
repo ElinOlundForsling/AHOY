@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import {
   getDepartments,
@@ -6,18 +6,60 @@ import {
 } from '../../store/actions/departmentActions';
 import { updateProfileAdmin } from '../../store/actions/profileActions';
 import '../../stylesheets/admin-panel.css';
+import Select from 'react-select';
 
-const Collapse = ({ isOpen, member }) => {
+const Collapse = ({
+  isOpen,
+  member,
+  departments,
+  teams,
+  updateProfileAdmin,
+  getDepartments,
+  getTeamByDepartment,
+}) => {
   const [userData, setUserData] = useState({
-    email: '',
-    firstName: '',
-    lastName: '',
-    department: '',
-    team: '',
+    email: member.email,
+    firstName: member.firstName,
+    lastName: member.lastName,
+    department: member.department,
+    team: member.team,
   });
-
   const [teamOption, setTeamOption] = useState(null);
   const [departmentOption, setDepartmentOption] = useState(null);
+
+  useEffect(() => {
+    getDepartments();
+  }, [getDepartments]);
+
+  const handleSubmit = event => {
+    event.preventDefault();
+    console.log(userData);
+    updateProfileAdmin(member.id, userData);
+  };
+
+  const createDepartmentOptions = () => {
+    const options = departments.map(dep => {
+      return {
+        label: dep.name,
+        name: dep.name,
+        value: dep.name.toLowerCase(),
+      };
+    });
+    return options;
+  };
+
+  const createTeamOptions = () => {
+    const options =
+      teams &&
+      teams.map(team => {
+        return {
+          label: team.teamName,
+          name: team.teamName,
+          value: team.teamName.toLowerCase(),
+        };
+      });
+    return options;
+  };
 
   const handleDepartmentChange = selectedOption => {
     setDepartmentOption(selectedOption);
@@ -41,11 +83,11 @@ const Collapse = ({ isOpen, member }) => {
     <div
       className='collapse'
       style={{
-        maxHeight: isOpen ? 350 : 0,
+        maxHeight: isOpen ? 400 : 0,
       }}>
       <div>
         <section className='sample-content'>
-          <form className='myForm'>
+          <form className='myForm' onSubmit={handleSubmit}>
             <div className='row'>
               <div className='column'>
                 <div className='input-group'>
@@ -69,26 +111,27 @@ const Collapse = ({ isOpen, member }) => {
                   />
                 </div>
                 <div className='input-group'>
-                  <label for='admin_form_department'>Department</label>
-                  <select id='admin_form_department'>
-                    <option value='' selected='selected' disabled>
-                      Department
-                    </option>
-                    <option value='hr'>HR</option>
-                    <option value='hr'>HR</option>
-                    <option value='hr'>HR</option>
-                  </select>
+                  <label htmlFor='admin_form_department'>Department</label>
+
+                  <div className='input-field col s12'>
+                    <Select
+                      value={departmentOption}
+                      onChange={handleDepartmentChange}
+                      options={createDepartmentOptions()}
+                    />
+                  </div>
                 </div>
                 <div className='input-group'>
-                  <label for='admin_form_teams'>Team</label>
-                  <select id='admin_form_teams'>
-                    <option value='' selected='selected' disabled>
-                      Team
-                    </option>
-                    <option value='hr'>HR</option>
-                    <option value='hr'>HR</option>
-                    <option value='hr'>HR</option>
-                  </select>
+                  <label htmlFor='admin_form_teams'>Team</label>
+                  {departmentOption && (
+                    <div className='input-field col s12'>
+                      <Select
+                        value={teamOption}
+                        onChange={handleTeamChange}
+                        options={createTeamOptions()}
+                      />
+                    </div>
+                  )}
                 </div>
               </div>
               <div className='column'>
@@ -172,13 +215,16 @@ const Collapse = ({ isOpen, member }) => {
 const mapStateToProps = state => {
   return {
     allMembers: state.profileData.allMembers,
+    departments: state.departments.departments,
+    teams: state.departments.teams,
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     getDepartments: () => dispatch(getDepartments()),
-    getTeamByDepartment: () => dispatch(getTeamByDepartment()),
+    getTeamByDepartment: department =>
+      dispatch(getTeamByDepartment(department)),
     updateProfileAdmin: (userId, userData) =>
       dispatch(updateProfileAdmin(userId, userData)),
   };

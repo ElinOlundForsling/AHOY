@@ -7,7 +7,7 @@
   margin: 0.5rem 0;
 
   background-color: #fff;
-  /* break-inside: avoid; */
+  break-inside: avoid;
 
   border-radius: 15px;
   -webkit-box-shadow: 5px 5px 15px 0px rgba(101, 76, 79, 0.2);
@@ -28,6 +28,7 @@
 .card-title {
   font-family: 'Roboto Slab', serif;
   display: block;
+  padding: 5px 0;
   border-radius: 15px 15px 0 0;
   text-align: center;
   margin: 0px;
@@ -36,12 +37,12 @@
 }
 
 .card-title h5 {
-  padding-top: 10px;
   margin: 0;
 }
 
 .card-title p {
   margin: 0;
+  font-size: 1rem;
 }
 
 .card-content {
