@@ -12,7 +12,8 @@ export const getLatestHiresSuccess = hires => {
 
 export const getDepartments = () => {
   return async (dispatch, getState, { getFirestore }) => {
-    const firestore = getFirestore();
+    console.log('getDepartments');
+    // const firestore = getFirestore();
 
     const snapshot = await firestore.collection('departments').get();
     const data = snapshot.docs.map(doc => doc.data());
@@ -22,7 +23,8 @@ export const getDepartments = () => {
 
 export const getLatestHires = () => {
   return async (dispatch, getState, { getFirestore }) => {
-    const firestore = getFirestore();
+    console.log('getLatestHires');
+    // const firestore = getFirestore();
 
     const snapshot = await firestore
       .collection('users')
@@ -42,7 +44,8 @@ export const getLatestHires = () => {
 
 export const getTeamByDepartment = department => {
   return async (dispatch, getState, { getFirestore }) => {
-    const firestore = getFirestore();
+    console.log('getTeamByDepartment');
+    // const firestore = getFirestore();
     const getOptions = {
       source: 'server',
     };

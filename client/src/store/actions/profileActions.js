@@ -28,7 +28,8 @@ export const getRandomSuccess = data => {
 
 export const updateProfile = (userId, userData) => {
   return async (dispatch, getState, { getFirestore }) => {
-    const firestore = getFirestore();
+    console.log('updateProfile');
+    // const firestore = getFirestore();
     try {
       await firestore
         .collection('users')
@@ -53,7 +54,8 @@ export const updateProfile = (userId, userData) => {
 
 export const getProfileById = userId => {
   return async (dispatch, getState, { getFirestore }) => {
-    const firestore = getFirestore();
+    console.log('getProfileById');
+    // const firestore = getFirestore();
     try {
       const snapshot = await firestore.collection('users').doc(userId).get();
       const data = snapshot.data();
@@ -67,7 +69,8 @@ export const getProfileById = userId => {
 
 export const updateProfileImage = (userId, file) => {
   return (dispatch, getState, { getFirestore, storage }) => {
-    const firestore = getFirestore();
+    console.log('updateProfileImage');
+    // const firestore = getFirestore();
     const uploadTask = storage.ref(`/images/${file.name}`).put(file);
     uploadTask.on('state_changed', console.log, console.error, () => {
       storage
@@ -91,7 +94,8 @@ export const updateProfileImage = (userId, file) => {
 
 export const getTeamMembers = team => {
   return async (dispatch, getState, { getFirestore }) => {
-    const firestore = getFirestore();
+    console.log('getTeamMembers');
+    // const firestore = getFirestore();
     try {
       const snapshot = await firestore
         .collection('users')
@@ -113,7 +117,8 @@ export const getTeamMembers = team => {
 
 export const getDepartmentMembers = department => {
   return async (dispatch, getState, { getFirestore }) => {
-    const firestore = getFirestore();
+    console.log('getDepartmentMembers');
+    // const firestore = getFirestore();
     try {
       const snapshot = await firestore
         .collection('users')
@@ -135,7 +140,8 @@ export const getDepartmentMembers = department => {
 
 export const getAllMembers = () => {
   return async (dispatch, getState, { getFirestore }) => {
-    const firestore = getFirestore();
+    console.log('getAllMembers');
+    // const firestore = getFirestore();
     try {
       const snapshot = await firestore.collection('users').get();
 
@@ -154,7 +160,8 @@ export const getAllMembers = () => {
 
 export const getRandomMember = () => {
   return async (dispatch, getState, { getFirestore }) => {
-    const firestore = getFirestore();
+    console.log('getRandomMember');
+    // const firestore = getFirestore();
     try {
       const snapshot = await firestore.collection('users').get();
 
@@ -176,7 +183,8 @@ export const getRandomMember = () => {
 
 export const updateProfileAdmin = (userId, userData) => {
   return async (dispatch, getState, { getFirestore }) => {
-    const firestore = getFirestore();
+    console.log('updateProfileAdmin');
+    // const firestore = getFirestore();
     try {
       await firestore.collection('users').doc(userId).set(
         {

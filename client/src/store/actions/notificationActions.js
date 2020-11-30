@@ -28,7 +28,8 @@ export const notificationCompanySuccess = data => {
 
 export const getReadNotificationIdsForUser = userId => {
   return async (dispatch, getState, { getFirestore }) => {
-    const firestore = getFirestore();
+    console.log('getReadNotificationIdsForUser');
+    // const firestore = getFirestore();
 
     const snapshot = await firestore
       .collection('users')
@@ -44,7 +45,8 @@ export const getReadNotificationIdsForUser = userId => {
 
 export const getUnreadNotificationIdsForUser = userId => {
   return async (dispatch, getState, { getFirestore }) => {
-    const firestore = getFirestore();
+    console.log('getUnreadNotificationIdsForUser');
+    // const firestore = getFirestore();
 
     const snapshot = await firestore
       .collection('users')
@@ -59,7 +61,8 @@ export const getUnreadNotificationIdsForUser = userId => {
 
 export const getNotificationById = id => {
   return async (dispatch, getState, { getFirestore }) => {
-    const firestore = getFirestore();
+    console.log('getNotificationById');
+    // const firestore = getFirestore();
 
     const snapshot = await firestore.collection('notifications').doc(id).get();
     const data = snapshot.data();
@@ -69,7 +72,8 @@ export const getNotificationById = id => {
 
 export const getNotificationsByIds = ids => {
   return async (dispatch, getState, { getFirestore }) => {
-    const firestore = getFirestore();
+    console.log('getNotificationsByIds');
+    // const firestore = getFirestore();
 
     const notifications = [];
     await ids.forEach(async id => {

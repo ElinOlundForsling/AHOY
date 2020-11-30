@@ -12,7 +12,8 @@ export const getMessagesSuccess = messages => {
 
 export const getChat = (id1, id2) => {
   return async (dispatch, getState, { getFirestore }) => {
-    const firestore = getFirestore();
+    console.log('getChat');
+    // const firestore = getFirestore();
 
     const chatChannel = await firestore
       .collection('users')
@@ -55,7 +56,8 @@ export const getChat = (id1, id2) => {
 
 export const getMessages = chatId => {
   return async (dispatch, getState, { getFirestore }) => {
-    const firestore = getFirestore();
+    console.log('getMessages');
+    // const firestore = getFirestore();
 
     const snapshot = await firestore
       .collection('messages')
@@ -71,7 +73,8 @@ export const getMessages = chatId => {
 
 export const sendMessage = params => {
   return async (dispatch, getState, { getFirestore }) => {
-    const firestore = getFirestore();
+    console.log('sendMessage');
+    // const firestore = getFirestore();
     const { senderId, recipientId, text, senderName, chatId } = params;
     console.log(senderId, recipientId, text, senderName, chatId);
 

@@ -1,6 +1,7 @@
 export const signIn = credentials => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firebase = getFirebase();
+    console.log('signin');
     const firestore = getFirestore();
 
     firebase
@@ -24,6 +25,7 @@ export const signIn = credentials => {
 export const signOut = auth => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firebase = getFirebase();
+    console.log('signout');
     const firestore = getFirestore();
 
     firebase
@@ -46,6 +48,7 @@ export const signOut = auth => {
 export const signUp = newUser => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firebase = getFirebase();
+    console.log('signup');
     const firestore = getFirestore();
     let date = new Date().toDateString();
 
