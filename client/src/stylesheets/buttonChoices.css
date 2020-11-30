@@ -4,8 +4,8 @@ nav ul {
 }
 
 nav {
-    width: auto !important;
-    float: right !important;
+  width: auto !important;
+  float: right !important;
 }
 
 nav li {
@@ -16,16 +16,18 @@ nav li {
   font-size: 1rem;
   height: 30px !important;
   /* line-height: 68px; */
+  margin-left: 10px;
   background: none;
   text-transform: uppercase;
   color: #ffffff;
   cursor: pointer;
 }
 nav p {
-    padding: 0 5px;
+  padding: 5px;
+  background-color: var(--color-2);
 }
 
-ul .dropdown button  {
+ul .dropdown button {
   background: none;
   color: #ffffff;
   height: 30px;
