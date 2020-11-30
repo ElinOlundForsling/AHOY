@@ -1,10 +1,16 @@
 import React from 'react';
+import Highlighter from 'react-highlight-words';
 
-const Document = ({ document }) => {
+const Document = ({ searchTerm, document }) => {
   return (
     <div>
       <h6>{document.title}</h6>
-      <p>{document.content}</p>
+      <Highlighter
+        highlightClassName="YourHighlightClass"
+        searchWords={[searchTerm]}
+        autoEscape={true}
+        textToHighlight={document.content}
+      ></Highlighter>
     </div>
   );
 };

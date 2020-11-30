@@ -79,7 +79,11 @@ const Faq = () => {
           placeholder="Search here!"
         />
         <br></br>
-        <DocumentContainer documents={dynamicSearch()} />
+
+        <DocumentContainer
+          searchTerm={searchTerm}
+          documents={dynamicSearch()}
+        />
       </div>
     </Card>
   );
