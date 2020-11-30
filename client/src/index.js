@@ -13,7 +13,7 @@ import {
 } from 'redux-firestore';
 import fbConfig, { storage } from './config/fbConfig';
 import firebase from 'firebase/app';
-import './stylesheets/materialize.css';
+// import './stylesheets/materialize.css';
 
 //for render on auth ready
 import { useSelector } from 'react-redux';
@@ -23,10 +23,10 @@ const store = createStore(
   rootReducer,
   compose(
     applyMiddleware(
-      thunk.withExtraArgument({ getFirestore, getFirebase, storage }),
+      thunk.withExtraArgument({ getFirestore, getFirebase, storage })
     ),
-    reduxFirestore(firebase, fbConfig),
-  ),
+    reduxFirestore(firebase, fbConfig)
+  )
 );
 
 const profileSpecificProps = {
@@ -45,10 +45,10 @@ const rrfProps = {
 };
 
 function AuthIsLoaded({ children }) {
-  const auth = useSelector(state => state.firebase.auth);
+  const auth = useSelector((state) => state.firebase.auth);
   if (!isLoaded(auth))
     return (
-      <div className='center'>
+      <div className="center">
         {' '}
         <p>Loading...</p>
       </div>
@@ -64,5 +64,5 @@ ReactDOM.render(
       </AuthIsLoaded>
     </ReactReduxFirebaseProvider>
   </Provider>,
-  document.getElementById('root'),
+  document.getElementById('root')
 );
