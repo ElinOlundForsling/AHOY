@@ -1,5 +1,6 @@
 import '../../stylesheets/sidebar.css';
 import '../../stylesheets/dashboard.css';
+import '../../stylesheets/sidebar.css';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { signOut } from '../../store/actions/authActions';
@@ -9,8 +10,17 @@ import { BsGrid } from 'react-icons/bs';
 import { AiOutlineSetting } from 'react-icons/ai';
 import { VscSignOut, VscKey } from 'react-icons/vsc';
 import WorkingFromToggle from './WorkingFromToggle';
+import MyTeam from '../../components/widgets/MyTeam';
+import LatestHires from '../../components/widgets/LatestHires';
+import Fika from '../../components/widgets/Fika';
+import Pong from '../../components/widgets/Pong';
+import Faq from '../../components/widgets/Faq/Faq';
+import Calendar from '../../components/widgets/Calendar';
+import MyDepartment from '../../components/widgets/MyDepartment';
 
 const Sidebar = ({
+  addCard,
+  deleteCard,
   width,
   height,
   children,
@@ -37,7 +47,7 @@ const Sidebar = ({
   }, []);
 
   return (
-    <React.Fragment>
+    <>
       {profile.isLoaded && (
         <div
           className="side-bar"
@@ -47,18 +57,19 @@ const Sidebar = ({
             minHeight: height,
           }}
         >
-          <img
-            src={
-              profile.imgURL
-                ? profile.imgURL
-                : 'https://cdn.statically.io/img/avatarfiles.alphacoders.com/866/86635.png'
-            }
-            alt=""
-            className="dashboard-avatar"
-          />
-          <p>Hi, {profile.firstName}</p>
-          <WorkingFromToggle profile={profile} auth={auth} />
-
+          <div className="avatar-section">
+            <img
+              src={
+                profile.imgURL
+                  ? profile.imgURL
+                  : 'https://cdn.statically.io/img/avatarfiles.alphacoders.com/866/86635.png'
+              }
+              alt=""
+              className="dashboard-avatar"
+            />
+            
+            <WorkingFromToggle profile={profile} auth={auth} />
+            </div>
           <Link to={'/'}>
             <span>
               <BsGrid className="sidebar-icon" />
@@ -106,6 +117,87 @@ const Sidebar = ({
               &nbsp; Admin Panel
             </span>
           </Link>
+          <nav role="navigation">
+        <ul>
+          <li className="dropdown">
+            <p>Widgets</p>
+            <ul className="dropdown">
+              <button
+                style={{
+                  backgroundColor: 'var(--color-5',
+                  color: 'white',
+                  fontSize: '1rem',
+                }}
+                onClick={() => addCard(<Faq />)}
+              >
+                FAQ
+              </button>
+              <button
+                style={{
+                  backgroundColor: 'var(--color-4)',
+                  color: 'white',
+                  fontSize: '1rem',
+                }}
+                onClick={() => addCard(<Pong />)}
+              >
+                PONG
+              </button>
+              <button
+                style={{
+                  backgroundColor: 'var(--color-6)',
+                  color: 'white',
+                  fontSize: '1rem',
+                }}
+                onClick={() =>
+                  addCard(<MyTeam deleteCard={deleteCard} profile={profile} />)
+                }
+              >
+                TEAMS
+              </button>
+              <button
+                style={{
+                  backgroundColor: 'var(--color-1)',
+                  color: 'white',
+                  fontSize: '1rem',
+                }}
+                onClick={() => addCard(<MyDepartment profile={profile} />)}
+              >
+                DEPARTMENT
+              </button>
+              <button
+                style={{
+                  backgroundColor: 'var(--color-2)',
+                  color: 'white',
+                  fontSize: '1rem',
+                }}
+                onClick={() => addCard(<Calendar />)}
+              >
+                CALENDAR
+              </button>
+              <button
+                style={{
+                  backgroundColor: 'var(--color-7)',
+                  color: 'white',
+                  fontSize: '1rem',
+                }}
+                onClick={() => addCard(<Fika />)}
+              >
+                VIRTUAL FIKA
+              </button>
+              <button
+                style={{
+                  backgroundColor: 'var(--color-3)',
+                  color: 'white',
+                  fontSize: '1rem',
+                }}
+                onClick={() => addCard(<LatestHires profiles={profile} />)}
+              >
+                LATEST HIRES
+              </button>
+            </ul>
+          </li>
+        </ul>
+      </nav>
           <button
             onClick={() => toggleMenu()}
             className="toggle-menu"
@@ -116,7 +208,7 @@ const Sidebar = ({
           <div className="content">{children}</div>
         </div>
       )}
-    </React.Fragment>
+    </>
   );
 };
 

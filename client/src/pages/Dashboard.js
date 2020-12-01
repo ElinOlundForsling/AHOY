@@ -61,87 +61,6 @@ const Dashboard = ({ auth, profile }) => {
 
   return (
     <main className="main">
-      <nav role="navigation">
-        <ul>
-          <li className="dropdown">
-            <p>Widgets</p>
-            <ul className="dropdown">
-              <button
-                style={{
-                  backgroundColor: 'var(--color-5',
-                  color: 'white',
-                  fontSize: '1rem',
-                }}
-                onClick={() => addCard(<Faq />)}
-              >
-                FAQ
-              </button>
-              <button
-                style={{
-                  backgroundColor: 'var(--color-4)',
-                  color: 'white',
-                  fontSize: '1rem',
-                }}
-                onClick={() => addCard(<Pong />)}
-              >
-                PONG
-              </button>
-              <button
-                style={{
-                  backgroundColor: 'var(--color-6)',
-                  color: 'white',
-                  fontSize: '1rem',
-                }}
-                onClick={() =>
-                  addCard(<MyTeam deleteCard={deleteCard} profile={profile} />)
-                }
-              >
-                TEAMS
-              </button>
-              <button
-                style={{
-                  backgroundColor: 'var(--color-1)',
-                  color: 'white',
-                  fontSize: '1rem',
-                }}
-                onClick={() => addCard(<MyDepartment profile={profile} />)}
-              >
-                DEPARTMENT
-              </button>
-              <button
-                style={{
-                  backgroundColor: 'var(--color-2)',
-                  color: 'white',
-                  fontSize: '1rem',
-                }}
-                onClick={() => addCard(<Calendar />)}
-              >
-                CALENDAR
-              </button>
-              <button
-                style={{
-                  backgroundColor: 'var(--color-7)',
-                  color: 'white',
-                  fontSize: '1rem',
-                }}
-                onClick={() => addCard(<Fika />)}
-              >
-                VIRTUAL FIKA
-              </button>
-              <button
-                style={{
-                  backgroundColor: 'var(--color-3)',
-                  color: 'white',
-                  fontSize: '1rem',
-                }}
-                onClick={() => addCard(<LatestHires profiles={profile} />)}
-              >
-                LATEST HIRES
-              </button>
-            </ul>
-          </li>
-        </ul>
-      </nav>
 
       <section className="sidebar-layout">
         <Sidebar
@@ -149,7 +68,10 @@ const Dashboard = ({ auth, profile }) => {
           auth={auth}
           profile={profile}
           setSidebarIsOpen={setSidebarIsOpen}
+          addCard={addCard}
+          deleteCard={deleteCard}
         />
+      
       </section>
 
       <DragDropContext onDragEnd={onDragEnd}>
