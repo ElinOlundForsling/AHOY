@@ -9,6 +9,7 @@ import Sidebar from '../components/layout/Sidebar';
 import MyTeam from '../components/widgets/MyTeam';
 import LatestHires from '../components/widgets/LatestHires';
 import Fika from '../components/widgets/Fika';
+import Documents from '../components/widgets/Documents';
 import Pong from '../components/widgets/Pong';
 import Faq from '../components/widgets/Faq/Faq';
 import Calendar from '../components/widgets/Calendar';
@@ -26,6 +27,7 @@ const Dashboard = ({ auth, profile }) => {
     <Calendar />,
     <Fika />,
     <Faq />,
+    <Documents/>
     <Pong />,
   ]);
 
@@ -62,6 +64,7 @@ const Dashboard = ({ auth, profile }) => {
   };
 
   return (
+
     <main className='main'>
       <nav role='navigation'>
         <ul>
@@ -138,13 +141,17 @@ const Dashboard = ({ auth, profile }) => {
         </ul>
       </nav>
 
+
       <section className='sidebar-layout'>
         <Sidebar
           width={200}
           auth={auth}
           profile={profile}
           setSidebarIsOpen={setSidebarIsOpen}
+          addCard={addCard}
+          deleteCard={deleteCard}
         />
+      
       </section>
 
       <DragDropContext onDragEnd={onDragEnd}>

@@ -54,9 +54,9 @@
 
 .logged-in .tooltiptext {
   visibility: hidden;
-  width: 120px;
-  background-color: white;
-  color: grey;
+  width: auto;
+  background-color: transparent;
+  color: blue;
   text-align: center;
   border-radius: 6px;
   padding: 5px 0;
@@ -72,9 +72,9 @@
 
 .logged-out .tooltiptext {
   visibility: hidden;
-  width: 120px;
-  background-color: white;
-  color: grey;
+  width: auto;
+  background-color: transparent;
+  color: blue;
   text-align: center;
   border-radius: 6px;
   padding: 5px 0;
@@ -85,5 +85,41 @@
 }
 
 .logged-out:hover .tooltiptext {
+  visibility: visible;
+}
+
+.home .tooltiptext {
+  visibility: hidden;
+  width: auto;
+  background-color: transparent;
+  color: blue;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 99;
+}
+
+.home:hover .tooltiptext {
+  visibility: visible;
+}
+
+.office .tooltiptext {
+  visibility: hidden;
+  width: auto;
+  background-color: transparent;
+  color: blue;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 99;
+}
+
+.office:hover .tooltiptext {
   visibility: visible;
 }

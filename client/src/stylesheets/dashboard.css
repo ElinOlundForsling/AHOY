@@ -22,7 +22,6 @@
 
 .dashboard-layout {
   padding: 20px;
-  max-width: 80vw;
   margin: 0 auto;
   display: grid;
   grid-gap: 1rem;
