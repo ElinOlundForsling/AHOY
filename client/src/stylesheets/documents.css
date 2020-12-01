@@ -1,0 +1,4 @@
+.documents-component .card-title {
+    background-color: var(--color-7) !important;
+    color: white;
+}
