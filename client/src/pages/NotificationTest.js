@@ -1,60 +1,45 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Notification from '../utils/Notification';
 
 //allow react dev tools work
 window.React = React;
 
-class NotificationTest extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      ignore: true,
-      title: '',
-    };
-  }
+const NotificationTest = () => {
+  const [ignore, setIgnore] = useState(true);
+  const [title, setTitle] = useState('true');
+  const [options, setOptions] = useState({});
 
-  handlePermissionGranted() {
+  const handlePermissionGranted = () => {
     console.log('Permission Granted');
-    this.setState({
-      ignore: false,
-    });
-  }
-  handlePermissionDenied() {
+    setIgnore(false);
+  };
+  const handlePermissionDenied = () => {
     console.log('Permission Denied');
-    this.setState({
-      ignore: true,
-    });
-  }
-  handleNotSupported() {
+    setIgnore(true);
+  };
+  const handleNotSupported = () => {
     console.log('Web Notification not Supported');
-    this.setState({
-      ignore: true,
-    });
-  }
+    setIgnore(true);
+  };
 
-  handleNotificationOnClick(e, tag) {
+  const handleNotificationOnClick = (e, tag) => {
     console.log(e, 'Notification clicked tag:' + tag);
-  }
+  };
 
-  handleNotificationOnError(e, tag) {
+  const handleNotificationOnError = (e, tag) => {
     console.log(e, 'Notification error tag:' + tag);
-  }
+  };
 
-  handleNotificationOnClose(e, tag) {
+  const handleNotificationOnClose = (e, tag) => {
     console.log(e, 'Notification closed tag:' + tag);
-  }
+  };
 
-  handleNotificationOnShow(e, tag) {
-    this.playSound();
+  const handleNotificationOnShow = (e, tag) => {
     console.log(e, 'Notification shown tag:' + tag);
-  }
+  };
 
-  playSound(filename) {
-    document.getElementById('sound').play();
-  }
-
-  handleButtonClick() {
-    if (this.state.ignore) {
+  const handleButtonClick = () => {
+    if (ignore) {
       return;
     }
 
@@ -77,56 +62,30 @@ class NotificationTest extends React.Component {
       dir: 'ltr',
       sound: './sound.mp3', // no browsers supported https://developer.mozilla.org/en/docs/Web/API/notification/sound#Browser_compatibility
     };
-    this.setState({
-      title: title,
-      options: options,
-    });
-  }
+    setTitle(title);
+    setOptions(options);
+  };
 
-  handleButtonClick2() {
-    this.props.swRegistration
-      .getNotifications({})
-      .then(function (notifications) {
-        console.log(notifications);
-      });
-  }
+  return (
+    <div>
+      <button onClick={handleButtonClick}>Notify!</button>
 
-  render() {
-    return (
-      <div>
-        <button onClick={this.handleButtonClick.bind(this)}>Notify!</button>
-        {document.title === 'swExample' && (
-          <button onClick={this.handleButtonClick2.bind(this)}>
-            swRegistration.getNotifications
-          </button>
-        )}
-        <Notification
-          ignore={this.state.ignore && this.state.title !== ''}
-          notSupported={this.handleNotSupported.bind(this)}
-          onPermissionGranted={this.handlePermissionGranted.bind(this)}
-          onPermissionDenied={this.handlePermissionDenied.bind(this)}
-          onShow={this.handleNotificationOnShow.bind(this)}
-          onClick={this.handleNotificationOnClick.bind(this)}
-          onClose={this.handleNotificationOnClose.bind(this)}
-          onError={this.handleNotificationOnError.bind(this)}
-          timeout={5000}
-          title={this.state.title}
-          options={this.state.options}
-          swRegistration={this.props.swRegistration}
-        />
-        <audio id='sound' preload='auto'>
-          <source src='./sound.mp3' type='audio/mpeg' />
-          <source src='./sound.ogg' type='audio/ogg' />
-          <embed
-            hidden={true}
-            autostart='false'
-            loop={false}
-            src='./sound.mp3'
-          />
-        </audio>
-      </div>
-    );
-  }
-}
+      <Notification
+        ignore={ignore && title !== ''}
+        notSupported={handleNotSupported}
+        onPermissionGranted={handlePermissionGranted}
+        onPermissionDenied={handlePermissionDenied}
+        onShow={handleNotificationOnShow}
+        onClick={handleNotificationOnClick}
+        onClose={handleNotificationOnClose}
+        onError={handleNotificationOnError}
+        timeout={5000}
+        title={title}
+        options={options}
+        swRegistration={null}
+      />
+    </div>
+  );
+};
 
 export default NotificationTest;
