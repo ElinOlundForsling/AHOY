@@ -29,11 +29,11 @@ const Faq = () => {
         value={searchTerm}
         onChange={handleChange}
       />
-      <ul>
+      {/* <ul>
         {searchResults.map(item => (
           <li>{item}</li>
         ))}
-      </ul>
+      </ul> */}
       <div className='faq-card'>
         <h6>What will my first day look like?</h6>
         <p>
