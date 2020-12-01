@@ -9,6 +9,7 @@ import Department from './pages/Department';
 import Pong from './pages/Pong';
 import AdminPanel from './pages/AdminPanel';
 import './stylesheets/App.css';
+import NotificationTest from './pages/NotificationTest';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path='/chat/:chatId' component={Chat} />
           <Route path='/pong' component={Pong} />
           <Route path='/signup' component={Signup} />
+          <Route path='/notification' component={NotificationTest} />
           <Route path='/admin' component={AdminPanel} />
           <Route path='/signin' component={Signin} />
         </Switch>

@@ -31,6 +31,7 @@ const notificationReducer = (state = initState, action) => {
         notificationError: null,
       };
     case 'NOTIFICATION_UNREAD_SUCCESS':
+      console.log('Payload: ', action.payload);
       return {
         ...state,
         unreadNotifications: action.payload,
