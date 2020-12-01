@@ -1,4 +1,4 @@
-export const signIn = credentials => {
+export const signIn = (credentials) => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firebase = getFirebase();
     console.log('signin');
@@ -7,22 +7,22 @@ export const signIn = credentials => {
     firebase
       .auth()
       .signInWithEmailAndPassword(credentials.email, credentials.password)
-      .then(res => {
+      .then((res) => {
         dispatch({ type: 'LOGIN_SUCCESS' });
         return firestore.collection('users').doc(res.user.uid).set(
           {
             isOnline: true,
           },
-          { merge: true },
+          { merge: true }
         );
       })
-      .catch(error => {
+      .catch((error) => {
         dispatch({ type: 'LOGIN_ERROR', error });
       });
   };
 };
 
-export const signOut = auth => {
+export const signOut = (auth) => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firebase = getFirebase();
     console.log('signout');
@@ -39,13 +39,13 @@ export const signOut = auth => {
           {
             isOnline: false,
           },
-          { merge: true },
+          { merge: true }
         );
       });
   };
 };
 
-export const signUp = newUser => {
+export const signUp = (newUser) => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firebase = getFirebase();
     console.log('signup');
@@ -55,7 +55,7 @@ export const signUp = newUser => {
     firebase
       .auth()
       .createUserWithEmailAndPassword(newUser.email, newUser.password)
-      .then(res => {
+      .then((res) => {
         return firestore
           .collection('users')
           .doc(res.user.uid)
@@ -74,7 +74,7 @@ export const signUp = newUser => {
       .then(() => {
         dispatch({ type: 'SIGNUP_SUCCESS' });
       })
-      .catch(error => {
+      .catch((error) => {
         dispatch({ type: 'SIGNUP_ERROR', error });
       });
   };
