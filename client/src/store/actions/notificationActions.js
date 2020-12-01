@@ -84,9 +84,7 @@ export const getUnreadNotifications = userId => {
         .doc(n.notificationId)
         .get();
       const weirdData = noti.data();
-      console.log('Weird: ', typeof weirdData.senderName);
-      console.log('Noti: ', noti.data());
-      nData.push({ senderId: weirdData.senderId });
+      nData.push(weirdData);
     });
     console.log('nData: ', nData, 'nDataStringified: ', JSON.stringify(nData));
     dispatch(notificationUnreadSuccess(nData));

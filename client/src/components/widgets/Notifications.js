@@ -22,7 +22,6 @@ const Notifications = ({
   return (
     <Card heading='Notifications' className='notifications-component'>
       <h3>Unread</h3>
-      {console.log('msg: ', JSON.stringify(msg))}
       {msg.map(unread => {
         return <p key={unread.expirationDate}>unread.senderName</p>;
       })}
