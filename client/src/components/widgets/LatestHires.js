@@ -8,10 +8,14 @@ import '../../stylesheets/latestHires.css';
 const LatestHires = ({ getLatestHires, latestHires }) => {
   useEffect(() => {
     getLatestHires();
-  }, [latestHires]);
+  }, []);
 
   return (
-    <Card heading="Latest Hires" subHeading={'Say hi to your new colleagues'} className='latest-hires-component'>
+    <Card
+      heading="Latest Hires"
+      subHeading={'Say hi to your new colleagues'}
+      className="latest-hires-component"
+    >
       <div className="latest-hires">
         {latestHires.map((hire) => {
           return (
