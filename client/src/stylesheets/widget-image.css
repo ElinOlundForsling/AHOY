@@ -5,8 +5,8 @@
 }
 
 .fika-component .card-title {
-  background-color: var(--color-7) !important;
-  color: white;
+  background-color: var(--color-lighter-7) !important;
+  color: black;
 }
 
 .pong-component .card-title {

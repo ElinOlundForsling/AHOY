@@ -1,20 +1,20 @@
-import React, { useState } from 'react';
-import { Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { IoMdRemoveCircleOutline } from 'react-icons/io';
-import '../stylesheets/dashboard.css';
-import '../stylesheets/index.css';
-import '../stylesheets/buttonChoices.css';
-import Sidebar from '../components/layout/Sidebar';
-import MyTeam from '../components/widgets/MyTeam';
-import LatestHires from '../components/widgets/LatestHires';
-import Fika from '../components/widgets/Fika';
-import Documents from '../components/widgets/Documents';
-import Pong from '../components/widgets/Pong';
-import Faq from '../components/widgets/Faq/Faq';
-import Calendar from '../components/widgets/Calendar';
-import MyDepartment from '../components/widgets/MyDepartment';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import React, { useState } from "react";
+import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import { IoMdRemoveCircleOutline } from "react-icons/io";
+import "../stylesheets/dashboard.css";
+import "../stylesheets/index.css";
+import "../stylesheets/buttonChoices.css";
+import Sidebar from "../components/layout/Sidebar";
+import MyTeam from "../components/widgets/MyTeam";
+import LatestHires from "../components/widgets/LatestHires";
+import Fika from "../components/widgets/Fika";
+import Documents from "../components/widgets/Documents";
+import Pong from "../components/widgets/Pong";
+import Faq from "../components/widgets/Faq/Faq";
+import Calendar from "../components/widgets/Calendar";
+import MyDepartment from "../components/widgets/MyDepartment";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 const Dashboard = ({ auth, profile }) => {
   const [sidebarIsOpen, setSidebarIsOpen] = useState(true);
@@ -26,7 +26,7 @@ const Dashboard = ({ auth, profile }) => {
     <Pong />,
     <Faq />,
     <Calendar />,
-    <Documents/>
+    <Documents />,
   ]);
 
   if (!auth.uid) {
@@ -63,7 +63,6 @@ const Dashboard = ({ auth, profile }) => {
 
   return (
     <main className="main">
-
       <section className="sidebar-layout">
         <Sidebar
           width={200}
@@ -73,20 +72,19 @@ const Dashboard = ({ auth, profile }) => {
           addCard={addCard}
           deleteCard={deleteCard}
         />
-      
       </section>
 
       <DragDropContext onDragEnd={onDragEnd}>
         <section
           className={`dashboard-layout
-            ${sidebarIsOpen ? 'dashboard-sidebar' : 'dashboard-fullscreen'}
+            ${sidebarIsOpen ? "dashboard-sidebar" : "dashboard-fullscreen"}
           `}
         >
           {cards.map((content, index) => (
             <Droppable droppableId={`drop-zone-${index}`} key={index}>
               {(provided, snapshot) => (
                 <div
-                  style={{ position: 'relative' }}
+                  style={{ position: "relative" }}
                   ref={provided.innerRef}
                   {...provided.droppableProps}
                 >
@@ -101,11 +99,11 @@ const Dashboard = ({ auth, profile }) => {
                         {content}
                         <IoMdRemoveCircleOutline
                           style={{
-                            color: 'white',
-                            position: 'absolute',
-                            fontSize: '25px',
-                            top: '5px',
-                            left: '4px',
+                            color: "white",
+                            position: "absolute",
+                            fontSize: "25px",
+                            top: "5px",
+                            left: "4px",
                           }}
                           onClick={(e) => {
                             deleteCard(

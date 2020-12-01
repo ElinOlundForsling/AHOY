@@ -74,39 +74,39 @@ const Sidebar = ({
           <Link to={'/'}>
             <span>
               <BsGrid className="sidebar-icon" />
-              &nbsp; Dashboard
+              &nbsp;Dashboard
             </span>
           </Link>
 
           <Link to={`/profiles/${auth.uid}`}>
             <span>
               <CgProfile className="sidebar-icon" />
-              &nbsp; Profile
+              &nbsp;Profile
+            </span>
+          </Link>
+          <Link to={`/${auth.uid}/department`}>
+            <span>
+              <CgStyle className="sidebar-icon" />
+              &nbsp;Department
             </span>
           </Link>
           <Link to="/">
             <span>
               <CgStyle className="sidebar-icon" />
-              &nbsp; Department
-            </span>
-          </Link>
-          <Link to="/">
-            <span>
-              <CgStyle className="sidebar-icon" />
-              &nbsp; Documents
+              &nbsp;Documents
             </span>
           </Link>
           <Link to="/">
             <span>
               <CgCalendar className="sidebar-icon" />
-              &nbsp; Calendar
+              &nbsp;Calendar
             </span>
           </Link>
           <Link to="/">
             {' '}
             <span>
               <AiOutlineSetting className="sidebar-icon" />
-              &nbsp; Settings
+              &nbsp;Settings
             </span>
           </Link>
           <div className="sign-out">
@@ -114,7 +114,7 @@ const Sidebar = ({
               {' '}
               <span>
                 <VscSignOut className="sidebar-icon" />
-                &nbsp; Sign Out
+                &nbsp;Sign Out
               </span>
             </a>
           </div>
@@ -193,7 +193,7 @@ const Sidebar = ({
               </button>
               <button
                 style={{
-                  backgroundColor: 'var(--color-7)',
+                  backgroundColor: 'var(--color-lighter-7)',
                   color: 'white',
                   fontSize: '1rem',
                 }}
