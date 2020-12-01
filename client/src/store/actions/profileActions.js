@@ -1,33 +1,37 @@
 export const getProfileSuccess = () => {
-  return { type: 'PROFILE_SUCCESS' };
+  return { type: "PROFILE_SUCCESS" };
 };
 
 export const getProfileImageSuccess = () => {
-  return { type: 'PROFILE_IMAGE_SUCCESS' };
+  return { type: "PROFILE_IMAGE_SUCCESS" };
+};
+
+export const uploadDocumentSuccess = () => {
+  return { type: "UPLOAD_DOCUMENT_SUCCESS" };
 };
 
 export const getProfileDataSuccess = (data) => {
-  return { type: 'PROFILE_DATA_SUCCESS', payload: data };
+  return { type: "PROFILE_DATA_SUCCESS", payload: data };
 };
 
 export const getTeamSuccess = (data) => {
-  return { type: 'TEAM_SUCCESS', payload: data };
+  return { type: "TEAM_SUCCESS", payload: data };
 };
 
 export const getDepartmentSuccess = (data) => {
-  return { type: 'DEPARTMENT_SUCCESS', payload: data };
+  return { type: "DEPARTMENT_SUCCESS", payload: data };
 };
 
 export const getAllSuccess = (data) => {
-  return { type: 'ALL_SUCCESS', payload: data };
+  return { type: "ALL_SUCCESS", payload: data };
 };
 
 export const getRandomSuccess = (data) => {
-  return { type: 'RANDOM_SUCCESS', payload: data };
+  return { type: "RANDOM_SUCCESS", payload: data };
 };
 
 export const toggleWorkPlaceSuccess = () => {
-  return { type: 'TOGGLE_WORKPLACE_SUCCESS' };
+  return { type: "TOGGLE_WORKPLACE_SUCCESS" };
 };
 
 export const toggleWorkPlace = (auth, isToggled) => {
@@ -35,7 +39,7 @@ export const toggleWorkPlace = (auth, isToggled) => {
     const firestore = getFirestore();
 
     try {
-      await firestore.collection('users').doc(auth.uid).set(
+      await firestore.collection("users").doc(auth.uid).set(
         {
           workFromHome: isToggled,
         },
@@ -43,64 +47,64 @@ export const toggleWorkPlace = (auth, isToggled) => {
       );
       dispatch(toggleWorkPlaceSuccess());
     } catch (error) {
-      console.error('ERROR!: ', error.message);
+      console.error("ERROR!: ", error.message);
     }
   };
 };
 
 export const updateProfile = (userId, userData) => {
   return async (dispatch, getState, { getFirestore }) => {
-    console.log('updateProfile');
+    console.log("updateProfile");
     const firestore = getFirestore();
     try {
       await firestore
-        .collection('users')
+        .collection("users")
         .doc(userId)
         .set(
           {
             firstName: userData.firstName,
             lastName: userData.lastName,
             initials: userData.firstName[0] + userData.lastName[0],
-            location: userData.location || '',
-            availableForFika: userData.availableForFika || '',
-            bio: userData.bio || '',
+            location: userData.location || "",
+            availableForFika: userData.availableForFika || "",
+            bio: userData.bio || "",
           },
           { merge: true }
         );
       dispatch(getProfileSuccess());
     } catch (error) {
-      console.error('ERROR!: ', error.message);
+      console.error("ERROR!: ", error.message);
     }
   };
 };
 
 export const getProfileById = (userId) => {
   return async (dispatch, getState, { getFirestore }) => {
-    console.log('getProfileById');
+    console.log("getProfileById");
     const firestore = getFirestore();
     try {
-      const snapshot = await firestore.collection('users').doc(userId).get();
+      const snapshot = await firestore.collection("users").doc(userId).get();
       const data = snapshot.data();
       data.id = userId;
       dispatch(getProfileDataSuccess(data));
     } catch (error) {
-      console.error('ERROR!: ', error.message);
+      console.error("ERROR!: ", error.message);
     }
   };
 };
 
 export const updateProfileImage = (userId, file) => {
   return (dispatch, getState, { getFirestore, storage }) => {
-    console.log('updateProfileImage');
+    console.log("updateProfileImage");
     const firestore = getFirestore();
     const uploadTask = storage.ref(`/images/${file.name}`).put(file);
-    uploadTask.on('state_changed', console.log, console.error, () => {
+    uploadTask.on("state_changed", console.log, console.error, () => {
       storage
-        .ref('images')
+        .ref("images")
         .child(file.name)
         .getDownloadURL()
         .then((url) => {
-          firestore.collection('users').doc(userId).set(
+          firestore.collection("users").doc(userId).set(
             {
               imgURL: url,
             },
@@ -114,13 +118,39 @@ export const updateProfileImage = (userId, file) => {
   };
 };
 
+export const uploadDocuments = (auth, profileData, file) => {
+  return (dispatch, getState, { getFirestore, storage }) => {
+    console.log('PROFILE DATA', profileData)
+ 
+    const firestore = getFirestore();
+    const uploadTask = storage.ref(`/documents/${file.name}`).put(file);
+    uploadTask.on("state_changed", console.log, console.error, () => {
+      storage
+        .ref("documents")
+        .child(file.name)
+        .getDownloadURL()
+        .then((url) => {
+          firestore.collection("users").doc(auth).set(
+            {
+              documents: [url, ...profileData.documents],
+            },
+            { merge: true }
+          );
+        })
+        .catch((error) => console.error(error));
+    });
+
+    dispatch(uploadDocumentSuccess());
+  };
+};
+
 export const getTeamMembers = (team) => {
   return async (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
     try {
       const snapshot = await firestore
-        .collection('users')
-        .where('team', '==', team)
+        .collection("users")
+        .where("team", "==", team)
         .get();
 
       const data = snapshot.docs.map((doc) => doc.data());
@@ -131,19 +161,19 @@ export const getTeamMembers = (team) => {
 
       dispatch(getTeamSuccess(newData));
     } catch (error) {
-      console.error('ERROR!: ', error.message);
+      console.error("ERROR!: ", error.message);
     }
   };
 };
 
 export const getDepartmentMembers = (department) => {
   return async (dispatch, getState, { getFirestore }) => {
-    console.log('getDepartmentMembers');
+    console.log("getDepartmentMembers");
     const firestore = getFirestore();
     try {
       const snapshot = await firestore
-        .collection('users')
-        .where('department', '==', department)
+        .collection("users")
+        .where("department", "==", department)
         .get();
 
       const data = snapshot.docs.map((doc) => doc.data());
@@ -154,17 +184,17 @@ export const getDepartmentMembers = (department) => {
 
       dispatch(getDepartmentSuccess(newData));
     } catch (error) {
-      console.error('ERROR!: ', error.message);
+      console.error("ERROR!: ", error.message);
     }
   };
 };
 
 export const getAllMembers = () => {
   return async (dispatch, getState, { getFirestore }) => {
-    console.log('getAllMembers');
+    console.log("getAllMembers");
     const firestore = getFirestore();
     try {
-      const snapshot = await firestore.collection('users').get();
+      const snapshot = await firestore.collection("users").get();
 
       const data = snapshot.docs.map((doc) => doc.data());
       const ids = snapshot.docs.map((doc) => doc.id);
@@ -174,17 +204,17 @@ export const getAllMembers = () => {
 
       dispatch(getAllSuccess(newData));
     } catch (error) {
-      console.error('ERROR!: ', error.message);
+      console.error("ERROR!: ", error.message);
     }
   };
 };
 
 export const getRandomMember = () => {
   return async (dispatch, getState, { getFirestore }) => {
-    console.log('getRandomMember');
+    console.log("getRandomMember");
     const firestore = getFirestore();
     try {
-      const snapshot = await firestore.collection('users').get();
+      const snapshot = await firestore.collection("users").get();
 
       const data = snapshot.docs.map((doc) => doc.data());
       const ids = snapshot.docs.map((doc) => doc.id);
@@ -197,17 +227,17 @@ export const getRandomMember = () => {
 
       dispatch(getRandomSuccess(availableMembers[randomNum]));
     } catch (error) {
-      console.error('ERROR!: ', error.message);
+      console.error("ERROR!: ", error.message);
     }
   };
 };
 
 export const updateProfileAdmin = (userId, userData) => {
   return async (dispatch, getState, { getFirestore }) => {
-    console.log('updateProfileAdmin');
+    console.log("updateProfileAdmin");
     const firestore = getFirestore();
     try {
-      await firestore.collection('users').doc(userId).set(
+      await firestore.collection("users").doc(userId).set(
         {
           firstName: userData.firstName,
           lastName: userData.lastName,
@@ -219,7 +249,7 @@ export const updateProfileAdmin = (userId, userData) => {
       );
       dispatch(getProfileSuccess());
     } catch (error) {
-      console.error('ERROR!: ', error.message);
+      console.error("ERROR!: ", error.message);
     }
   };
 };

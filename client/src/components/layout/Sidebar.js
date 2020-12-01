@@ -14,6 +14,7 @@ import MyTeam from '../../components/widgets/MyTeam';
 import LatestHires from '../../components/widgets/LatestHires';
 import Fika from '../../components/widgets/Fika';
 import Pong from '../../components/widgets/Pong';
+import Documents from '../../components/widgets/Documents';
 import Faq from '../../components/widgets/Faq/Faq';
 import Calendar from '../../components/widgets/Calendar';
 import MyDepartment from '../../components/widgets/MyDepartment';
@@ -87,6 +88,12 @@ const Sidebar = ({
             <span>
               <CgStyle className="sidebar-icon" />
               &nbsp; Department
+            </span>
+          </Link>
+          <Link to="/">
+            <span>
+              <CgStyle className="sidebar-icon" />
+              &nbsp; Documents
             </span>
           </Link>
           <Link to="/">
@@ -173,6 +180,16 @@ const Sidebar = ({
                 onClick={() => addCard(<Calendar />)}
               >
                 CALENDAR
+              </button>
+              <button
+                style={{
+                  backgroundColor: 'var(--color-7)',
+                  color: 'white',
+                  fontSize: '1rem',
+                }}
+                onClick={() => addCard(<Documents />)}
+              >
+                DOCUMENTS
               </button>
               <button
                 style={{

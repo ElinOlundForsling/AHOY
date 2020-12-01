@@ -75,7 +75,7 @@
   height: 40px;
 }
 .file-upload-wrapper:after {
-  content: 'Select an image';
+  content: 'Select';
   position: absolute;
   top: 0;
   left: 0;
@@ -92,7 +92,7 @@
   font-family: 'Quicksand', sans-serif;
 }
 .file-upload-wrapper:before {
-  content: 'Upload';
+  content: '+';
   position: absolute;
   top: 0;
   right: 0;

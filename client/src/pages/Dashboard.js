@@ -9,6 +9,7 @@ import Sidebar from '../components/layout/Sidebar';
 import MyTeam from '../components/widgets/MyTeam';
 import LatestHires from '../components/widgets/LatestHires';
 import Fika from '../components/widgets/Fika';
+import Documents from '../components/widgets/Documents';
 import Pong from '../components/widgets/Pong';
 import Faq from '../components/widgets/Faq/Faq';
 import Calendar from '../components/widgets/Calendar';
@@ -25,6 +26,7 @@ const Dashboard = ({ auth, profile }) => {
     <Pong />,
     <Faq />,
     <Calendar />,
+    <Documents/>
   ]);
 
   if (!auth.uid) {

@@ -126,7 +126,7 @@ const ProfileModal = ({
             />
           </div>
           <br></br>
-          <button disabled={!file}>upload to firebase</button>
+          <button disabled={!file}>upload</button>
         </form>
       </div>
       <p></p>

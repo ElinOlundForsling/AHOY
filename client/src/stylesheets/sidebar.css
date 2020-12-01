@@ -123,7 +123,7 @@ nav li {
 }
 nav p {
   padding: 5px;
-  color: white;
+  color: white !important;
   background-color: var(--color-2);
 }
 

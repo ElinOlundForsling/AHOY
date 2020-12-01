@@ -12,6 +12,8 @@ const profileReducer = (state = initState, action) => {
       return state;
     case 'PROFILE_IMAGE_SUCCESS':
       return state;
+    case 'UPLOAD_DOCUMENT_SUCCESS':
+      return state;
     case 'TOGGLE_WORKPLACE_SUCCESS':
       return state;
     case 'PROFILE_DATA_SUCCESS':
