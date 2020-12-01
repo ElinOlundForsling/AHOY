@@ -8,18 +8,36 @@
   min-height: 100vh;
 }
 
-.dashboard-layout {
-  /* column-count: 3; */
-  /* column-gap: 10px; */
-
+/* .dashboard-layout {
+  
+  max-width: 1200px;
   grid-auto-flow: row dense;
   padding: 50px;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  grid-gap: .5rem;
-  /* align-items: flex-start; */
+  grid-gap: 0.5rem;
   
   transition: 0.8s ease;
+} */
+
+.dashboard-layout {
+  padding: 20px;
+  max-width: 80vw;
+  margin: 0 auto;
+  display: grid;
+  grid-gap: 1rem;
+}
+
+@media (min-width: 600px) {
+  .dashboard-layout {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 900px) {
+  .dashboard-layout {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
 
 .dashboard-fullscreen {
@@ -33,4 +51,3 @@
 .sidebar-layout {
   position: fixed;
 }
-

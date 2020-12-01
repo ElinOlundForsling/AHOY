@@ -19,9 +19,11 @@ const Avatar = (props) => {
               />
             </div>
             {props.className !== 'small-size' ? (
-              <div
-                className={props.isOnline ? 'logged-in' : 'logged-out'}
-              ></div>
+              <div className={props.isOnline ? 'logged-in' : 'logged-out'}>
+                <span className="tooltiptext">
+                  {props.isOnline ? 'Online' : 'Offline'}
+                </span>
+              </div>
             ) : (
               ''
             )}
