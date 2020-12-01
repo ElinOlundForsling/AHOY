@@ -1,43 +1,32 @@
 .card {
   margin: 0;
-
-  display: grid;
-  grid-template-rows: auto;
-  grid-gap: 0.5rem;
-  margin: 0.5rem 0;
-
   background-color: #fff;
-  break-inside: avoid;
 
+  /* break-inside: avoid; */
   border-radius: 15px;
   -webkit-box-shadow: 5px 5px 15px 0px rgba(101, 76, 79, 0.2);
   -moz-box-shadow: 5px 5px 15px 0px rgba(101, 76, 79, 0.2);
   box-shadow: 5px 5px 15px 0px rgba(101, 76, 79, 0.2);
 }
 
-.card-content > img {
-  grid-row: 1 / -1;
-  grid-column: 1;
-}
-
-.card-content img {
-  max-width: 100%;
-  display: block;
+.card-inside {
+  padding: 10px;
 }
 
 .card-title {
   font-family: 'Roboto Slab', serif;
-  display: block;
   padding: 5px 0;
   border-radius: 15px 15px 0 0;
   text-align: center;
   margin: 0px;
   background-color: var(--color-2);
   width: 100%;
+  height: auto;
 }
 
 .card-title h5 {
   margin: 0;
+  font-size: 1.5rem;
 }
 
 .card-title p {
@@ -45,10 +34,21 @@
   font-size: 1rem;
 }
 
-.card-content {
-  padding-left: 15px;
-  padding-right: 15px;
-  padding-top: 10px;
-  padding-bottom: 0px;
-  /* max-height: 350px; */
+.responsiveCal {
+  position: relative;
+  padding-bottom: 75%;
+  height: 0;
+  overflow: hidden;
+}
+
+.calendar-component .card-inside {
+  padding: 0 0 10px 0 !important;
+}
+
+.responsiveCal iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }

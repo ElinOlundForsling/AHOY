@@ -51,3 +51,39 @@
   left: 90px;
   /* z-index: 1; */
 }
+
+.logged-in .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: white;
+  color: grey;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 99;
+}
+
+.logged-in:hover .tooltiptext {
+  visibility: visible;
+}
+
+.logged-out .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: white;
+  color: grey;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 99;
+}
+
+.logged-out:hover .tooltiptext {
+  visibility: visible;
+}
