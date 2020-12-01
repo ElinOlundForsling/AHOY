@@ -2,14 +2,17 @@ import React, { useEffect } from 'react';
 import Modal from 'react-modal';
 import { connect } from 'react-redux';
 import { getRandomMember } from '../../store/actions/profileActions';
-// import '../../stylesheets/modal.css';
+import { sendPersonalNotification } from '../../store/actions/notificationActions';
 import '../../stylesheets/fikaModal.css';
 
 const FikaModal = ({
+  auth,
+  profile,
   modalIsOpen,
   setModalIsOpen,
   getRandomMember,
   randomMember,
+  sendPersonalNotification,
 }) => {
   useEffect(() => {
     getRandomMember();
@@ -21,11 +24,26 @@ const FikaModal = ({
   }
 
   const handleShuffle = event => {
+    getRandomMember();
     event.preventDefault();
   };
 
   const handleRequest = event => {
-    getRandomMember();
+    const today = new Date();
+    const params = {
+      senderId: auth.uid,
+      senderName: profile.firstName,
+      senderImgUrl: profile.imgURL,
+      recipientId: randomMember.id,
+      type: 'fikaRequest',
+      expirationDate: new Date(
+        today.getFullYear(),
+        today.getMonth(),
+        today.getDate() + 7,
+      ),
+    };
+    console.log(params);
+    sendPersonalNotification(params);
     event.preventDefault();
   };
 
@@ -50,10 +68,10 @@ const FikaModal = ({
         alt=''
       />
       <div className='fika-modal-button'>
-        <button type='submit' onClick={handleRequest}>
+        <button type='submit' onClick={handleShuffle}>
           Shuffle
         </button>
-        <button type='submit' onClick={handleShuffle}>
+        <button type='submit' onClick={handleRequest}>
           Ask
         </button>
 
@@ -65,6 +83,8 @@ const FikaModal = ({
 
 const mapStateToProps = state => {
   return {
+    auth: state.firebase.auth,
+    profile: state.firebase.profile,
     randomMember: state.profileData.randomMember,
   };
 };
@@ -72,6 +92,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     getRandomMember: () => dispatch(getRandomMember()),
+    sendPersonalNotification: params =>
+      dispatch(sendPersonalNotification(params)),
   };
 };
 

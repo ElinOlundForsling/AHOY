@@ -8,7 +8,7 @@ const Fika = () => {
       heading='Virtual Pong'
       subHeading='Find a Pong buddy'
       className='pong-component'>
-      <img src='/img/vr.svg' className='img-fullsize' />
+      <img src='/img/vr.svg' alt='pong' className='img-fullsize' />
     </Card>
   );
 };

@@ -9,10 +9,11 @@ const Avatar = (props) => {
   return (
     <div>
       <div key={props.id}>
-        <div className="avatar-card">
+        <div className='avatar-card'>
           <Link to={`/profiles/${props.id}`}>
             <div>
               <img
+                alt='avatar'
                 className={`avatar-image ${props.className}`}
                 src={
                   props.imgURL
@@ -24,7 +25,7 @@ const Avatar = (props) => {
            
             {props.className !== 'small-size' ? (
               <div className={props.isOnline ? 'logged-in' : 'logged-out'}>
-                <span className="tooltiptext">
+                <span className='tooltiptext'>
                   {props.isOnline ? 'Online' : 'Offline'}
                 </span>
               </div>                      
@@ -38,8 +39,9 @@ const Avatar = (props) => {
             ) : (
               ''
             )}
-   
-            <div className="avatar-name">
+
+            <div className='avatar-name'>
+
               {props.firstName} {props.lastName}
             </div>
           </Link>

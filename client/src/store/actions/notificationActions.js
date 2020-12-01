@@ -26,65 +26,111 @@ export const notificationCompanySuccess = data => {
   return { type: 'NOTIFICATION_COMPANY_SUCCESS', payload: data };
 };
 
-export const getReadNotificationIdsForUser = userId => {
+export const sendPersonalNotification = params => {
   return async (dispatch, getState, { getFirestore }) => {
-    console.log('getReadNotificationIdsForUser');
-    // const firestore = getFirestore();
+    console.log('sendPersonalNotification');
 
-    const snapshot = await firestore
-      .collection('users')
-      .doc(userId)
-      .collection(notificationIds)
-      .where('readStatus', '==', 'read')
-      .get();
-    const data = snapshot.docs.map(doc => doc.data());
-    // more logic
-    dispatch(getDepartmentsSuccess(data));
+    const firestore = getFirestore();
+
+    const {
+      senderId,
+      senderName,
+      senderImgUrl,
+      recipientId,
+      type,
+      expirationDate,
+    } = params;
+
+    await firestore
+      .collection('personalNotifications')
+      .add({
+        senderId,
+        senderName,
+        senderImgUrl,
+        recipientId,
+        type,
+        expirationDate,
+      })
+      .then(async function (docRef) {
+        await firestore
+          .collection('users')
+          .doc(recipientId)
+          .collection('notifications')
+          .add({
+            notificationId: docRef.id,
+            readStatus: 'unread',
+          });
+      })
+      .then(dispatch(notificationSuccess()));
   };
 };
 
-export const getUnreadNotificationIdsForUser = userId => {
+export const getUnreadNotifications = userId => {
   return async (dispatch, getState, { getFirestore }) => {
-    console.log('getUnreadNotificationIdsForUser');
-    // const firestore = getFirestore();
-
+    const firestore = getFirestore();
     const snapshot = await firestore
       .collection('users')
       .doc(userId)
-      .collection(notificationIds)
+      .collection('notifications')
       .where('readStatus', '==', 'unread')
       .get();
     const data = snapshot.docs.map(doc => doc.data());
-    dispatch(getDepartmentsSuccess(data));
-  };
-};
 
-export const getNotificationById = id => {
-  return async (dispatch, getState, { getFirestore }) => {
-    console.log('getNotificationById');
-    // const firestore = getFirestore();
-
-    const snapshot = await firestore.collection('notifications').doc(id).get();
-    const data = snapshot.data();
-    dispatch(getDepartmentsSuccess(data));
-  };
-};
-
-export const getNotificationsByIds = ids => {
-  return async (dispatch, getState, { getFirestore }) => {
-    console.log('getNotificationsByIds');
-    // const firestore = getFirestore();
-
-    const notifications = [];
-    await ids.forEach(async id => {
-      const snapshot = await firestore
-        .collection('notifications')
-        .doc(id)
+    const nData = [];
+    await data.forEach(async n => {
+      const noti = await firestore
+        .collection('personalNotifications')
+        .doc(n.notificationId)
         .get();
-      const data = await snapshot.data();
-      notifications.push(data);
+      nData.push(noti.data());
     });
-
-    dispatch(getDepartmentsSuccess(notifications));
+    dispatch(notificationUnreadSuccess(nData));
   };
 };
+
+// export const getReadNotificationIds = userId => {
+//   return async (dispatch, getState, { getFirestore }) => {
+//     console.log('getReadNotificationIdsForUser');
+//     // const firestore = getFirestore();
+
+//     const snapshot = await firestore
+//       .collection('users')
+//       .doc(userId)
+//       .collection(notificationIds)
+//       .where('readStatus', '==', 'read')
+//       .get();
+//     const data = snapshot.docs.map(doc => doc.data());
+//     // more logic
+//     dispatch(n(data));
+//   };
+// };
+
+// export const getNotificationById = id => {
+//   return async (dispatch, getState, { getFirestore }) => {
+//     console.log('getNotificationById');
+//     // const firestore = getFirestore();
+
+//     const snapshot = await firestore.collection('notifications').doc(id).get();
+//     const data = snapshot.data();
+//     dispatch(getDepartmentsSuccess(data));
+//   };
+// };
+
+// export const getNotificationsByIds = ids => {
+//   return async (dispatch, getState, { getFirestore }) => {
+//     console.log('getNotificationsByIds');
+//     // const firestore = getFirestore();
+
+//     const notifications = [];
+//     await ids.forEach(async id => {
+//       const snapshot = await firestore
+//         .collection('notifications')
+//         .doc(id)
+//         .get();
+//       const data = await snapshot.data();
+//       notifications.push(data);
+//     });
+
+//     dispatch(getDepartmentsSuccess(notifications));
+//   };
+// };
