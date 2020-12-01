@@ -23,6 +23,8 @@ const Collapse = ({
     lastName: member.lastName,
     department: member.department,
     team: member.team,
+    title: member.title,
+    employmentType: member.employmentType || 'Full-time',
   });
   const [teamOption, setTeamOption] = useState(null);
   const [departmentOption, setDepartmentOption] = useState(null);
@@ -33,8 +35,16 @@ const Collapse = ({
   }, []);
 
   const handleSubmit = event => {
+    console.log(member.id, userData);
     event.preventDefault();
     updateProfileAdmin(member.id, userData);
+  };
+
+  const handleChange = event => {
+    setUserData(userData => ({
+      ...userData,
+      [event.target.name]: event.target.value,
+    }));
   };
 
   const createDepartmentOptions = () => {
@@ -92,22 +102,21 @@ const Collapse = ({
               <div className='column'>
                 <div className='input-group'>
                   <label htmlFor='first_name'>First Name </label>
-                  <input id='first_name' placeholder={member.firstName} />
+                  <input
+                    id='first_name'
+                    onChange={handleChange}
+                    name='firstName'
+                    placeholder={member.firstName}
+                  />
                 </div>
                 <div className='input-group'>
                   <label htmlFor='last_name'>Last Name </label>
                   <input
                     type='tel'
                     id='last_name'
+                    onChange={handleChange}
+                    name='lastName'
                     placeholder={member.lastName}
-                  />
-                </div>
-                <div className='input-group'>
-                  <label htmlFor='email_address'>Email </label>
-                  <input
-                    type='email'
-                    id='email_address'
-                    placeholder={member.email}
                   />
                 </div>
                 <div className='input-group'>
@@ -141,9 +150,10 @@ const Collapse = ({
                     {' '}
                     <input
                       type='radio'
-                      name='employment_type'
-                      id='taxi_car'
-                      value='car'
+                      name='employmentType'
+                      id='intern'
+                      value='Intern'
+                      onChange={handleChange}
                     />{' '}
                     Intern{' '}
                   </label>
@@ -151,9 +161,10 @@ const Collapse = ({
                     {' '}
                     <input
                       type='radio'
-                      name='employment_type'
-                      id='taxi_van'
-                      value='van'
+                      name='employmentType'
+                      id='full-time'
+                      value='Full-time'
+                      onChange={handleChange}
                     />{' '}
                     Full-time{' '}
                   </label>
@@ -161,9 +172,10 @@ const Collapse = ({
                     {' '}
                     <input
                       type='radio'
-                      name='employment_type'
-                      id='taxi_van'
-                      value='van'
+                      name='employmentType'
+                      id='part-time'
+                      value='Part-Time'
+                      onChange={handleChange}
                     />{' '}
                     Part-time{' '}
                   </label>
@@ -171,34 +183,25 @@ const Collapse = ({
                     {' '}
                     <input
                       type='radio'
-                      name='employment_type'
-                      id='taxi_tuk'
-                      value='tuktuk'
+                      name='employmentType'
+                      id='consultant'
+                      value='Consultant'
+                      onChange={handleChange}
                     />{' '}
                     Consultant{' '}
                   </label>
                 </fieldset>
 
-                <fieldset className='extras'>
-                  <legend>Extra field?</legend>
-                  <label>
-                    {' '}
-                    <input
-                      type='checkbox'
-                      id='extras_baby'
-                      value='baby'
-                    /> Baby{' '}
-                  </label>
-                  <label>
-                    {' '}
-                    <input
-                      type='checkbox'
-                      id='extras_adult'
-                      value='adult'
-                    />{' '}
-                    Adult{' '}
-                  </label>
-                </fieldset>
+                <div className='input-group'>
+                  <label htmlFor='title'>Title </label>
+                  <input
+                    onChange={handleChange}
+                    name='title'
+                    type='text'
+                    id='title'
+                    placeholder={member.title}
+                  />
+                </div>
               </div>
             </div>
 

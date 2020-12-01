@@ -3,7 +3,10 @@ import React, { useState, useEffect, useRef } from 'react';
 const Pong = () => {
   const ref = useRef();
 
-  const [canvas, setCanvas] = useState({ width: 600, height: 400 });
+  const [canvas, setCanvas] = useState({
+    width: window.innerWidth / 2,
+    height: window.innerHeight / 2,
+  });
   const [net, setNet] = useState({
     x: canvas.width / 2 - 4 / 2,
     y: 0,
@@ -197,7 +200,13 @@ const Pong = () => {
     return () => clearInterval(interval);
   }, [isActive, seconds]);
 
-  return <canvas ref={ref} id='canvas' width='600' height='400'></canvas>;
+  return (
+    <canvas
+      ref={ref}
+      id='canvas'
+      width={canvas.width}
+      height={canvas.height}></canvas>
+  );
 };
 
 export default Pong;
