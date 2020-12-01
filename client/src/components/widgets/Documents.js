@@ -7,6 +7,7 @@ import {
 import { connect } from "react-redux";
 import { FiFolderPlus } from "react-icons/fi";
 import { Link } from "react-router-dom";
+import '../../stylesheets/documents.css'
 
 const Documents = ({ uploadDocuments, auth, profile }) => {
   const [file, setFile] = useState(null);
