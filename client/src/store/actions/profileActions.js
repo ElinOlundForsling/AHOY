@@ -29,72 +29,71 @@ export const getRandomSuccess = data => {
 export const updateProfile = (userId, userData) => {
   return async (dispatch, getState, { getFirestore }) => {
     console.log('updateProfile');
-    // const firestore = getFirestore();
-    // try {
-    //   await firestore
-    //     .collection('users')
-    //     .doc(userId)
-    //     .set(
-    //       {
-    //         firstName: userData.firstName,
-    //         lastName: userData.lastName,
-    //         initials: userData.firstName[0] + userData.lastName[0],
-    //         location: userData.location || '',
-    //         availableForFika: userData.availableForFika || '',
-    //         bio: userData.bio || '',
-    //       },
-    //       { merge: true },
-    //     );
-    //   dispatch(getProfileSuccess());
-    // } catch (error) {
-    //   console.error('ERROR!: ', error.message);
-    // }
+    const firestore = getFirestore();
+    try {
+      await firestore
+        .collection('users')
+        .doc(userId)
+        .set(
+          {
+            firstName: userData.firstName,
+            lastName: userData.lastName,
+            initials: userData.firstName[0] + userData.lastName[0],
+            location: userData.location || '',
+            availableForFika: userData.availableForFika || '',
+            bio: userData.bio || '',
+          },
+          { merge: true },
+        );
+      dispatch(getProfileSuccess());
+    } catch (error) {
+      console.error('ERROR!: ', error.message);
+    }
   };
 };
 
 export const getProfileById = userId => {
   return async (dispatch, getState, { getFirestore }) => {
     console.log('getProfileById');
-    // const firestore = getFirestore();
-    // try {
-    //   const snapshot = await firestore.collection('users').doc(userId).get();
-    //   const data = snapshot.data();
-    //   data.id = userId;
-    //   dispatch(getProfileDataSuccess(data));
-    // } catch (error) {
-    //   console.error('ERROR!: ', error.message);
-    // }
+    const firestore = getFirestore();
+    try {
+      const snapshot = await firestore.collection('users').doc(userId).get();
+      const data = snapshot.data();
+      data.id = userId;
+      dispatch(getProfileDataSuccess(data));
+    } catch (error) {
+      console.error('ERROR!: ', error.message);
+    }
   };
 };
 
 export const updateProfileImage = (userId, file) => {
   return (dispatch, getState, { getFirestore, storage }) => {
     console.log('updateProfileImage');
-    // const firestore = getFirestore();
-    // const uploadTask = storage.ref(`/images/${file.name}`).put(file);
-    // uploadTask.on('state_changed', console.log, console.error, () => {
-    //   storage
-    //     .ref('images')
-    //     .child(file.name)
-    //     .getDownloadURL()
-    //     .then(url => {
-    //       firestore.collection('users').doc(userId).set(
-    //         {
-    //           imgURL: url,
-    //         },
-    //         { merge: true },
-    //       );
-    //     })
-    //     .catch(error => console.error(error));
-    // });
+    const firestore = getFirestore();
+    const uploadTask = storage.ref(`/images/${file.name}`).put(file);
+    uploadTask.on('state_changed', console.log, console.error, () => {
+      storage
+        .ref('images')
+        .child(file.name)
+        .getDownloadURL()
+        .then(url => {
+          firestore.collection('users').doc(userId).set(
+            {
+              imgURL: url,
+            },
+            { merge: true },
+          );
+        })
+        .catch(error => console.error(error));
+    });
 
-    // dispatch(getProfileImageSuccess());
+    dispatch(getProfileImageSuccess());
   };
 };
 
 export const getTeamMembers = team => {
   return async (dispatch, getState, { getFirestore }) => {
-    console.log('Team: ', team);
     const firestore = getFirestore();
     try {
       const snapshot = await firestore
@@ -141,64 +140,64 @@ export const getDepartmentMembers = department => {
 export const getAllMembers = () => {
   return async (dispatch, getState, { getFirestore }) => {
     console.log('getAllMembers');
-    // const firestore = getFirestore();
-    // try {
-    //   const snapshot = await firestore.collection('users').get();
+    const firestore = getFirestore();
+    try {
+      const snapshot = await firestore.collection('users').get();
 
-    //   const data = snapshot.docs.map(doc => doc.data());
-    //   const ids = snapshot.docs.map(doc => doc.id);
-    //   const newData = data.map((d, index) => {
-    //     return { ...d, id: ids[index] };
-    //   });
+      const data = snapshot.docs.map(doc => doc.data());
+      const ids = snapshot.docs.map(doc => doc.id);
+      const newData = data.map((d, index) => {
+        return { ...d, id: ids[index] };
+      });
 
-    //   dispatch(getAllSuccess(newData));
-    // } catch (error) {
-    //   console.error('ERROR!: ', error.message);
-    // }
+      dispatch(getAllSuccess(newData));
+    } catch (error) {
+      console.error('ERROR!: ', error.message);
+    }
   };
 };
 
 export const getRandomMember = () => {
   return async (dispatch, getState, { getFirestore }) => {
     console.log('getRandomMember');
-    // const firestore = getFirestore();
-    // try {
-    //   const snapshot = await firestore.collection('users').get();
+    const firestore = getFirestore();
+    try {
+      const snapshot = await firestore.collection('users').get();
 
-    //   const data = snapshot.docs.map(doc => doc.data());
-    //   const ids = snapshot.docs.map(doc => doc.id);
-    //   const newData = data.map((d, index) => {
-    //     return { ...d, id: ids[index] };
-    //   });
+      const data = snapshot.docs.map(doc => doc.data());
+      const ids = snapshot.docs.map(doc => doc.id);
+      const newData = data.map((d, index) => {
+        return { ...d, id: ids[index] };
+      });
 
-    //   const availableMembers = newData.filter(mem => mem.availableForFika);
-    //   const randomNum = Math.floor(Math.random() * availableMembers.length);
+      const availableMembers = newData.filter(mem => mem.availableForFika);
+      const randomNum = Math.floor(Math.random() * availableMembers.length);
 
-    //   dispatch(getRandomSuccess(availableMembers[randomNum]));
-    // } catch (error) {
-    //   console.error('ERROR!: ', error.message);
-    // }
+      dispatch(getRandomSuccess(availableMembers[randomNum]));
+    } catch (error) {
+      console.error('ERROR!: ', error.message);
+    }
   };
 };
 
 export const updateProfileAdmin = (userId, userData) => {
   return async (dispatch, getState, { getFirestore }) => {
     console.log('updateProfileAdmin');
-    // const firestore = getFirestore();
-    // try {
-    //   await firestore.collection('users').doc(userId).set(
-    //     {
-    //       firstName: userData.firstName,
-    //       lastName: userData.lastName,
-    //       email: userData.email,
-    //       department: userData.department,
-    //       team: userData.team,
-    //     },
-    //     { merge: true },
-    //   );
-    //   dispatch(getProfileSuccess());
-    // } catch (error) {
-    //   console.error('ERROR!: ', error.message);
-    // }
+    const firestore = getFirestore();
+    try {
+      await firestore.collection('users').doc(userId).set(
+        {
+          firstName: userData.firstName,
+          lastName: userData.lastName,
+          email: userData.email,
+          department: userData.department,
+          team: userData.team,
+        },
+        { merge: true },
+      );
+      dispatch(getProfileSuccess());
+    } catch (error) {
+      console.error('ERROR!: ', error.message);
+    }
   };
 };

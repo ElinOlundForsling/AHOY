@@ -1,34 +1,20 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import {
-  getAllMembers,
-  updateProfileAdmin,
-} from '../store/actions/profileActions';
+import { getAllMembers } from '../store/actions/profileActions';
 import '../stylesheets/admin-panel.css';
 import Collapse from '../components/layout/Collapse';
 
-const AdminPanel = ({
-  auth,
-  profile,
-  allMembers,
-  getAllMembers,
-  updateProfileAdmin,
-}) => {
-  // const [changes, setChanges] = useState([]);
-  const [isOpen, setIsOpen] = useState(false);
+const AdminPanel = ({ auth, allMembers, getAllMembers }) => {
   const [members, setMembers] = useState(allMembers);
 
-  const isFirstRun = useRef(true);
   useEffect(() => {
     getAllMembers();
-    if (isFirstRun.current) {
-      isFirstRun.current = false;
-      return;
-    }
-  }, [getAllMembers]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     setMembers(allMembers);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allMembers]);
 
   const toggle = e => {
@@ -75,8 +61,6 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     getAllMembers: () => dispatch(getAllMembers()),
-    updateProfileAdmin: (userId, userData) =>
-      dispatch(updateProfileAdmin(userId, userData)),
   };
 };
 

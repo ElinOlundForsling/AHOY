@@ -114,13 +114,13 @@ const ProfileModal = ({
       </form>
       <hr />
       <div>
-        <label for='file'>Upload</label>
+        <label htmlFor='file'>Upload</label>
         <form onSubmit={handleUpload}>
-          <div class='file-upload-wrapper' data-text='Select your file!'>
+          <div className='file-upload-wrapper' data-text='Select your file!'>
             <input
               name='file-upload-field'
               type='file'
-              class='file-upload-field'
+              className='file-upload-field'
               onChange={handleChange}
               value=''
             />

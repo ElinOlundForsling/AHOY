@@ -29,11 +29,11 @@ const Collapse = ({
 
   useEffect(() => {
     getDepartments();
-  }, [getDepartments]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleSubmit = event => {
     event.preventDefault();
-    console.log(userData);
     updateProfileAdmin(member.id, userData);
   };
 
@@ -91,11 +91,11 @@ const Collapse = ({
             <div className='row'>
               <div className='column'>
                 <div className='input-group'>
-                  <label for='first_name'>First Name </label>
+                  <label htmlFor='first_name'>First Name </label>
                   <input id='first_name' placeholder={member.firstName} />
                 </div>
                 <div className='input-group'>
-                  <label for='last_name'>Last Name </label>
+                  <label htmlFor='last_name'>Last Name </label>
                   <input
                     type='tel'
                     id='last_name'
@@ -103,7 +103,7 @@ const Collapse = ({
                   />
                 </div>
                 <div className='input-group'>
-                  <label for='email_address'>Email </label>
+                  <label htmlFor='email_address'>Email </label>
                   <input
                     type='email'
                     id='email_address'

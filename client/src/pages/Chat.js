@@ -38,7 +38,7 @@ export const Chat = ({
       return;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sendMessage, messages]);
+  }, [sendMessage]);
 
   const handleInputChange = event => {
     setChatText(event.target.value);
