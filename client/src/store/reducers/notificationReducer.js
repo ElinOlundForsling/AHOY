@@ -1,6 +1,7 @@
 const initState = {
   notificationError: null,
   unreadNotifications: [],
+  unreadPersNotifications: [],
   personalNotifications: [],
   teamNotifications: [],
   departmentNotifications: [],
@@ -19,10 +20,26 @@ const notificationReducer = (state = initState, action) => {
         ...state,
         notificationError: null,
       };
+    case 'NOTIFICATION_PERS_ERROR':
+      return {
+        ...state,
+        notificationError: `Error loading notifications: ${action.payload}`,
+      };
+    case 'NOTIFICATION_PERS_SUCCESS':
+      return {
+        ...state,
+        notificationError: null,
+      };
     case 'NOTIFICATION_UNREAD_SUCCESS':
       return {
         ...state,
         unreadNotifications: action.payload,
+        notificationError: null,
+      };
+    case 'NOTIFICATION_UNREAD_PERS_SUCCESS':
+      return {
+        ...state,
+        unreadPersNotifications: action.payload,
         notificationError: null,
       };
     case 'NOTIFICATION_PERSONAL_SUCCESS':

@@ -14,23 +14,25 @@ import Pong from '../components/widgets/Pong';
 import Faq from '../components/widgets/Faq/Faq';
 import Calendar from '../components/widgets/Calendar';
 import MyDepartment from '../components/widgets/MyDepartment';
+import Notification from '../components/widgets/Notifications';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 const Dashboard = ({ auth, profile }) => {
   const [sidebarIsOpen, setSidebarIsOpen] = useState(true);
   const [cards, setCards] = useState([
-    <LatestHires profiles={profile} />,
+    <Notification auth={auth} />,
     <MyTeam profile={profile} />,
+    <LatestHires profiles={profile} />,
     <MyDepartment profile={profile} />,
-    <Fika />,
-    <Pong />,
-    <Faq />,
     <Calendar />,
+    <Fika />,
+    <Faq />,
     <Documents/>
+    <Pong />,
   ]);
 
   if (!auth.uid) {
-    return <Redirect to="/signin" />;
+    return <Redirect to='/signin' />;
   }
 
   const reorder = (list, startIndex, endIndex) => {
@@ -53,18 +55,94 @@ const Dashboard = ({ auth, profile }) => {
     setCards(items);
   }
 
-  const addCard = (card) => {
-    setCards((cards) => [card, ...cards]);
+  const addCard = card => {
+    setCards(cards => [card, ...cards]);
   };
 
-  const deleteCard = (e) => {
+  const deleteCard = e => {
     setCards(cards.filter((card, i) => cards[i] !== cards[e]));
   };
 
   return (
-    <main className="main">
 
-      <section className="sidebar-layout">
+    <main className='main'>
+      <nav role='navigation'>
+        <ul>
+          <li className='dropdown'>
+            <p>Widgets</p>
+            <ul className='dropdown'>
+              <button
+                style={{
+                  backgroundColor: 'var(--color-5',
+                  color: 'white',
+                  fontSize: '1rem',
+                }}
+                onClick={() => addCard(<Faq />)}>
+                FAQ
+              </button>
+              <button
+                style={{
+                  backgroundColor: 'var(--color-4)',
+                  color: 'white',
+                  fontSize: '1rem',
+                }}
+                onClick={() => addCard(<Pong />)}>
+                PONG
+              </button>
+              <button
+                style={{
+                  backgroundColor: 'var(--color-6)',
+                  color: 'white',
+                  fontSize: '1rem',
+                }}
+                onClick={() =>
+                  addCard(<MyTeam deleteCard={deleteCard} profile={profile} />)
+                }>
+                TEAMS
+              </button>
+              <button
+                style={{
+                  backgroundColor: 'var(--color-1)',
+                  color: 'white',
+                  fontSize: '1rem',
+                }}
+                onClick={() => addCard(<MyDepartment profile={profile} />)}>
+                DEPARTMENT
+              </button>
+              <button
+                style={{
+                  backgroundColor: 'var(--color-2)',
+                  color: 'white',
+                  fontSize: '1rem',
+                }}
+                onClick={() => addCard(<Calendar />)}>
+                CALENDAR
+              </button>
+              <button
+                style={{
+                  backgroundColor: 'var(--color-7)',
+                  color: 'white',
+                  fontSize: '1rem',
+                }}
+                onClick={() => addCard(<Fika />)}>
+                VIRTUAL FIKA
+              </button>
+              <button
+                style={{
+                  backgroundColor: 'var(--color-3)',
+                  color: 'white',
+                  fontSize: '1rem',
+                }}
+                onClick={() => addCard(<LatestHires profiles={profile} />)}>
+                LATEST HIRES
+              </button>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+
+
+      <section className='sidebar-layout'>
         <Sidebar
           width={200}
           auth={auth}
@@ -80,24 +158,21 @@ const Dashboard = ({ auth, profile }) => {
         <section
           className={`dashboard-layout
             ${sidebarIsOpen ? 'dashboard-sidebar' : 'dashboard-fullscreen'}
-          `}
-        >
+          `}>
           {cards.map((content, index) => (
             <Droppable droppableId={`drop-zone-${index}`} key={index}>
               {(provided, snapshot) => (
                 <div
                   style={{ position: 'relative' }}
                   ref={provided.innerRef}
-                  {...provided.droppableProps}
-                >
+                  {...provided.droppableProps}>
                   <Draggable draggableId={`${index}`} index={index}>
                     {(provided, snapshot) => (
                       <div
                         ref={provided.innerRef}
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
-                        style={provided.draggableProps.style}
-                      >
+                        style={provided.draggableProps.style}>
                         {content}
                         <IoMdRemoveCircleOutline
                           style={{
@@ -107,9 +182,9 @@ const Dashboard = ({ auth, profile }) => {
                             top: '5px',
                             left: '4px',
                           }}
-                          onClick={(e) => {
+                          onClick={e => {
                             deleteCard(
-                              e.target.parentElement.dataset.rbdDraggableId
+                              e.target.parentElement.dataset.rbdDraggableId,
                             );
                           }}
                         />
@@ -127,7 +202,7 @@ const Dashboard = ({ auth, profile }) => {
   );
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     auth: state.firebase.auth,
     profile: state.firebase.profile,
