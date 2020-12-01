@@ -10,6 +10,10 @@ code {
     monospace;
 }
 
+a {
+  text-decoration: none !important;
+}
+
 :root {
   --color-1: #f94144;
   --color-2: #f3722c;

@@ -2,12 +2,24 @@ export const notificationError = error => {
   return { type: 'NOTIFICATION_ERROR', payload: error };
 };
 
+export const notificationPersError = error => {
+  return { type: 'NOTIFICATION_PERS_ERROR', payload: error };
+};
+
 export const notificationSuccess = () => {
   return { type: 'NOTIFICATION_SUCCESS' };
 };
 
+export const notificationPersSuccess = () => {
+  return { type: 'NOTIFICATION_PERS_SUCCESS' };
+};
+
 export const notificationUnreadSuccess = data => {
   return { type: 'NOTIFICATION_UNREAD_SUCCESS', payload: data };
+};
+
+export const notificationUnreadPersSuccess = data => {
+  return { type: 'NOTIFICATION_UNREAD_PERS_SUCCESS', payload: data };
 };
 
 export const notificationPersonalSuccess = data => {
