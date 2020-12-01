@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import {
   sendMessage,
-  getMessages,
+  getMessagesListener,
   getUserIds,
 } from '../store/actions/messageActions';
 import { connect } from 'react-redux';
@@ -12,7 +12,7 @@ export const Chat = ({
   auth,
   profile,
   sendMessage,
-  getMessages,
+  getMessagesListener,
   getUserIds,
   userIds,
   messages,
@@ -30,7 +30,6 @@ export const Chat = ({
   const chat = useParams().chatId;
 
   useEffect(() => {
-    getMessages(chat);
     getUserIds(chat);
 
     if (isFirstRun.current) {
@@ -38,7 +37,15 @@ export const Chat = ({
       return;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sendMessage]);
+  }, []);
+
+  useEffect(() => {
+    getMessagesListener(chat, 'subscribe');
+    return function cleanup() {
+      getMessagesListener(chat, 'unsubscribe');
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleInputChange = event => {
     setChatText(event.target.value);
@@ -59,11 +66,13 @@ export const Chat = ({
             messages.map(message => {
               if (message.senderId === auth.uid) {
                 return (
-                  <p className='sender-msg msg-bubble'>{message.text} :You</p>
+                  <p className='sender-msg msg-bubble' key={message.date}>
+                    {message.text} :You
+                  </p>
                 );
               } else {
                 return (
-                  <p className='recepient-msg msg-bubble'>
+                  <p className='recepient-msg msg-bubble' key={message.date}>
                     {message.senderName}: {message.text}
                   </p>
                 );
@@ -101,7 +110,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     sendMessage: params => dispatch(sendMessage(params)),
-    getMessages: chatId => dispatch(getMessages(chatId)),
+    getMessagesListener: (chatId, status) =>
+      dispatch(getMessagesListener(chatId, status)),
     getUserIds: chatId => dispatch(getUserIds(chatId)),
   };
 };

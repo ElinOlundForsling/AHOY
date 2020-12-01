@@ -2,6 +2,10 @@ export const sendSuccess = () => {
   return { type: 'SEND_SUCCESS' };
 };
 
+export const chatError = error => {
+  return { type: 'CHAT_ERROR', payload: error };
+};
+
 export const chatSuccess = chatId => {
   return { type: 'CHAT_SUCCESS', payload: chatId };
 };
@@ -72,6 +76,35 @@ export const getMessages = chatId => {
     const data = snapshot.docs.map(doc => doc.data());
 
     dispatch(getMessagesSuccess(data));
+  };
+};
+
+export const getMessagesListener = (chatId, status) => {
+  return async (dispatch, getState, { getFirestore }) => {
+    console.log('getMessages');
+    const firestore = getFirestore();
+
+    const unsubscribe = await firestore
+      .collection('messages')
+      .doc(chatId)
+      .collection('msg')
+      .orderBy('date', 'desc')
+      .onSnapshot(function (querySnapshot) {
+        var data = [];
+        querySnapshot.forEach(function (doc) {
+          data.push(doc.data());
+        });
+        if (status !== unsubscribe) {
+          dispatch(getMessagesSuccess(data));
+        }
+      });
+
+    if (status === unsubscribe) {
+      unsubscribe();
+      dispatch(sendSuccess());
+    } else {
+      dispatch(chatError({ msg: 'Error fetching messages' }));
+    }
   };
 };
 
