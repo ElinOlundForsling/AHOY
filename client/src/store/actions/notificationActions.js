@@ -75,6 +75,7 @@ export const getUnreadNotifications = userId => {
       .where('readStatus', '==', 'unread')
       .get();
     const data = snapshot.docs.map(doc => doc.data());
+    console.log('Data: ', data, 'dataStringified: ', JSON.stringify(data));
 
     const nData = [];
     await data.forEach(async n => {
@@ -82,8 +83,12 @@ export const getUnreadNotifications = userId => {
         .collection('personalNotifications')
         .doc(n.notificationId)
         .get();
-      nData.push(noti.data());
+      const weirdData = noti.data();
+      console.log('Weird: ', typeof weirdData.senderName);
+      console.log('Noti: ', noti.data());
+      nData.push({ senderId: weirdData.senderId });
     });
+    console.log('nData: ', nData, 'nDataStringified: ', JSON.stringify(nData));
     dispatch(notificationUnreadSuccess(nData));
   };
 };

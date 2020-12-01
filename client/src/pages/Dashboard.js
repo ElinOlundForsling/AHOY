@@ -27,7 +27,7 @@ const Dashboard = ({ auth, profile }) => {
     <Calendar />,
     <Fika />,
     <Faq />,
-    <Documents/>
+    <Documents />,
     <Pong />,
   ]);
 
@@ -64,7 +64,6 @@ const Dashboard = ({ auth, profile }) => {
   };
 
   return (
-
     <main className='main'>
       <nav role='navigation'>
         <ul>
@@ -141,7 +140,6 @@ const Dashboard = ({ auth, profile }) => {
         </ul>
       </nav>
 
-
       <section className='sidebar-layout'>
         <Sidebar
           width={200}
@@ -151,7 +149,6 @@ const Dashboard = ({ auth, profile }) => {
           addCard={addCard}
           deleteCard={deleteCard}
         />
-      
       </section>
 
       <DragDropContext onDragEnd={onDragEnd}>
