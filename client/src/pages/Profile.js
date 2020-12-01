@@ -72,6 +72,7 @@ const Profile = ({
                     imgURL={profileData.imgURL}
                     className="normal-size"
                     isOnline={profileData.isOnline}
+                    workFromHome={profileData.workFromHome}
                   />
                 </div>
                 <div className="card-title profile-header">

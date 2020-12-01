@@ -31,6 +31,7 @@ const MyDepartment = ({ profile, getDepartmentMembers, departmentMembers }) => {
                 firstName={member.firstName}
                 lastName={member.lastName}
                 isOnline={member.isOnline}
+                workFromHome={member.workFromHome}
                 className='normal-size'
               />
             </div>
