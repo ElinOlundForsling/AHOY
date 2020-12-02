@@ -52,73 +52,71 @@ const Sidebar = ({
     <>
       {profile.isLoaded && (
         <div
-          className="side-bar"
+          className='side-bar'
           style={{
             transform: `translatex(${xPosition}px)`,
             width: width,
             minHeight: height,
-          }}
-        >
-          <div className="avatar-section">
+          }}>
+          <div className='avatar-section'>
             <img
               src={
                 profile.imgURL
                   ? profile.imgURL
                   : 'https://cdn.statically.io/img/avatarfiles.alphacoders.com/866/86635.png'
               }
-              alt=""
-              className="dashboard-avatar"
+              alt=''
+              className='dashboard-avatar'
             />
 
             <WorkingFromToggle profile={profile} auth={auth} />
           </div>
           <Link to={'/'}>
             <span>
-              <BsGrid className="sidebar-icon" />
+              <BsGrid className='sidebar-icon' />
               &nbsp;Dashboard
             </span>
           </Link>
 
           <Link to={`/profiles/${auth.uid}`}>
             <span>
-              <CgProfile className="sidebar-icon" />
+              <CgProfile className='sidebar-icon' />
               &nbsp;Profile
             </span>
           </Link>
           <Link to={`/${auth.uid}/department`}>
             <span>
-              <CgStyle className="sidebar-icon" />
+              <CgStyle className='sidebar-icon' />
               &nbsp;Department
             </span>
           </Link>
-          <Link to="/admin">
+          <Link to='/admin'>
             <span>
-              <VscKey className="sidebar-icon" />
+              <VscKey className='sidebar-icon' />
               &nbsp; Admin Panel
             </span>
           </Link>
-          <div className="sign-out">
+          <div className='sign-out'>
             <a onClick={() => signOut(auth)}>
               {' '}
               <span>
-                <VscSignOut className="sidebar-icon" />
+                <VscSignOut className='sidebar-icon' />
                 &nbsp;Sign Out
               </span>
             </a>
           </div>
-          <nav role="navigation">
-            <ul>
-              <li className="dropdown">
+          <nav role='navigation'>
+            <ul className='widget-dropdown'>
+              <li className='dropdown'>
                 <p>Widgets</p>
-                <ul className="dropdown">
+                <ul className='dropdown'>
                   <button
                     style={{
                       backgroundColor: 'var(--color-5',
                       color: 'white',
                       fontSize: '1rem',
                     }}
-                    onClick={() => addCard(<Faq />)}
-                  >
+                    onClick={() => addCard(<Faq />)}>
                     FAQ
                   </button>
                   <button
@@ -127,8 +125,7 @@ const Sidebar = ({
                       color: 'white',
                       fontSize: '1rem',
                     }}
-                    onClick={() => addCard(<Pong />)}
-                  >
+                    onClick={() => addCard(<Pong />)}>
                     PONG
                   </button>
                   <button
@@ -139,10 +136,9 @@ const Sidebar = ({
                     }}
                     onClick={() =>
                       addCard(
-                        <MyTeam deleteCard={deleteCard} profile={profile} />
+                        <MyTeam deleteCard={deleteCard} profile={profile} />,
                       )
-                    }
-                  >
+                    }>
                     TEAMS
                   </button>
                   <button
@@ -151,8 +147,7 @@ const Sidebar = ({
                       color: 'white',
                       fontSize: '1rem',
                     }}
-                    onClick={() => addCard(<MyDepartment profile={profile} />)}
-                  >
+                    onClick={() => addCard(<MyDepartment profile={profile} />)}>
                     DEPARTMENT
                   </button>
                   <button
@@ -161,8 +156,7 @@ const Sidebar = ({
                       color: 'white',
                       fontSize: '1rem',
                     }}
-                    onClick={() => addCard(<Calendar />)}
-                  >
+                    onClick={() => addCard(<Calendar />)}>
                     CALENDAR
                   </button>
                   <button
@@ -171,8 +165,7 @@ const Sidebar = ({
                       color: 'white',
                       fontSize: '1rem',
                     }}
-                    onClick={() => addCard(<Documents />)}
-                  >
+                    onClick={() => addCard(<Documents />)}>
                     DOCUMENTS
                   </button>
                   <button
@@ -181,8 +174,7 @@ const Sidebar = ({
                       color: 'white',
                       fontSize: '1rem',
                     }}
-                    onClick={() => addCard(<Fika />)}
-                  >
+                    onClick={() => addCard(<Fika />)}>
                     VIRTUAL FIKA
                   </button>
                   <button
@@ -191,8 +183,7 @@ const Sidebar = ({
                       color: 'white',
                       fontSize: '1rem',
                     }}
-                    onClick={() => addCard(<LatestHires profiles={profile} />)}
-                  >
+                    onClick={() => addCard(<LatestHires profiles={profile} />)}>
                     LATEST HIRES
                   </button>
                 </ul>
@@ -202,31 +193,29 @@ const Sidebar = ({
           {sidebarIsOpen ? (
             <AiOutlineMenuFold
               onClick={() => toggleMenu()}
-              className="toggle-menu"
+              className='toggle-menu'
               style={{
                 transform: `translate(${width}px, 20vh)`,
-              }}
-            ></AiOutlineMenuFold>
+              }}></AiOutlineMenuFold>
           ) : (
             <AiOutlineMenuUnfold
               onClick={() => toggleMenu()}
-              className="toggle-menu"
+              className='toggle-menu'
               style={{
                 transform: `translate(${width}px, 20vh)`,
-              }}
-            ></AiOutlineMenuUnfold>
+              }}></AiOutlineMenuUnfold>
           )}
 
-          <div className="content">{children}</div>
+          <div className='content'>{children}</div>
         </div>
       )}
     </>
   );
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
-    signOut: (auth) => dispatch(signOut(auth)),
+    signOut: auth => dispatch(signOut(auth)),
   };
 };
 
