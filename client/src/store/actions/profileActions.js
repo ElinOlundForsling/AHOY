@@ -120,27 +120,25 @@ export const updateProfileImage = (userId, file) => {
 
 export const uploadDocuments = (auth, profileData, file) => {
   return (dispatch, getState, { getFirestore, storage }) => {
-    console.log("PROFILE DATA", profileData);
-
     const firestore = getFirestore();
     const uploadTask = storage.ref(`/documents/${file.name}`).put(file);
-    uploadTask.on("state_changed", console.log, console.error, () => {
+    uploadTask.on('state_changed', console.log, console.error, () => {
       storage
-        .ref("documents")
+        .ref('documents')
         .child(file.name)
         .getDownloadURL()
-        .then((url) => {
+        .then(url => {
           firestore
-            .collection("users")
+            .collection('users')
             .doc(auth)
             .set(
               {
                 documents: [url, ...profileData.documents],
               },
-              { merge: true }
+              { merge: true },
             );
         })
-        .catch((error) => console.error(error));
+        .catch(error => console.error(error));
     });
 
     dispatch(uploadDocumentSuccess());

@@ -29,7 +29,6 @@ const Documents = ({ uploadDocuments, auth, profile }) => {
     return documentName;
   }
 
-  console.log('PROFILE', profile);
   return (
     <Card
       heading='Document Uploads'

@@ -33,15 +33,10 @@ const Profile = ({
 
   const profileId = useParams().userId;
 
-  Notification.requestPermission().then(function (result) {
-    console.log(result);
-  });
-
   function openModal() {
     setModalIsOpen(true);
   }
   useEffect(() => {
-    console.log('welp');
     getProfileById(profileId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [profile, profileId]);

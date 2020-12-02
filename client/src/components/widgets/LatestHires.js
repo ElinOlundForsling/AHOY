@@ -17,7 +17,6 @@ const LatestHires = ({ getLatestHires, latestHires }) => {
       subHeading={'Say hi to your new colleagues'}
       className='latest-hires-component'>
       <div className='latest-hires'>
-        {console.log(latestHires)}
         {latestHires.map(hire => {
           return (
             <div key={hire.id} className='latest-hired-card'>

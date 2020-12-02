@@ -1,4 +1,3 @@
-  
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -12,6 +11,7 @@ import LatestHires from '../components/widgets/LatestHires';
 import Fika from '../components/widgets/Fika';
 import Documents from '../components/widgets/Documents';
 import Pong from '../components/widgets/Pong';
+import Notifications from '../components/widgets/Notifications';
 import Faq from '../components/widgets/Faq/Faq';
 import Calendar from '../components/widgets/Calendar';
 import MyDepartment from '../components/widgets/MyDepartment';
@@ -20,6 +20,7 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 const Dashboard = ({ auth, profile }) => {
   const [sidebarIsOpen, setSidebarIsOpen] = useState(true);
   const [cards, setCards] = useState([
+    <Notifications />,
     <LatestHires profiles={profile} />,
     <MyTeam profile={profile} />,
     <MyDepartment profile={profile} />,
@@ -27,11 +28,11 @@ const Dashboard = ({ auth, profile }) => {
     <Pong />,
     <Faq />,
     <Calendar />,
-    <Documents/>
+    <Documents />,
   ]);
 
   if (!auth.uid) {
-    return <Redirect to="/signin" />;
+    return <Redirect to='/signin' />;
   }
 
   const reorder = (list, startIndex, endIndex) => {
@@ -54,18 +55,17 @@ const Dashboard = ({ auth, profile }) => {
     setCards(items);
   }
 
-  const addCard = (card) => {
-    setCards((cards) => [card, ...cards]);
+  const addCard = card => {
+    setCards(cards => [card, ...cards]);
   };
 
-  const deleteCard = (e) => {
+  const deleteCard = e => {
     setCards(cards.filter((card, i) => cards[i] !== cards[e]));
   };
 
   return (
-    <main className="main">
-
-      <section className="sidebar-layout">
+    <main className='main'>
+      <section className='sidebar-layout'>
         <Sidebar
           width={200}
           auth={auth}
@@ -74,31 +74,27 @@ const Dashboard = ({ auth, profile }) => {
           addCard={addCard}
           deleteCard={deleteCard}
         />
-      
       </section>
 
       <DragDropContext onDragEnd={onDragEnd}>
         <section
           className={`dashboard-layout
             ${sidebarIsOpen ? 'dashboard-sidebar' : 'dashboard-fullscreen'}
-          `}
-        >
+          `}>
           {cards.map((content, index) => (
             <Droppable droppableId={`drop-zone-${index}`} key={index}>
               {(provided, snapshot) => (
                 <div
                   style={{ position: 'relative' }}
                   ref={provided.innerRef}
-                  {...provided.droppableProps}
-                >
+                  {...provided.droppableProps}>
                   <Draggable draggableId={`${index}`} index={index}>
                     {(provided, snapshot) => (
                       <div
                         ref={provided.innerRef}
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
-                        style={provided.draggableProps.style}
-                      >
+                        style={provided.draggableProps.style}>
                         {content}
                         <IoMdRemoveCircleOutline
                           style={{
@@ -108,9 +104,9 @@ const Dashboard = ({ auth, profile }) => {
                             top: '5px',
                             left: '4px',
                           }}
-                          onClick={(e) => {
+                          onClick={e => {
                             deleteCard(
-                              e.target.parentElement.dataset.rbdDraggableId
+                              e.target.parentElement.dataset.rbdDraggableId,
                             );
                           }}
                         />
@@ -128,7 +124,7 @@ const Dashboard = ({ auth, profile }) => {
   );
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     auth: state.firebase.auth,
     profile: state.firebase.profile,

@@ -42,7 +42,6 @@ const FikaModal = ({
         today.getDate() + 7,
       ),
     };
-    console.log(params);
     sendPersonalNotification(params);
     event.preventDefault();
   };

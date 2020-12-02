@@ -1,14 +1,14 @@
-import React, { useEffect, useRef, useState } from "react";
-import { connect } from "react-redux";
-import { useParams } from "react-router-dom";
+import React, { useEffect, useRef, useState } from 'react';
+import { connect } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import {
   getDepartmentTeams,
   department,
-} from "../store/actions/departmentActions";
-import { getDepartmentMembers } from "../store/actions/profileActions";
-import Sidebar from "../components/layout/Sidebar";
-import "../stylesheets/departmentPage.css";
-import { v4 as uuidv4 } from "uuid";
+} from '../store/actions/departmentActions';
+import { getDepartmentMembers } from '../store/actions/profileActions';
+import Sidebar from '../components/layout/Sidebar';
+import '../stylesheets/departmentPage.css';
+import { v4 as uuidv4 } from 'uuid';
 
 const Department = ({
   profile,
@@ -22,24 +22,14 @@ const Department = ({
   const [sidebarIsOpen, setSidebarIsOpen] = useState(true);
 
   useEffect(() => {
-    console.log("CAREFUL YOU MIGHT HAVE CREATED AN INFINITE LOOP");
     getDepartmentTeams(userId);
     getDepartmentMembers(profile.department);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [profile]);
 
-//   useEffect(() => {
-//     console.log("CAREFUL YOU MIGHT HAVE CREATED AN INFINITE LOOP");
-
-//     getDepartmentMembers(profile.department);
-//     // eslint-disable-next-line react-hooks/exhaustive-deps
-//   }, []);
-
-  console.log("DEP MEMBERS", departmentMembers);
-  console.log("DEP", department);
   return (
-    <div className="department-page">
-      <section className="sidebar-layout">
+    <div className='department-page'>
+      <section className='sidebar-layout'>
         <Sidebar
           width={200}
           auth={auth}
@@ -47,13 +37,13 @@ const Department = ({
           setSidebarIsOpen={setSidebarIsOpen}
         />
       </section>
-      <div className="department-info">
+      <div className='department-info'>
         <h1>MY DEPARTMENT</h1>
         <div>
           {department.length && (
             <div>
               <h2>TEAMS</h2>
-              {department.map((dep) => {
+              {department.map(dep => {
                 return <p key={uuidv4()}>{dep.teamName}</p>;
               })}
             </div>
@@ -63,7 +53,7 @@ const Department = ({
           <h2>Department members</h2>
           {departmentMembers && (
             <div>
-              {departmentMembers.map((member) => {
+              {departmentMembers.map(member => {
                 return (
                   <p key={uuidv4()}>
                     {member.firstName} {member.lastName}
@@ -78,7 +68,7 @@ const Department = ({
   );
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     department: state.departments.department,
     departmentMembers: state.profileData.departmentMembers,
@@ -87,11 +77,11 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
-    getDepartmentTeams: (departmentId) =>
+    getDepartmentTeams: departmentId =>
       dispatch(getDepartmentTeams(departmentId)),
-    getDepartmentMembers: (department) =>
+    getDepartmentMembers: department =>
       dispatch(getDepartmentMembers(department)),
   };
 };

@@ -35,7 +35,6 @@ const Collapse = ({
   }, []);
 
   const handleSubmit = event => {
-    console.log(member.id, userData);
     event.preventDefault();
     updateProfileAdmin(member.id, userData);
   };

@@ -33,6 +33,7 @@ const Notifications = ({
 
 const mapStateToProps = state => {
   return {
+    auth: state.firebase.auth,
     unreadNotifications: state.notifications.unreadNotifications,
   };
 };

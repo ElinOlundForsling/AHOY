@@ -84,8 +84,23 @@ export const getUnreadNotifications = userId => {
         .doc(n.notificationId)
         .get();
       const weirdData = noti.data();
+      console.log(
+        'Weird data: ',
+        weirdData,
+        'WD stringified: ',
+        JSON.stringify(weirdData),
+      );
       nData.push(weirdData);
     });
+
+    // const newTry = await data.map(n => {
+    //   return firestore
+    //     .collection('personalNotifications')
+    //     .doc(n.notificationId)
+    //     .get();
+    // });
+    // console.log(newTry);
+
     console.log('nData: ', nData, 'nDataStringified: ', JSON.stringify(nData));
     dispatch(notificationUnreadSuccess(nData));
   };

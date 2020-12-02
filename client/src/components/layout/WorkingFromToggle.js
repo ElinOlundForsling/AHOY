@@ -9,7 +9,6 @@ const WorkingFromToggle = ({ toggleWorkPlace, auth, profile }) => {
   const [isToggled, setIsToggled] = useState(profile.workFromHome);
 
   useEffect(() => {
-    console.log('am i an infinite loop?');
     toggleWorkPlace(auth, isToggled);
   }, [isToggled]);
 
@@ -17,18 +16,18 @@ const WorkingFromToggle = ({ toggleWorkPlace, auth, profile }) => {
     setIsToggled(!isToggled);
   };
   return (
-    <div className="work-from-toggle">
+    <div className='work-from-toggle'>
       <HiOutlineOfficeBuilding />
-      <label className="toggle-switch">
-        <input type="checkbox" checked={isToggled} onChange={onToggle} />
-        <span className="switch" />
+      <label className='toggle-switch'>
+        <input type='checkbox' checked={isToggled} onChange={onToggle} />
+        <span className='switch' />
       </label>
       <BsHouseDoor />
     </div>
   );
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
     toggleWorkPlace: (auth, isToggled) =>
       dispatch(toggleWorkPlace(auth, isToggled)),
