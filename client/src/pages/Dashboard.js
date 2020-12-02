@@ -1,11 +1,9 @@
-  
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { IoMdRemoveCircleOutline } from 'react-icons/io';
 import '../stylesheets/dashboard.css';
 import '../stylesheets/index.css';
-import '../stylesheets/buttonChoices.css';
 import Sidebar from '../components/layout/Sidebar';
 import MyTeam from '../components/widgets/MyTeam';
 import LatestHires from '../components/widgets/LatestHires';
@@ -27,7 +25,7 @@ const Dashboard = ({ auth, profile }) => {
     <Pong />,
     <Faq />,
     <Calendar />,
-    <Documents/>
+    <Documents />,
   ]);
 
   if (!auth.uid) {
@@ -64,17 +62,16 @@ const Dashboard = ({ auth, profile }) => {
 
   return (
     <main className="main">
-
       <section className="sidebar-layout">
         <Sidebar
           width={200}
           auth={auth}
           profile={profile}
+          sidebarIsOpen={sidebarIsOpen}
           setSidebarIsOpen={setSidebarIsOpen}
           addCard={addCard}
           deleteCard={deleteCard}
         />
-      
       </section>
 
       <DragDropContext onDragEnd={onDragEnd}>

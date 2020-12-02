@@ -1,0 +1,94 @@
+.auth-card {
+  width: 380px;
+  padding: 20px;
+  border-radius: 6px;
+  box-shadow: 0 0 4px #f4511e;
+  background: #fff;
+}
+
+.auth-card h2 {
+  color: white;
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.auth-card h2:before {
+  content: '';
+  position: absolute;
+  width: 80%;
+  height: 2px;
+  background: white;
+  top: 70px;
+  left: 10%;
+}
+
+.auth-card .input-border {
+  width: 100%;
+  height: 40px;
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.auth-card .input-text {
+  width: 95%;
+  height: 100%;
+  padding: 0 10px;
+  border: none;
+  border-bottom: 2px solid silver;
+  background: none;
+  font-size: 18px;
+}
+
+.auth-card .border {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: white;
+  transition: 0.5s;
+}
+
+.auth-card .input-text:focus ~ .auth-card .border,
+.auth-card .input-text:valid ~ .auth-card .border {
+  width: 100%;
+}
+
+.auth-card label {
+  position: absolute;
+  top: 8px;
+  left: 14px;
+  color: black;
+  pointer-events: none;
+  font-size: 18px;
+  transition: 0.5s;
+}
+
+.auth-card .input-text:focus ~ label,
+.auth-card .input-text:valid ~ label {
+  top: -12px;
+  left: 0;
+  color: white;
+  font-size: 14px;
+}
+
+.auth-card .btn {
+  width: 100%;
+  height: 50px;
+  border-radius: 8px;
+  background: none;
+  border: 2px solid silver;
+  color: black;
+  font-size: 18px;
+  transition: 0.5s;
+  margin-bottom: 10px;
+}
+
+.auth-card .btn:hover {
+  border: 2px solid #f4511e;
+  cursor: pointer;
+}
+
+.not-a-member-link {
+  color: rgb(110, 110, 245);
+}

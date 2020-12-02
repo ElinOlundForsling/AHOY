@@ -1,16 +1,12 @@
 .members {
   display: flex;
-  /* align-items: center; */
   flex-wrap: wrap;
-  /* text-align: center; */
-  color: black;
-  flex-direction: row;
-  justify-content: space-around;
-  /* padding: 0 15px; */
-  overflow: auto;
-  max-height: 350px;
+  overflow: scroll;
+  justify-content: space-between;
+  max-height: 300px;
+  width: auto;
 }
 
-.team-component .card-title{
+.team-component .card-title {
   background-color: var(--color-6) !important;
 }

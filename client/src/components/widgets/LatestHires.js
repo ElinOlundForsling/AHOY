@@ -13,24 +13,25 @@ const LatestHires = ({ getLatestHires, latestHires }) => {
 
   return (
     <Card
-      heading='Latest Hires'
+      heading="Latest Hires"
       subHeading={'Say hi to your new colleagues'}
-      className='latest-hires-component'>
-      <div className='latest-hires'>
+      className="latest-hires-component"
+    >
+      <div className="latest-hires">
         {console.log(latestHires)}
-        {latestHires.map(hire => {
+        {latestHires.map((hire) => {
           return (
-            <div key={hire.id} className='latest-hired-card'>
+            <div key={hire.id} className="latest-hired-card">
               <Avatar
                 id={hire.id}
                 imgURL={hire.imgURL}
                 firstName={hire.firstName}
                 lastName={hire.lastName}
                 isOnline={hire.isOnline}
-                className='small-size'
+                className="small-size"
               />
-              <div className='latest-hired-name'>
-                <p className='latest-hired-name'>{hire.joinDate}</p>
+              <div className="latest-hired-name">
+                <p>{hire.joinDate}</p>
               </div>
             </div>
           );
@@ -40,13 +41,13 @@ const LatestHires = ({ getLatestHires, latestHires }) => {
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     latestHires: state.departments.hires,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     getLatestHires: () => dispatch(getLatestHires()),
   };

@@ -1,37 +1,43 @@
 .profile-form {
   text-align: center;
+  padding-bottom: 10px;
+  margin-top: 20px;
 }
 
-.profile-form input,
+.profile-form .profile-input input,
 textarea {
   font-family: 'Roboto', sans-serif;
   outline: 0;
-  background: #e9e5af;
+  background: #fff;
+  border-radius: 5px;
   width: 60%;
   border: 0;
   margin-top: 25px;
   padding: 15px;
 }
 
+.profile-modal-heading {
+  text-align: center;
+  color: var(--color-7);
+}
+
 .profile-form button {
   font-family: 'Roboto', sans-serif;
   text-transform: uppercase;
-  outline: 0;
-  background: #90be6d;
-  width: 30%;
-  padding: 20px;
-  color: #ffffff;
-  -webkit-transition: all 0.3 ease;
-  transition: all 0.3 ease;
-  cursor: pointer;
+  margin-top: 10px;
 }
 
 .fika-checkbox {
+  padding-top: 10px;
+  font-size: 25px;
   width: 380px;
+  margin: 0 auto;
 }
 
-.profile-form button:hover,
-.profile-form button:active,
-.profile-form button:focus {
-  background: #43aa8b;
+.fika-checkbox input {
+  height: 20px;
+  margin-right: 10px;
+}
+.fika-span {
+  font-size: 18px;
 }

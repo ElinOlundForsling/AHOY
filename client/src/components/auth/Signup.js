@@ -8,7 +8,6 @@ import {
 } from '../../store/actions/departmentActions';
 import Select from 'react-select';
 import Header from '../layout/Header';
-
 const Signup = ({
   signUp,
   teams,
@@ -34,7 +33,7 @@ const Signup = ({
   }, [getDepartments]);
 
   const createOptions = () => {
-    const options = departments.map(dep => {
+    const options = departments.map((dep) => {
       return {
         label: dep.name,
         name: dep.name,
@@ -47,7 +46,7 @@ const Signup = ({
   const createTeams = () => {
     const options =
       teams &&
-      teams.map(team => {
+      teams.map((team) => {
         return {
           label: team.teamName,
           name: team.teamName,
@@ -57,92 +56,92 @@ const Signup = ({
     return options;
   };
 
-  const handleSubmit = event => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     signUp(credentials);
   };
 
-  const handleDepartmentChange = selectedOption => {
+  const handleDepartmentChange = (selectedOption) => {
     setDepartmentOption(selectedOption);
     setTeamOption('Team');
-    setCredentials(credentials => ({
+    setCredentials((credentials) => ({
       ...credentials,
       department: selectedOption.name,
     }));
     getTeamByDepartment(selectedOption.name);
   };
 
-  const handleTeamChange = selectedOption => {
+  const handleTeamChange = (selectedOption) => {
     setTeamOption(selectedOption);
-    setCredentials(credentials => ({
+    setCredentials((credentials) => ({
       ...credentials,
       team: selectedOption.name,
     }));
   };
 
-  const handleInputChange = event => {
-    setCredentials(credentials => ({
+  const handleInputChange = (event) => {
+    setCredentials((credentials) => ({
       ...credentials,
       [event.target.name]: event.target.value,
     }));
   };
 
   if (auth.uid) {
-    return <Redirect to='/' />;
+    return <Redirect to="/" />;
   }
 
   return (
     <>
       <Header />
-      <div className='container'>
-        <form onSubmit={handleSubmit} className='white'>
-          <h5 className='grey-text text-darken-3'>Sign Up</h5>
-          <div className='input-field'>
+      <div className="container">
+        <form onSubmit={handleSubmit} className="white">
+          <h5 className="grey-text text-darken-3">Sign Up</h5>
+          <div className="input-field">
             <label>Email</label>
             <input
-              type='email'
-              name='email'
+              type="email"
+              name="email"
               onChange={handleInputChange}
               value={credentials.email}
             />
           </div>
-          <div className='input-field'>
+          <div className="input-field">
             <label>Password</label>
             <input
-              type='password'
-              name='password'
+              type="password"
+              name="password"
               onChange={handleInputChange}
               value={credentials.password}
             />
           </div>
-          <div className='input-field'>
+          <div className="input-field">
             <label>First Name</label>
             <input
-              type='text'
-              name='firstName'
+              type="text"
+              name="firstName"
               onChange={handleInputChange}
               value={credentials.firstName}
             />
           </div>
-          <div className='input-field'>
+          <div className="input-field">
             <label>Last Name</label>
             <input
-              type='text'
-              name='lastName'
+              type="text"
+              name="lastName"
               onChange={handleInputChange}
               value={credentials.lastName}
             />
           </div>
-          <div className='input-field col s12'>
+          <div className="input-field col s12">
             <Select
               value={departmentOption}
               onChange={handleDepartmentChange}
               options={createOptions()}
             />
           </div>
-          <div className='input-field col s12'>
+          <div className="input-field col s12">
             {departmentOption && (
-              <div className='input-field col s12'>
+              <div className="input-field col s12">
                 <Select
                   value={teamOption}
                   onChange={handleTeamChange}
@@ -151,12 +150,12 @@ const Signup = ({
               </div>
             )}
           </div>
-          <div className='input-field'>
-            <button type='submit' className='btn pink lighten-1 z-depth-0'>
+          <div className="input-field">
+            <button type="submit" className="btn pink lighten-1 z-depth-0">
               Sign Up
             </button>
             <Link to={'/signin'}> Already a member?</Link>
-            <div className='red-text center'>
+            <div className="red-text center">
               {authError ? <p>{authError}</p> : null}
             </div>
           </div>
@@ -166,7 +165,7 @@ const Signup = ({
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     departments: state.departments.departments,
     teams: state.departments.teams,
@@ -175,11 +174,11 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    signUp: newUser => dispatch(signUp(newUser)),
+    signUp: (newUser) => dispatch(signUp(newUser)),
     getDepartments: () => dispatch(getDepartments()),
-    getTeamByDepartment: department =>
+    getTeamByDepartment: (department) =>
       dispatch(getTeamByDepartment(department)),
   };
 };

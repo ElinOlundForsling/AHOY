@@ -8,10 +8,9 @@
 }
 
 .card-inside {
-  padding: 10px;
-  height: 320px !important;
-  overflow: hidden;
-  margin: 5px;
+  padding: 10px 0;
+  /* height: 320px !important; */
+  margin: 5px 10px;
 }
 
 .card-title {
@@ -20,6 +19,7 @@
   border-radius: 15px 15px 0 0;
   text-align: center;
   margin: 0px;
+  margin-bottom: 10px;
   background-color: var(--color-2);
   width: 100%;
   height: auto;
