@@ -90,13 +90,12 @@
 
 .avatar-section {
   display: flex;
-  align-items:center;
+  align-items: center;
   flex-direction: column;
   background-color: rgb(244, 244, 244);
   padding-bottom: 12px;
   padding-top: 20px;
 }
-
 
 nav ul {
   list-style: none;
