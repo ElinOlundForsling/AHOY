@@ -1,0 +1,159 @@
+.pong-game {
+  width: 100vw;
+  height: 100vh;
+  background-color: #181818;
+  box-sizing: border-box;
+  color: #fff;
+}
+
+.pong-board {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  border-top: 2px solid white;
+  border-right: 2px solid white;
+}
+
+.pong-header {
+  display: flex;
+  height: 20vh;
+  width: 85vw;
+  top: 0;
+  left: 0;
+  border-right: 2px solid white;
+  box-sizing: content-box;
+  color: white;
+}
+
+.header-block {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+}
+
+.back-block {
+  width: 25%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Roboto', sans-serif;
+  padding-right: 10%;
+  font-size: 1.4rem;
+  text-align: center;
+}
+
+.header-circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 7rem;
+  width: 7rem;
+  border: 4px solid white;
+  border-radius: 3.5rem;
+  margin-bottom: 1rem;
+}
+
+.back-block a {
+  color: #fff;
+}
+
+.back-icon {
+  font-size: 6rem;
+}
+
+.score-block {
+  width: 50%;
+}
+
+.points-block {
+  width: 25%;
+}
+
+.score-layout {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 50%;
+  height: 100%;
+  text-align: center;
+}
+
+.score-layout h2 {
+  font-family: 'Roboto Slab', serif;
+  font-weight: 400;
+  margin-bottom: 1.6rem;
+}
+
+.score-layout h1 {
+  font-family: 'Roboto Slab', serif;
+  font-weight: 400;
+  font-size: 3.5rem;
+}
+
+.pong-sidebar {
+  width: 15vw;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  right: 0;
+  top: 0;
+  height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.pong-sidebar h2 {
+  font-family: 'Roboto Slab';
+  font-weight: 400;
+  text-align: center;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.pong-sidebar ul li {
+  font-family: 'Roboto', sans-serif;
+  width: 100%;
+  list-style: none;
+  padding: 0;
+  font-size: 1.1rem;
+  line-height: 3rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.online-heart {
+  color: var(--color-lighter-6);
+  vertical-align: baseline;
+}
+
+.pong-invite-button {
+  background-color: var(--color-4);
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 20px;
+  padding-right: 20px;
+  font-family: 'Roboto Slab', sans-serif;
+  border: none;
+  border-radius: 5px;
+}
+
+.pong-sidebar-buttons {
+  display: flex;
+  align-self: center;
+  justify-self: flex-end;
+  flex-direction: column;
+}
+
+.pong-sidebar-buttons button {
+  border: 2px solid white;
+  background-color: transparent;
+  padding: 10px;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-bottom: 1rem;
+  color: #fff;
+  border-radius: 5px;
+  font-family: 'Roboto Slab';
+  font-size: 1.2rem;
+}
