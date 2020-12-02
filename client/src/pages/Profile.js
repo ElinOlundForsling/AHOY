@@ -56,7 +56,7 @@ const Profile = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [profileData]);
 
-  const handleFika = event => {
+  const handleFika = (event) => {
     event.preventDefault();
     const today = new Date();
     const params = {
@@ -69,19 +69,19 @@ const Profile = ({
       expirationDate: new Date(
         today.getFullYear(),
         today.getMonth(),
-        today.getDate() + 7,
+        today.getDate() + 7
       ),
     };
     sendPersonalNotification(params);
   };
 
   if (!auth.uid) {
-    return <Redirect to='/signin' />;
+    return <Redirect to="/signin" />;
   }
 
   return (
     <>
-      <section className='sidebar-layout'>
+      <section className="sidebar-layout">
         <Sidebar
           width={200}
           auth={auth}
@@ -89,22 +89,22 @@ const Profile = ({
           setSidebarIsOpen={setSidebarIsOpen}
         />
       </section>
-      <div className='profile-page'>
+      <div className="profile-page">
         <section>
           {profileData.firstName && (
             <>
-              <div className='profile-info'>
-                <div className='profile-image'>
+              <div className="profile-info">
+                <div className="profile-image">
                   <Avatar
                     imgURL={profileData.imgURL}
-                    className='normal-size'
+                    className="normal-size"
                     isOnline={profileData.isOnline}
                     workFromHome={profileData.workFromHome}
                   />
                 </div>
-                <div className='card-title profile-header'>
-                  <div className='header-info'>
-                    <div className='profile-pen' id='edit-profile-pen'>
+                <div className="card-title profile-header">
+                  <div className="header-info">
+                    <div className="profile-pen" id="edit-profile-pen">
                       {auth.uid === profileId && <FaPen onClick={openModal} />}
                     </div>
                     <h5>
@@ -113,8 +113,8 @@ const Profile = ({
                   </div>
                 </div>
 
-                <div className='profile-container top-content'>
-                  <div className='profile-container-title'>
+                <div className="profile-container top-content">
+                  <div className="profile-container-title">
                     <h3>info:</h3>
                     <p>
                       <p>
@@ -133,11 +133,11 @@ const Profile = ({
                   </div>
                 </div>
 
-                <div className='profile-container'>
-                  <div className='profile-container-title'>
+                <div className="profile-container">
+                  <div className="profile-container-title">
                     <h3>Location:</h3>
                     <p>
-                      <MdLocationOn className='profile-icon' />{' '}
+                      <MdLocationOn className="profile-icon" />{' '}
                       {profileData.location
                         ? profileData.location
                         : 'Add your location here.'}
@@ -145,11 +145,11 @@ const Profile = ({
                   </div>
                 </div>
 
-                <div className='profile-container'>
-                  <div className='profile-container-title'>
+                <div className="profile-container">
+                  <div className="profile-container-title">
                     <h3>Coffee:</h3>
                     <p>
-                      <GiCoffeeCup className='profile-icon' />{' '}
+                      <GiCoffeeCup className="profile-icon" />{' '}
                       {profileData.availableForFika
                         ? 'Available For Fika'
                         : 'Not available for Fika'}
@@ -163,8 +163,8 @@ const Profile = ({
                   </div>
                 </div>
 
-                <div className='profile-container'>
-                  <div className='profile-container-title'>
+                <div className="profile-container">
+                  <div className="profile-container-title">
                     <h3>Bio:</h3>
                     <p>
                       {profileData.bio ? profileData.bio : 'Add your bio here.'}
@@ -173,22 +173,21 @@ const Profile = ({
                 </div>
 
                 <div>
-                  <div className='profile-container'>
-                    <div className='profile-container-title'>
+                  <div className="profile-container">
+                    <div className="profile-container-title">
                       <h3>My team:</h3>
                     </div>
-                    <div className='profile-container-content'>
-                      {teamMembers.map(teamMember => {
+                    <div className="profile-container-content">
+                      {teamMembers.map((teamMember) => {
                         return (
                           <Avatar
                             key={teamMember.id}
                             id={teamMember.id}
                             imgURL={teamMember.imgURL}
                             firstName={teamMember.firstName}
-                            lastName={teamMember.lastName}
                             isOnline={teamMember.isOnline}
                             workFromHome={teamMember.workFromHome}
-                            className='normal-size'
+                            className="normal-size"
                           />
                         );
                       })}
@@ -212,7 +211,7 @@ const Profile = ({
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     chatId: state.chat.chatId,
     auth: state.firebase.auth,
@@ -222,15 +221,17 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     updateProfile: (userId, userData) =>
       dispatch(updateProfile(userId, userData)),
     updateProfileImage: (userId, file) =>
       dispatch(updateProfileImage(userId, file)),
-    getTeamMembers: team => dispatch(getTeamMembers(team)),
-    getProfileById: userId => dispatch(getProfileById(userId)),
-    sendPersonalNotification: params =>
+    getTeamMembers: (team) => dispatch(getTeamMembers(team)),
+    getProfileById: (userId) => dispatch(getProfileById(userId)),
+    getTeamMembers: (team) => dispatch(getTeamMembers(team)),
+    getProfileById: (userId) => dispatch(getProfileById(userId)),
+    sendPersonalNotification: (params) =>
       dispatch(sendPersonalNotification(params)),
     getChat: (id1, id2) => dispatch(getChat(id1, id2)),
   };

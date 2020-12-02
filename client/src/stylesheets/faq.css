@@ -7,6 +7,7 @@
   margin-top: 1rem;
   font-size: 1.2rem;
   font-family: 'Roboto', sans-serif;
+  color: var(--color-7);
   font-weight: 400;
   margin-left: 20px;
 }
@@ -18,5 +19,8 @@
 
 .faq-input {
   width: 100%;
-  height: 20px !important;
+  height: 30px !important;
+  padding-left: 10px;
+  border-radius: 5px;
+  border: 1px solid grey;
 }

@@ -22,4 +22,5 @@
 
 .latest-hires-component .card-title {
   background-color: var(--color-3) !important;
+  color: white;
 }

@@ -46,7 +46,12 @@ const Avatar = (props) => {
             ) : (
               ''
             )}
-            <div className="avatar-name">{props.firstName}</div>
+            <div className="avatar-name">
+              <p>{props.firstName} </p>
+              {props.lastName ? <p>{props.lastName} </p> : ''}
+              {props.team ? <p>{props.team} </p> : ''}
+              <p>{props.title} </p>
+            </div>
           </div>
         </Link>
       </div>

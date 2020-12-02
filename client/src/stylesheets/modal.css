@@ -4,9 +4,9 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  /* z-index: 99; */
   /* right: 40px;
   bottom: 40px; */
+
   background-color: var(--color-lighter-7) !important;
   padding: 15px 35px;
   height: 660px;
@@ -59,14 +59,13 @@
 .file-upload-wrapper:after {
   content: 'Select';
   position: absolute;
-  top: 0;
-  left: 0;
-  background: #fff;
+  top: 0px;
+  left: 20px;
+  background-color: #fafafa;
   padding: 10px 15px;
   display: block;
-  width: calc(100% - 40px);
+  width: calc(100% - 90px);
   pointer-events: none;
-  z-index: 20;
   height: 40px;
   line-height: 40px;
   border-radius: 5px 10px 10px 5px;
@@ -83,7 +82,6 @@
   color: #fff;
   font-weight: 500;
   font-family: 'Roboto Slab', sans-serif;
-  z-index: 25;
   font-size: 1.1rem;
   line-height: 60px;
   padding: 0 15px;
@@ -101,10 +99,10 @@
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 99;
+  /* z-index: 99; */
   height: 40px;
   margin: 0;
-  padding: 0;
+  padding-left: 20px;
   display: block;
   cursor: pointer;
   width: 100%;

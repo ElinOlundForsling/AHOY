@@ -49,12 +49,40 @@
   padding: 0 0 10px 0 !important;
 }
 
+.calendar-component .card-title {
+  color: white;
+}
+
 .responsiveCal iframe {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+}
+
+@media (min-width: 1500px) {
+  .agenda-cal iframe {
+    display: none !important;
+  }
+}
+
+@media (min-width: 1500px) {
+  .box-cal iframe {
+    display: block !important;
+  }
+}
+
+@media (max-width: 1499px) {
+  .box-cal iframe {
+    display: none !important;
+  }
+}
+
+@media (max-width: 1499px) {
+  .agenda-cal iframe {
+    display: block !important;
+  }
 }
 
 .split-list ul,
