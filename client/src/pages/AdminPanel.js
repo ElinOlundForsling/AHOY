@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { getAllMembers } from '../store/actions/profileActions';
+import Sidebar from "../components/layout/Sidebar";
 import '../stylesheets/admin-panel.css';
 import Collapse from '../components/layout/Collapse';
 
-const AdminPanel = ({ auth, allMembers, getAllMembers }) => {
+const AdminPanel = ({ profile, auth, allMembers, getAllMembers }) => {
   const [members, setMembers] = useState(allMembers);
+  const [sidebarIsOpen, setSidebarIsOpen] = useState(true);
 
   useEffect(() => {
     getAllMembers();
@@ -33,6 +35,15 @@ const AdminPanel = ({ auth, allMembers, getAllMembers }) => {
   };
 
   return (
+    <>
+    <section className="sidebar-layout">
+        <Sidebar
+          width={200}
+          auth={auth}
+          profile={profile}
+          setSidebarIsOpen={setSidebarIsOpen}
+        />
+      </section>
     <section className='admin-memberlist'>
       {members &&
         members.map(member => {
@@ -47,6 +58,7 @@ const AdminPanel = ({ auth, allMembers, getAllMembers }) => {
           );
         })}
     </section>
+    </>
   );
 };
 
