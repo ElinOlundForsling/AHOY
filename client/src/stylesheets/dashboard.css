@@ -1,24 +1,12 @@
-.dashboard-welcome h4 {
+/* .dashboard-welcome h4 {
   color: grey;
   text-align: center;
-}
+} */
 
 .main {
   background-color: #fcf4ef;
   min-height: 100vh;
 }
-
-/* .dashboard-layout {
-  
-  max-width: 1200px;
-  grid-auto-flow: row dense;
-  padding: 50px;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  grid-gap: 0.5rem;
-  
-  transition: 0.8s ease;
-} */
 
 .dashboard-layout {
   padding: 20px;
