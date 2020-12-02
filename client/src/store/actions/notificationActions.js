@@ -39,6 +39,7 @@ export const sendPersonalNotification = params => {
       recipientId,
       type,
       expirationDate,
+      chatId,
     } = params;
 
     await firestore
@@ -50,6 +51,7 @@ export const sendPersonalNotification = params => {
         recipientId,
         type,
         expirationDate,
+        chatId,
       })
       .then(async function (docRef) {
         await firestore

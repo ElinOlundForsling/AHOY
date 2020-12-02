@@ -30,7 +30,8 @@ const Notifications = ({
               <li>
                 <span>{unread.senderName} wants to have a fika! </span>
                 <span>
-                  <Button size='small' to={unread.chatId}>
+                  {console.log(unread.chatId)}
+                  <Button size='small' to={`/chat/${unread.chatId}`}>
                     Accept
                   </Button>
                   &nbsp;
