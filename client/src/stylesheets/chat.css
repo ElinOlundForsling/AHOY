@@ -35,8 +35,10 @@
   color: var(--color-7);
   font-size: 1rem;
   padding: 5px;
+  height: 50px !important;
   border-color: var(--color-7);
-  min-height: 100px;
+  width: 100%;
+  /* min-height: 100px; */
   background-color: white;
   border-radius: 5px;
 }
@@ -47,6 +49,8 @@
   display: flex;
   flex-flow: column;
   flex-direction: column-reverse;
+  background-color: #dadada;
+  padding: 10px;
 }
 
 .chat-button {

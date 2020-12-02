@@ -1,3 +1,45 @@
 .department-info {
-    margin-left: 300px;
+  margin-left: 300px;
+}
+
+.department-page h1 {
+  color: var(--color-7);
+  padding: 30px;
+  text-align: center;
+}
+
+.department-members {
+  border-top: 1px solid grey;
+  margin: 0 auto;
+  background-color: #fafafa;
+  padding: 15px;
+  width: 65%;
+}
+
+.department-container-title {
+  display: inline-flex;
+}
+
+.department-container-content {
+  display: flex;
+}
+
+.department-container-teams {
+  display: block;
+}
+
+.department-container-title h3 {
+  color: var(--color-7);
+  margin: 0 !important;
+  padding-bottom: 10px;
+}
+
+.department-information-container {
+  display: flex;
+  justify-content: center;
+}
+
+.department-information-container h1 {
+  padding: 0;
+  padding-left: 20px;
 }

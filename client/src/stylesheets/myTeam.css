@@ -9,4 +9,5 @@
 
 .team-component .card-title {
   background-color: var(--color-6) !important;
+  color: white;
 }

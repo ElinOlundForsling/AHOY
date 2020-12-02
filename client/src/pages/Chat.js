@@ -7,6 +7,7 @@ import {
 } from '../store/actions/messageActions';
 import { connect } from 'react-redux';
 import '../stylesheets/chat.css';
+import Button from '../components/layout/Button';
 
 export const Chat = ({
   auth,
@@ -20,7 +21,7 @@ export const Chat = ({
   const [params, setParams] = useState({});
   const [chatText, setChatText] = useState('');
 
-  const handleSubmit = event => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     setChatText('');
     sendMessage(params);
@@ -47,7 +48,7 @@ export const Chat = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleInputChange = event => {
+  const handleInputChange = (event) => {
     setChatText(event.target.value);
     setParams({
       chatId: chat,
@@ -59,45 +60,47 @@ export const Chat = ({
   };
 
   return (
-    <div className='chat-page'>
-      <div className='chat-container'>
-        <div className='chat-messages'>
+    <div className="chat-page">
+      <div className="chat-container">
+        <div className="chat-messages">
           {messages &&
-            messages.map(message => {
+            messages.map((message) => {
               if (message.senderId === auth.uid) {
                 return (
-                  <p className='sender-msg msg-bubble' key={message.date}>
-                    {message.text} :You
+                  <p className="sender-msg msg-bubble" key={message.date}>
+                    You: {message.text}
                   </p>
                 );
               } else {
                 return (
-                  <p className='recepient-msg msg-bubble' key={message.date}>
+                  <p className="recepient-msg msg-bubble" key={message.date}>
                     {message.senderName}: {message.text}
                   </p>
                 );
               }
             })}
         </div>
-        <form onSubmit={handleSubmit} className='chat-form'>
+        <form onSubmit={handleSubmit} className="chat-form">
           <textarea
             value={chatText}
-            type='text'
+            type="text"
             onChange={handleInputChange}
-            name='message'
-            className='chat-text-area'
-            placeholder='Start a discussion...'
+            name="message"
+            className="chat-text-area"
+            placeholder="Start a discussion..."
           />
-          <button type='submit' className='chat-button'>
+          <Button type="submit" className="small">
             Send Message
-          </button>
+          </Button>
         </form>
+
+        <Button to={`/profiles/${userIds[0]}`}>Close</Button>
       </div>
     </div>
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     auth: state.firebase.auth,
     messages: state.chat.messages,
@@ -107,12 +110,12 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    sendMessage: params => dispatch(sendMessage(params)),
+    sendMessage: (params) => dispatch(sendMessage(params)),
     getMessagesListener: (chatId, status) =>
       dispatch(getMessagesListener(chatId, status)),
-    getUserIds: chatId => dispatch(getUserIds(chatId)),
+    getUserIds: (chatId) => dispatch(getUserIds(chatId)),
   };
 };
 

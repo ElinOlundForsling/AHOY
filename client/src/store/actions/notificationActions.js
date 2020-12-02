@@ -1,4 +1,4 @@
-export const notificationError = error => {
+export const notificationError = (error) => {
   return { type: 'NOTIFICATION_ERROR', payload: error };
 };
 
@@ -6,27 +6,27 @@ export const notificationSuccess = () => {
   return { type: 'NOTIFICATION_SUCCESS' };
 };
 
-export const notificationUnreadSuccess = data => {
+export const notificationUnreadSuccess = (data) => {
   return { type: 'NOTIFICATION_UNREAD_SUCCESS', payload: data };
 };
 
-export const notificationPersonalSuccess = data => {
+export const notificationPersonalSuccess = (data) => {
   return { type: 'NOTIFICATION_PERSONAL_SUCCESS', payload: data };
 };
 
-export const notificationTeamSuccess = data => {
+export const notificationTeamSuccess = (data) => {
   return { type: 'NOTIFICATION_TEAM_SUCCESS', payload: data };
 };
 
-export const notificationDepartmentSuccess = data => {
+export const notificationDepartmentSuccess = (data) => {
   return { type: 'NOTIFICATION_DEPARTMENT_SUCCESS', payload: data };
 };
 
-export const notificationCompanySuccess = data => {
+export const notificationCompanySuccess = (data) => {
   return { type: 'NOTIFICATION_COMPANY_SUCCESS', payload: data };
 };
 
-export const sendPersonalNotification = params => {
+export const sendPersonalNotification = (params) => {
   return async (dispatch, getState, { getFirestore }) => {
     console.log('sendPersonalNotification');
 
@@ -65,7 +65,7 @@ export const sendPersonalNotification = params => {
   };
 };
 
-export const getUnreadNotifications = userId => {
+export const getUnreadNotifications = (userId) => {
   return async (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
     const snapshot = await firestore
@@ -74,25 +74,27 @@ export const getUnreadNotifications = userId => {
       .collection('notifications')
       .where('readStatus', '==', 'unread')
       .get();
-    const data = snapshot.docs.map(doc => doc.data());
-    console.log('Data: ', data, 'dataStringified: ', JSON.stringify(data));
+    const data = snapshot.docs.map((doc) => doc.data());
+    // console.log('Data: ', data, 'dataStringified: ', JSON.stringify(data));
 
     const nData = [];
-    await data.forEach(async n => {
+    await data.forEach(async (n) => {
       const noti = await firestore
         .collection('personalNotifications')
         .doc(n.notificationId)
         .get();
-      const weirdData = noti.data();
-      console.log(
-        'Weird data: ',
-        weirdData,
-        'WD stringified: ',
-        JSON.stringify(weirdData),
-      );
-      nData.push(weirdData);
+
+      // const weirdData = await noti.data();
+      // console.log('Weird data: ', weirdData[0]);
+      // weirdData.map((d) => {
+      //   nData.push(d);
+      // });
+      // nData.push(weirdData);
+      //console.log('NOTI', noti.data());
     });
 
+    // console.log('NDATA LENGTH', nData.length);
+    // console.log('NDATA', nData);
     // const newTry = await data.map(n => {
     //   return firestore
     //     .collection('personalNotifications')
@@ -101,7 +103,7 @@ export const getUnreadNotifications = userId => {
     // });
     // console.log(newTry);
 
-    console.log('nData: ', nData, 'nDataStringified: ', JSON.stringify(nData));
+    // console.log('nData: ', nData, 'nDataStringified: ', JSON.stringify(nData));
     dispatch(notificationUnreadSuccess(nData));
   };
 };

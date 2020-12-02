@@ -10,23 +10,23 @@ export const uploadDocumentSuccess = () => {
   return { type: 'UPLOAD_DOCUMENT_SUCCESS' };
 };
 
-export const getProfileDataSuccess = data => {
+export const getProfileDataSuccess = (data) => {
   return { type: 'PROFILE_DATA_SUCCESS', payload: data };
 };
 
-export const getTeamSuccess = data => {
+export const getTeamSuccess = (data) => {
   return { type: 'TEAM_SUCCESS', payload: data };
 };
 
-export const getDepartmentSuccess = data => {
+export const getDepartmentSuccess = (data) => {
   return { type: 'DEPARTMENT_SUCCESS', payload: data };
 };
 
-export const getAllSuccess = data => {
+export const getAllSuccess = (data) => {
   return { type: 'ALL_SUCCESS', payload: data };
 };
 
-export const getRandomSuccess = data => {
+export const getRandomSuccess = (data) => {
   return { type: 'RANDOM_SUCCESS', payload: data };
 };
 
@@ -43,7 +43,7 @@ export const toggleWorkPlace = (auth, isToggled) => {
         {
           workFromHome: isToggled,
         },
-        { merge: true },
+        { merge: true }
       );
       dispatch(toggleWorkPlaceSuccess());
     } catch (error) {
@@ -69,7 +69,7 @@ export const updateProfile = (userId, userData) => {
             availableForFika: userData.availableForFika || '',
             bio: userData.bio || '',
           },
-          { merge: true },
+          { merge: true }
         );
       dispatch(getProfileSuccess());
     } catch (error) {
@@ -78,7 +78,7 @@ export const updateProfile = (userId, userData) => {
   };
 };
 
-export const getProfileById = userId => {
+export const getProfileById = (userId) => {
   return async (dispatch, getState, { getFirestore }) => {
     console.log('getProfileById');
     const firestore = getFirestore();
@@ -103,15 +103,15 @@ export const updateProfileImage = (userId, file) => {
         .ref('images')
         .child(file.name)
         .getDownloadURL()
-        .then(url => {
+        .then((url) => {
           firestore.collection('users').doc(userId).set(
             {
               imgURL: url,
             },
-            { merge: true },
+            { merge: true }
           );
         })
-        .catch(error => console.error(error));
+        .catch((error) => console.error(error));
     });
 
     dispatch(getProfileImageSuccess());
@@ -127,7 +127,7 @@ export const uploadDocuments = (auth, profileData, file) => {
         .ref('documents')
         .child(file.name)
         .getDownloadURL()
-        .then(url => {
+        .then((url) => {
           firestore
             .collection('users')
             .doc(auth)
@@ -135,17 +135,17 @@ export const uploadDocuments = (auth, profileData, file) => {
               {
                 documents: [url, ...profileData.documents],
               },
-              { merge: true },
+              { merge: true }
             );
         })
-        .catch(error => console.error(error));
+        .catch((error) => console.error(error));
     });
 
     dispatch(uploadDocumentSuccess());
   };
 };
 
-export const getTeamMembers = team => {
+export const getTeamMembers = (team) => {
   return async (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
     try {
@@ -153,9 +153,8 @@ export const getTeamMembers = team => {
         .collection('users')
         .where('team', '==', team)
         .get();
-
-      const data = snapshot.docs.map(doc => doc.data());
-      const ids = snapshot.docs.map(doc => doc.id);
+      const data = snapshot.docs.map((doc) => doc.data());
+      const ids = snapshot.docs.map((doc) => doc.id);
       const newData = data.map((d, index) => {
         return { ...d, id: ids[index] };
       });
@@ -167,7 +166,7 @@ export const getTeamMembers = team => {
   };
 };
 
-export const getDepartmentMembers = department => {
+export const getDepartmentMembers = (department) => {
   return async (dispatch, getState, { getFirestore }) => {
     console.log('getDepartmentMembers');
     const firestore = getFirestore();
@@ -177,8 +176,8 @@ export const getDepartmentMembers = department => {
         .where('department', '==', department)
         .get();
 
-      const data = snapshot.docs.map(doc => doc.data());
-      const ids = snapshot.docs.map(doc => doc.id);
+      const data = snapshot.docs.map((doc) => doc.data());
+      const ids = snapshot.docs.map((doc) => doc.id);
       const newData = data.map((d, index) => {
         return { ...d, id: ids[index] };
       });
@@ -197,8 +196,8 @@ export const getAllMembers = () => {
     try {
       const snapshot = await firestore.collection('users').get();
 
-      const data = snapshot.docs.map(doc => doc.data());
-      const ids = snapshot.docs.map(doc => doc.id);
+      const data = snapshot.docs.map((doc) => doc.data());
+      const ids = snapshot.docs.map((doc) => doc.id);
       const newData = data.map((d, index) => {
         return { ...d, id: ids[index] };
       });
@@ -217,13 +216,13 @@ export const getRandomMember = () => {
     try {
       const snapshot = await firestore.collection('users').get();
 
-      const data = snapshot.docs.map(doc => doc.data());
-      const ids = snapshot.docs.map(doc => doc.id);
+      const data = snapshot.docs.map((doc) => doc.data());
+      const ids = snapshot.docs.map((doc) => doc.id);
       const newData = data.map((d, index) => {
         return { ...d, id: ids[index] };
       });
 
-      const availableMembers = newData.filter(mem => mem.availableForFika);
+      const availableMembers = newData.filter((mem) => mem.availableForFika);
       const randomNum = Math.floor(Math.random() * availableMembers.length);
 
       dispatch(getRandomSuccess(availableMembers[randomNum]));
@@ -249,7 +248,7 @@ export const updateProfileAdmin = (userId, userData) => {
           title: userData.title,
           employmentType: userData.employmentType,
         },
-        { merge: true },
+        { merge: true }
       );
       dispatch(getProfileSuccess());
     } catch (error) {
