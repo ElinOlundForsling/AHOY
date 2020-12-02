@@ -130,3 +130,11 @@
 .office:hover .tooltiptext {
   visibility: visible;
 }
+
+.avatar-card {
+  display: inline-flex;
+}
+
+.avatar-name {
+  font-size: 1rem;
+}
