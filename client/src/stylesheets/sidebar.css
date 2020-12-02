@@ -155,6 +155,10 @@ ul:hover .dropdown li:nth-child(3) {
   animation: animate 600ms ease-in-out;
 }
 
+.dropdown {
+  display: block;
+}
+
 @keyframes animate {
   0% {
     opacity: 0;
