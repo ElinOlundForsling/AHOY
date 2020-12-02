@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import Card from "../layout/Card";
+import React, { useState } from 'react';
+import Card from '../layout/Card';
 import {
   getProfileSuccess,
   uploadDocuments,
-} from "../../store/actions/profileActions";
-import { connect } from "react-redux";
-import { FiFolderPlus } from "react-icons/fi";
-import { Link } from "react-router-dom";
-import '../../stylesheets/documents.css'
+} from '../../store/actions/profileActions';
+import { connect } from 'react-redux';
+import { FiFolderPlus } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
+import '../../stylesheets/documents.css';
 
 const Documents = ({ uploadDocuments, auth, profile }) => {
   const [file, setFile] = useState(null);
@@ -23,35 +23,32 @@ const Documents = ({ uploadDocuments, auth, profile }) => {
   }
 
   function fileNameRegex(file) {
-    let documentName = file.replace(/[\s\S]*%2F/, '')
-    documentName = documentName.replace(/(\?)[\s\S]+/, '')
-    documentName = documentName.replace(/(%20)/g, ' ')
-    return documentName
+    let documentName = file.replace(/[\s\S]*%2F/, '');
+    documentName = documentName.replace(/(\?)[\s\S]+/, '');
+    documentName = documentName.replace(/(%20)/g, ' ');
+    return documentName;
   }
 
-
-  console.log("PROFILE", profile);
+  console.log('PROFILE', profile);
   return (
     <Card
-      heading="Document Uploads"
-      subHeading="View your documents here"
-      className="documents-component"
-    >
+      heading='Document Uploads'
+      subHeading='View your documents here'
+      className='documents-component'>
       {profile.documents && (
         <>
           <div>
-            <label htmlFor="file"></label>
+            <label htmlFor='file'></label>
             <form onSubmit={handleUpload}>
               <div
-                className="file-upload-wrapper"
-                data-text="Select your file!"
-              >
+                className='file-upload-wrapper'
+                data-text='Select your file!'>
                 <input
-                  name="file-upload-field"
-                  type="file"
-                  className="file-upload-field"
+                  name='file-upload-field'
+                  type='file'
+                  className='file-upload-field'
                   onChange={handleChange}
-                  value=""
+                  value=''
                 />
               </div>
               <br></br>
@@ -59,13 +56,13 @@ const Documents = ({ uploadDocuments, auth, profile }) => {
             </form>
           </div>
           <div>
-            {profile.documents.map((document) => {
+            {profile.documents.map(document => {
               return (
-                <div>
-                  {" "}
-                  <a href={document} target="_blank">
+                <div key={document}>
+                  {' '}
+                  <a href={document} target='_blank'>
                     {fileNameRegex(document)}
-                  </a>{" "}
+                  </a>{' '}
                 </div>
               );
             })}
@@ -76,14 +73,14 @@ const Documents = ({ uploadDocuments, auth, profile }) => {
   );
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     auth: state.firebase.auth,
     profile: state.firebase.profile,
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
     uploadDocuments: (auth, profile, file) =>
       dispatch(uploadDocuments(auth, profile, file)),

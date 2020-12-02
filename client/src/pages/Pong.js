@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-const Pong = () => {
+const PongVanilla = () => {
   const ref = useRef();
 
   const [canvas, setCanvas] = useState({
-    width: window.innerWidth / 2,
-    height: window.innerHeight / 2,
+    width: window.innerWidth,
+    height: window.innerHeight,
   });
   const [net, setNet] = useState({
     x: canvas.width / 2 - 4 / 2,
@@ -26,10 +26,12 @@ const Pong = () => {
   const paddleWidth = 10;
   const paddleHeight = 100;
 
+  const userVelocity = 6;
+
   const [user, setUser] = useState({
     x: 10,
     y: canvas.height / 2 - paddleHeight / 2,
-    velocity: 8,
+    velocity: userVelocity,
     width: paddleWidth,
     height: paddleHeight,
     color: '#FFF',
@@ -74,9 +76,13 @@ const Pong = () => {
     context.font = '35px sans-serif';
 
     context.fillText(user.score, canvas.width / 4, canvas.height / 6);
+    context.fillText(ai.score, (3 * canvas.width) / 4, canvas.height / 6);
 
     context.fillStyle = user.color;
     context.fillRect(user.x, user.y, user.width, user.height);
+
+    context.fillStyle = ai.color;
+    context.fillRect(ai.x, ai.y, ai.width, ai.height);
 
     context.fillStyle = ball.color;
     context.beginPath();
@@ -89,6 +95,7 @@ const Pong = () => {
   const [downArrowPressed, setDownArrowPressed] = useState(false);
 
   const keyDownHandler = event => {
+    event.preventDefault();
     switch (event.keyCode) {
       case 38:
         //setPaddleV(v => v + 0.2);
@@ -102,16 +109,24 @@ const Pong = () => {
   };
 
   const keyUpHandler = event => {
+    event.preventDefault();
     switch (event.keyCode) {
       case 38:
         setUpArrowPressed(false);
-        //resetV();
+        resetV();
         break;
       case 40:
         setDownArrowPressed(false);
-        //resetV();
+        resetV();
         break;
     }
+  };
+
+  const resetV = () => {
+    setUser(user => ({
+      ...user,
+      velocity: userVelocity,
+    }));
   };
 
   function toggle() {
@@ -120,7 +135,12 @@ const Pong = () => {
 
   function reset() {
     setSeconds(0);
-    setIsActive(false);
+    setBall(ball => ({
+      ...ball,
+      x: canvas.width / 2,
+      y: canvas.height / 2,
+      speed: 7,
+    }));
   }
 
   useEffect(() => {
@@ -140,6 +160,23 @@ const Pong = () => {
     }
   }, [isActive]);
 
+  const calculateVelocity = player => {
+    let angle = 0;
+
+    if (ball.y < player.y + player.height / 2) {
+      angle = (-1 * Math.PI) / 4;
+    } else if (ball.y > player.y + player.height / 2) {
+      angle = Math.PI / 4;
+    }
+
+    setBall(ball => ({
+      ...ball,
+      velocityX: (player === user ? 1 : -1) * ball.speed * Math.cos(angle),
+      velocityY: ball.speed * Math.sin(angle),
+      speed: player === user ? ball.speed + player.velocity - 6 : ball.speed,
+    }));
+  };
+
   useEffect(() => {
     let interval = null;
     if (isActive) {
@@ -156,6 +193,7 @@ const Pong = () => {
           }));
         }
         if (ball.x + ball.radius >= canvas.width) {
+          reset();
           setUser(user => ({
             ...user,
             score: user.score + 1,
@@ -165,6 +203,11 @@ const Pong = () => {
             velocityX: -Math.abs(ball.velocityX),
           }));
         } else if (ball.x - ball.radius <= 0) {
+          reset();
+          setAi(ai => ({
+            ...ai,
+            score: ai.score + 1,
+          }));
           setBall(ball => ({
             ...ball,
             velocityX: Math.abs(ball.velocityX),
@@ -179,20 +222,37 @@ const Pong = () => {
             ...ball,
             velocityX: Math.abs(ball.velocityX),
           }));
+          calculateVelocity(user);
+        } else if (
+          ball.x + ball.radius >= canvas.width - 20 &&
+          Math.abs(ai.y + 50 - ball.y) < 50 + ball.radius
+        ) {
+          console.log('ding dong');
+          setBall(ball => ({
+            ...ball,
+            velocityX: -Math.abs(ball.velocityX),
+          }));
+          calculateVelocity(ai);
         }
-        setSeconds(seconds => seconds + 1);
-
         if (upArrowPressed && user.y > 0) {
           setUser(user => ({
             ...user,
+            velocity: user.velocity + 0.2,
             y: user.y - user.velocity,
           }));
         } else if (downArrowPressed && user.y < canvas.height - user.height) {
           setUser(user => ({
             ...user,
+            velocity: user.velocity + 0.2,
             y: user.y + user.velocity,
           }));
         }
+        setAi(ai => ({
+          ...ai,
+          y: (ai.y += (ball.y - (ai.y + ai.height / 2)) * 0.06),
+        }));
+        setSeconds(seconds => seconds + 1);
+        console.log(user.velocity);
       }, 10);
     } else if (!isActive && seconds !== 0) {
       clearInterval(interval);
@@ -209,4 +269,4 @@ const Pong = () => {
   );
 };
 
-export default Pong;
+export default PongVanilla;

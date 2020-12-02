@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
 import { GiCoffeeCup } from 'react-icons/gi';
+import '../../stylesheets/profile-modal.css';
 
 const ProfileModal = ({
   auth,
@@ -70,7 +71,7 @@ const ProfileModal = ({
       contentLabel='Example Modal'>
       <h4>Update your profile.</h4>
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className='profile-form'>
         <input
           type='text'
           onChange={handleInputChange}
@@ -98,24 +99,23 @@ const ProfileModal = ({
           name='bio'
           placeholder='Your bio here.'
         />
-
         <label>
-          <input
-            type='checkbox'
-            onChange={handleAvailability}
-            defaultChecked={profile.availableForFika}
-          />
-          <span>
+          <div className='fika-checkbox'>
+            <input
+              type='checkbox'
+              onChange={handleAvailability}
+              defaultChecked={profile.availableForFika}
+            />
             <GiCoffeeCup /> Available For Fika
-          </span>
+          </div>
         </label>
         <br></br>
         <button type='submit'>Save Changes</button>
       </form>
       <hr />
       <div>
-        <label htmlFor='file'>Upload</label>
-        <form onSubmit={handleUpload}>
+        <form onSubmit={handleUpload} className='profile-form'>
+          <label htmlFor='file'>Upload</label>
           <div className='file-upload-wrapper' data-text='Select your file!'>
             <input
               name='file-upload-field'
