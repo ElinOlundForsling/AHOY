@@ -8,6 +8,7 @@ import React from 'react';
 import { CgProfile, CgStyle } from 'react-icons/cg';
 import { BsGrid } from 'react-icons/bs';
 import { VscSignOut, VscKey } from 'react-icons/vsc';
+import { AiOutlineMenuFold, AiOutlineMenuUnfold } from 'react-icons/ai';
 import WorkingFromToggle from './WorkingFromToggle';
 import MyTeam from '../../components/widgets/MyTeam';
 import LatestHires from '../../components/widgets/LatestHires';
@@ -27,6 +28,7 @@ const Sidebar = ({
   profile,
   auth,
   signOut,
+  sidebarIsOpen,
   setSidebarIsOpen,
 }) => {
   const [xPosition, setX] = React.useState(-width);
@@ -197,13 +199,24 @@ const Sidebar = ({
               </li>
             </ul>
           </nav>
-          <button
-            onClick={() => toggleMenu()}
-            className="toggle-menu"
-            style={{
-              transform: `translate(${width}px, 20vh)`,
-            }}
-          ></button>
+          {sidebarIsOpen ? (
+            <AiOutlineMenuFold
+              onClick={() => toggleMenu()}
+              className="toggle-menu"
+              style={{
+                transform: `translate(${width}px, 20vh)`,
+              }}
+            ></AiOutlineMenuFold>
+          ) : (
+            <AiOutlineMenuUnfold
+              onClick={() => toggleMenu()}
+              className="toggle-menu"
+              style={{
+                transform: `translate(${width}px, 20vh)`,
+              }}
+            ></AiOutlineMenuUnfold>
+          )}
+
           <div className="content">{children}</div>
         </div>
       )}

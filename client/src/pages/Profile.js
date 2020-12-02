@@ -7,15 +7,18 @@ import { MdLocationOn } from 'react-icons/md';
 import { GiCoffeeCup } from 'react-icons/gi';
 import Sidebar from '../components/layout/Sidebar';
 import Avatar from '../components/layout/Avatar';
+import Button from '../components/layout/Button';
 import ProfileModal from '../components/layout/ProfileModal';
 import {
   updateProfile,
   updateProfileImage,
   getProfileById,
+  getTeamMembers,
 } from '../store/actions/profileActions';
 import { getChat } from '../store/actions/messageActions';
 import '../stylesheets/profilePage.css';
 import '../stylesheets/modal.css';
+import '../stylesheets/index.css';
 import '../stylesheets/card.css';
 
 const Profile = ({
@@ -25,6 +28,8 @@ const Profile = ({
   updateProfile,
   updateProfileImage,
   getProfileById,
+  getTeamMembers,
+  teamMembers,
   getChat,
   chatId,
 }) => {
@@ -44,9 +49,11 @@ const Profile = ({
   useEffect(() => {
     if (profileData.id) {
       getChat(auth.uid, profileData.id);
+      getTeamMembers(profileData.team);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [profileData]);
+  console.log('data', profileData.team);
 
   if (!auth.uid) {
     return <Redirect to='/signin' />;
@@ -83,42 +90,90 @@ const Profile = ({
                     <h5>
                       {profileData.firstName} {profileData.lastName}
                     </h5>
-                    <p>{profileData.title}</p>
                   </div>
                 </div>
-                <p>
-                  Department: {profileData.department} <br></br> Team:{' '}
-                  {profileData.team}
-                  <br></br> Email: {profileData.email}
-                </p>
-                <div className='profile-location'>
-                  <p>
-                    <MdLocationOn />{' '}
-                    {profileData.location
-                      ? profileData.location
-                      : 'Add your location here.'}
-                  </p>
+
+                <div className='profile-container top-content'>
+                  <div className='profile-container-title'>
+                    <h3>info:</h3>
+                    <p>
+                      <p>
+                        Department: {profileData.department} <br></br> Team:{' '}
+                        {profileData.team}
+                        <br></br> Title: {profileData.title}
+                        <br></br> Email: {profileData.email}
+                      </p>
+
+                      {auth.uid !== profileId && (
+                        <Link to={`/chat/${chatId}`}>
+                          <button>CHAT</button>
+                        </Link>
+                      )}
+                    </p>
+                  </div>
                 </div>
-                {auth.uid !== profileId && (
-                  <Link to={`/chat/${chatId}`}>
-                    <button className='chat-button'>CHAT</button>
-                  </Link>
-                )}
-                <span className='profile-fika'>
-                  <GiCoffeeCup />{' '}
-                  {profileData.availableForFika
-                    ? 'Available For Fika'
-                    : 'Not available for Fika'}
-                  {profileData.availableForFika && auth.uid !== profileId ? (
-                    <button>ASK FOR FIKA</button>
-                  ) : (
-                    ''
-                  )}
-                </span>
-                <div className='profile-bio'>
-                  <p>
-                    {profileData.bio ? profileData.bio : 'Add your bio here.'}
-                  </p>
+
+                <div className='profile-container'>
+                  <div className='profile-container-title'>
+                    <h3>Location:</h3>
+                    <p>
+                      <MdLocationOn className='profile-icon' />{' '}
+                      {profileData.location
+                        ? profileData.location
+                        : 'Add your location here.'}
+                    </p>
+                  </div>
+                </div>
+
+                <div className='profile-container'>
+                  <div className='profile-container-title'>
+                    <h3>Coffee:</h3>
+                    <p>
+                      <GiCoffeeCup className='profile-icon' />{' '}
+                      {profileData.availableForFika
+                        ? 'Available For Fika'
+                        : 'Not available for Fika'}
+                      {profileData.availableForFika &&
+                      auth.uid !== profileId ? (
+                        <button>ASK FOR FIKA</button>
+                      ) : (
+                        ''
+                      )}
+                    </p>
+                  </div>
+                </div>
+
+                <div className='profile-container'>
+                  <div className='profile-container-title'>
+                    <h3>Bio:</h3>
+                    <p>
+                      {profileData.bio ? profileData.bio : 'Add your bio here.'}
+                    </p>
+                  </div>
+                </div>
+
+                <div>
+                  <div className='profile-container'>
+                    <div className='profile-container-title'>
+                      <h3>My team:</h3>
+                    </div>
+                    <div className='profile-container-content'>
+                      {teamMembers.map(teamMember => {
+                        return (
+                          <Avatar
+                            key={teamMember.id}
+                            id={teamMember.id}
+                            imgURL={teamMember.imgURL}
+                            firstName={teamMember.firstName}
+                            lastName={teamMember.lastName}
+                            isOnline={teamMember.isOnline}
+                            workFromHome={teamMember.workFromHome}
+                            className='normal-size'
+                          />
+                        );
+                      })}
+                    </div>
+                  </div>
                 </div>
               </div>
             </>
@@ -143,6 +198,7 @@ const mapStateToProps = state => {
     auth: state.firebase.auth,
     profile: state.firebase.profile,
     profileData: state.profileData.profileData,
+    teamMembers: state.profileData.teamMembers,
   };
 };
 
@@ -152,6 +208,7 @@ const mapDispatchToProps = dispatch => {
       dispatch(updateProfile(userId, userData)),
     updateProfileImage: (userId, file) =>
       dispatch(updateProfileImage(userId, file)),
+    getTeamMembers: team => dispatch(getTeamMembers(team)),
     getProfileById: userId => dispatch(getProfileById(userId)),
     getChat: (id1, id2) => dispatch(getChat(id1, id2)),
   };

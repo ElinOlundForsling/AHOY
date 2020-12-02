@@ -1,9 +1,3 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 #body {
   min-height: 30vh;
   min-width: 100%;
@@ -11,26 +5,31 @@
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  margin: 0px;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 .header {
   background-color: #f4511e;
+  position: fixed; /* Set the navbar to fixed position */
+  top: 0; /* Position the navbar at the top of the page */
   color: white;
   width: 100%;
   text-align: center;
-  height: 170px;
-  padding: 30px;
-  margin-bottom: 2rem;
+  height: 160px;
+  padding-top: 40px;
+  margin-bottom: 4rem;
 }
 
 .header-title {
   font-size: 50px;
 }
 
+.app-logo {
+  margin-bottom: 20px;
+}
+
 .header-text {
   font-size: 20px;
+  margin-top: 2rem;
 }
 
 .section {
@@ -50,9 +49,11 @@
   width: 20%;
 }
 
-.small-div img {
-  height: 250px;
+.landing-image {
+  height: 600px;
   width: auto;
+  position: absolute;
+  top: 150px;
 }
 
 .big-div {
@@ -130,6 +131,24 @@ textarea {
   border: 0;
   border-radius: 5px;
   background-color: #f4511e;
+}
+
+.landing-page-content {
+  position: relative;
+}
+
+.landing-page-heading {
+  font-size: 50px;
+  font-family: 'Roboto Slab', sans-serif;
+  font-weight: 400;
+  margin-bottom: 10px;
+}
+
+.landing-page-form {
+  position: absolute;
+  /* top: 5px; */
+  top: 40px;
+  right: 10px;
 }
 
 @media only screen and (min-width: 320px) and (max-width: 725px) {

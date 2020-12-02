@@ -159,7 +159,7 @@ export const getTeamMembers = team => {
       const newData = data.map((d, index) => {
         return { ...d, id: ids[index] };
       });
-
+      console.log('new daata', newData);
       dispatch(getTeamSuccess(newData));
     } catch (error) {
       console.error('ERROR!: ', error.message);

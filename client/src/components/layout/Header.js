@@ -1,9 +1,7 @@
 const Header = () => {
   return (
     <div className="header">
-      <span className="header-title">AHOY</span>
-      <br />
-      <span className="header-text">To Onboarding and beyond ...</span>
+      <img className="app-logo" src="/img/app_logo.png" alt="app-logo" />
     </div>
   );
 };

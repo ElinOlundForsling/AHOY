@@ -29,7 +29,7 @@ const LatestHires = ({ getLatestHires, latestHires }) => {
                 className='small-size'
               />
               <div className='latest-hired-name'>
-                <p className='latest-hired-name'>{hire.joinDate}</p>
+                <p>{hire.joinDate}</p>
               </div>
             </div>
           );

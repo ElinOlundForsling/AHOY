@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { IoMdRemoveCircleOutline } from 'react-icons/io';
 import '../stylesheets/dashboard.css';
 import '../stylesheets/index.css';
-import '../stylesheets/buttonChoices.css';
 import Sidebar from '../components/layout/Sidebar';
 import MyTeam from '../components/widgets/MyTeam';
 import LatestHires from '../components/widgets/LatestHires';
@@ -70,6 +69,7 @@ const Dashboard = ({ auth, profile }) => {
           width={200}
           auth={auth}
           profile={profile}
+          sidebarIsOpen={sidebarIsOpen}
           setSidebarIsOpen={setSidebarIsOpen}
           addCard={addCard}
           deleteCard={deleteCard}
