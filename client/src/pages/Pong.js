@@ -1,11 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
+import '../stylesheets/pong.css';
+import PongHeader from '../components/pong/PongHeader';
+import PongSidebar from '../components/pong/PongSidebar';
 
 const PongVanilla = () => {
   const ref = useRef();
 
   const [canvas, setCanvas] = useState({
-    width: window.innerWidth,
-    height: window.innerHeight,
+    width: (window.innerWidth / 10) * 8.5,
+    height: (window.innerHeight / 10) * 8,
   });
   const [net, setNet] = useState({
     x: canvas.width / 2 - 4 / 2,
@@ -19,7 +22,7 @@ const PongVanilla = () => {
     setCanvas(ref.current);
     const tempCanvas = ref.current;
     let context = tempCanvas.getContext('2d');
-    context.fillStyle = '#000';
+    context.fillStyle = '#181818';
     context.fillRect(0, 0, canvas.width, canvas.height);
   }, []);
 
@@ -56,7 +59,7 @@ const PongVanilla = () => {
     speed: 7,
     velocityX: 5,
     velocityY: 5,
-    color: '#05EDFF',
+    color: '#fff',
   });
 
   const [seconds, setSeconds] = useState(0);
@@ -65,18 +68,11 @@ const PongVanilla = () => {
   useEffect(() => {
     const tempCanvas = ref.current;
     let context = tempCanvas.getContext('2d');
-    context.fillStyle = '#000';
+    context.fillStyle = '#181818';
     context.fillRect(0, 0, canvas.width, canvas.height);
     // net
     context.fillStyle = net.color;
     context.fillRect(net.x, net.y, net.width, net.height);
-
-    // score
-    context.fillStyle = '#fff';
-    context.font = '35px sans-serif';
-
-    context.fillText(user.score, canvas.width / 4, canvas.height / 6);
-    context.fillText(ai.score, (3 * canvas.width) / 4, canvas.height / 6);
 
     context.fillStyle = user.color;
     context.fillRect(user.x, user.y, user.width, user.height);
@@ -217,7 +213,6 @@ const PongVanilla = () => {
           ball.x - ball.radius <= 20 &&
           Math.abs(user.y + 50 - ball.y) < 50 + ball.radius
         ) {
-          console.log('boink');
           setBall(ball => ({
             ...ball,
             velocityX: Math.abs(ball.velocityX),
@@ -227,7 +222,6 @@ const PongVanilla = () => {
           ball.x + ball.radius >= canvas.width - 20 &&
           Math.abs(ai.y + 50 - ball.y) < 50 + ball.radius
         ) {
-          console.log('ding dong');
           setBall(ball => ({
             ...ball,
             velocityX: -Math.abs(ball.velocityX),
@@ -252,7 +246,6 @@ const PongVanilla = () => {
           y: (ai.y += (ball.y - (ai.y + ai.height / 2)) * 0.06),
         }));
         setSeconds(seconds => seconds + 1);
-        console.log(user.velocity);
       }, 10);
     } else if (!isActive && seconds !== 0) {
       clearInterval(interval);
@@ -261,11 +254,16 @@ const PongVanilla = () => {
   }, [isActive, seconds]);
 
   return (
-    <canvas
-      ref={ref}
-      id='canvas'
-      width={canvas.width}
-      height={canvas.height}></canvas>
+    <main className='pong-game'>
+      <PongHeader userScore={user.score} opponentScore={ai.score} />
+      <PongSidebar />
+      <canvas
+        className='pong-board'
+        ref={ref}
+        id='canvas'
+        width={canvas.width}
+        height={canvas.height}></canvas>
+    </main>
   );
 };
 
