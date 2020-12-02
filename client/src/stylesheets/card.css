@@ -56,3 +56,19 @@
   width: 100%;
   height: 100%;
 }
+
+.split-list ul,
+li {
+  width: 100%;
+  list-style: none;
+  padding: 0;
+  line-height: 2.3rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.sub-title {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  margin-left: 20px;
+}

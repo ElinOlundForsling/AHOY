@@ -1,14 +1,15 @@
 .button {
   font: inherit;
+  text-transform: uppercase;
   padding: 0.5rem 1.5rem;
   border: 1px solid #43aa8b;
   border-radius: 4px;
   background: #43aa8b;
   color: white;
   cursor: pointer;
-  margin-right: 1rem;
   text-decoration: none;
   display: inline-block;
+  line-height: normal;
 }
 
 .button:focus {

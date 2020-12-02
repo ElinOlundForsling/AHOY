@@ -75,34 +75,15 @@ export const getUnreadNotifications = userId => {
       .where('readStatus', '==', 'unread')
       .get();
     const data = snapshot.docs.map(doc => doc.data());
-    console.log('Data: ', data, 'dataStringified: ', JSON.stringify(data));
 
-    const nData = [];
-    await data.forEach(async n => {
-      const noti = await firestore
+    const newTry = data.map(async n => {
+      const res = await firestore
         .collection('personalNotifications')
         .doc(n.notificationId)
         .get();
-      const weirdData = noti.data();
-      console.log(
-        'Weird data: ',
-        weirdData,
-        'WD stringified: ',
-        JSON.stringify(weirdData),
-      );
-      nData.push(weirdData);
+      return await res.data();
     });
-
-    // const newTry = await data.map(n => {
-    //   return firestore
-    //     .collection('personalNotifications')
-    //     .doc(n.notificationId)
-    //     .get();
-    // });
-    // console.log(newTry);
-
-    console.log('nData: ', nData, 'nDataStringified: ', JSON.stringify(nData));
-    dispatch(notificationUnreadSuccess(nData));
+    Promise.all(newTry).then(r => dispatch(notificationUnreadSuccess(r)));
   };
 };
 
