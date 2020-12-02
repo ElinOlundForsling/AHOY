@@ -16,6 +16,7 @@ import {
   getTeamMembers,
 } from '../store/actions/profileActions';
 import { getChat } from '../store/actions/messageActions';
+import { sendPersonalNotification } from '../store/actions/notificationActions';
 import '../stylesheets/profilePage.css';
 import '../stylesheets/modal.css';
 import '../stylesheets/index.css';
@@ -32,6 +33,7 @@ const Profile = ({
   teamMembers,
   getChat,
   chatId,
+  sendPersonalNotification,
 }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [sidebarIsOpen, setSidebarIsOpen] = useState(true);
@@ -53,7 +55,25 @@ const Profile = ({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [profileData]);
-  console.log('data', profileData.team);
+
+  const handleFika = event => {
+    event.preventDefault();
+    const today = new Date();
+    const params = {
+      senderId: auth.uid,
+      senderName: profile.firstName,
+      senderImgUrl: profile.imgURL,
+      recipientId: profileData.id,
+      type: 'fikaRequest',
+      chatId,
+      expirationDate: new Date(
+        today.getFullYear(),
+        today.getMonth(),
+        today.getDate() + 7,
+      ),
+    };
+    sendPersonalNotification(params);
+  };
 
   if (!auth.uid) {
     return <Redirect to='/signin' />;
@@ -106,7 +126,7 @@ const Profile = ({
 
                       {auth.uid !== profileId && (
                         <Link to={`/chat/${chatId}`}>
-                          <button>CHAT</button>
+                          <Button>CHAT</Button>
                         </Link>
                       )}
                     </p>
@@ -135,7 +155,7 @@ const Profile = ({
                         : 'Not available for Fika'}
                       {profileData.availableForFika &&
                       auth.uid !== profileId ? (
-                        <button>ASK FOR FIKA</button>
+                        <Button onClick={handleFika}>ASK FOR FIKA</Button>
                       ) : (
                         ''
                       )}
@@ -210,6 +230,8 @@ const mapDispatchToProps = dispatch => {
       dispatch(updateProfileImage(userId, file)),
     getTeamMembers: team => dispatch(getTeamMembers(team)),
     getProfileById: userId => dispatch(getProfileById(userId)),
+    sendPersonalNotification: params =>
+      dispatch(sendPersonalNotification(params)),
     getChat: (id1, id2) => dispatch(getChat(id1, id2)),
   };
 };

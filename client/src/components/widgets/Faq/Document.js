@@ -6,11 +6,10 @@ const Document = ({ searchTerm, document }) => {
     <div>
       <h6>{document.title}</h6>
       <Highlighter
-        highlightClassName="YourHighlightClass"
+        highlightClassName='YourHighlightClass'
         searchWords={[searchTerm]}
         autoEscape={true}
-        textToHighlight={document.content}
-      ></Highlighter>
+        textToHighlight={document.content}></Highlighter>
     </div>
   );
 };

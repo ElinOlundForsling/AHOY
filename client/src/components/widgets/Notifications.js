@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Card from '../layout/Card';
 import Button from '../layout/Button';
 import { connect } from 'react-redux';
@@ -30,7 +30,10 @@ const Notifications = ({
               <li>
                 <span>{unread.senderName} wants to have a fika! </span>
                 <span>
-                  <Button size='small'>Accept</Button>&nbsp;
+                  <Button size='small' to={unread.chatId}>
+                    Accept
+                  </Button>
+                  &nbsp;
                   <Button size='small'>Decline</Button>
                 </span>
               </li>
@@ -47,8 +50,7 @@ const Notifications = ({
           }
         })}
       </ul>
-      <h3 className='sub-title'>Personal</h3>
-      <h3 className='sub-title'>Department</h3>
+      <h3 className='sub-title'>Read</h3>
     </Card>
   );
 };

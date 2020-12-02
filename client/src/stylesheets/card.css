@@ -67,8 +67,13 @@ li {
   justify-content: space-between;
 }
 
+.split-list {
+  margin-bottom: 10px;
+}
+
 .sub-title {
   font-family: 'Roboto', sans-serif;
   font-weight: 400;
   margin-left: 20px;
+  margin-bottom: 10px;
 }
