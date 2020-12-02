@@ -1,24 +1,39 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Modal from 'react-modal';
 import { connect } from 'react-redux';
 import { getRandomMember } from '../../store/actions/profileActions';
+import { getChat } from '../../store/actions/messageActions';
 import { sendPersonalNotification } from '../../store/actions/notificationActions';
 import '../../stylesheets/fikaModal.css';
 
 const FikaModal = ({
   auth,
   profile,
+  getChat,
+  chatId,
   modalIsOpen,
   setModalIsOpen,
   getRandomMember,
   randomMember,
   sendPersonalNotification,
 }) => {
+  Modal.setAppElement('#root');
+
   useEffect(() => {
     getRandomMember();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  Modal.setAppElement('#root');
+
+  const isFirstRun = useRef(true);
+  useEffect(() => {
+    if (isFirstRun.current) {
+      isFirstRun.current = false;
+      return;
+    }
+    getChat(auth.uid, randomMember.id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [randomMember]);
+
   function closeModal() {
     setModalIsOpen(false);
   }
@@ -29,6 +44,7 @@ const FikaModal = ({
   };
 
   const handleRequest = event => {
+    event.preventDefault();
     const today = new Date();
     const params = {
       senderId: auth.uid,
@@ -36,6 +52,7 @@ const FikaModal = ({
       senderImgUrl: profile.imgURL,
       recipientId: randomMember.id,
       type: 'fikaRequest',
+      chatId,
       expirationDate: new Date(
         today.getFullYear(),
         today.getMonth(),
@@ -43,7 +60,6 @@ const FikaModal = ({
       ),
     };
     sendPersonalNotification(params);
-    event.preventDefault();
   };
 
   return (
@@ -83,6 +99,7 @@ const FikaModal = ({
 const mapStateToProps = state => {
   return {
     auth: state.firebase.auth,
+    chatId: state.chat.chatId,
     profile: state.firebase.profile,
     randomMember: state.profileData.randomMember,
   };
@@ -91,6 +108,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     getRandomMember: () => dispatch(getRandomMember()),
+    getChat: (id1, id2) => dispatch(getChat(id1, id2)),
     sendPersonalNotification: params =>
       dispatch(sendPersonalNotification(params)),
   };

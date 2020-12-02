@@ -39,6 +39,7 @@ export const sendPersonalNotification = (params) => {
       recipientId,
       type,
       expirationDate,
+      chatId,
     } = params;
 
     await firestore
@@ -50,6 +51,7 @@ export const sendPersonalNotification = (params) => {
         recipientId,
         type,
         expirationDate,
+        chatId,
       })
       .then(async function (docRef) {
         await firestore
@@ -74,37 +76,17 @@ export const getUnreadNotifications = (userId) => {
       .collection('notifications')
       .where('readStatus', '==', 'unread')
       .get();
-    const data = snapshot.docs.map((doc) => doc.data());
-    // console.log('Data: ', data, 'dataStringified: ', JSON.stringify(data));
 
-    const nData = [];
-    await data.forEach(async (n) => {
-      const noti = await firestore
+    const data = snapshot.docs.map((doc) => doc.data());
+
+    const newTry = data.map(async (n) => {
+      const res = await firestore
         .collection('personalNotifications')
         .doc(n.notificationId)
         .get();
-
-      // const weirdData = await noti.data();
-      // console.log('Weird data: ', weirdData[0]);
-      // weirdData.map((d) => {
-      //   nData.push(d);
-      // });
-      // nData.push(weirdData);
-      //console.log('NOTI', noti.data());
+      return await res.data();
     });
-
-    // console.log('NDATA LENGTH', nData.length);
-    // console.log('NDATA', nData);
-    // const newTry = await data.map(n => {
-    //   return firestore
-    //     .collection('personalNotifications')
-    //     .doc(n.notificationId)
-    //     .get();
-    // });
-    // console.log(newTry);
-
-    // console.log('nData: ', nData, 'nDataStringified: ', JSON.stringify(nData));
-    dispatch(notificationUnreadSuccess(nData));
+    Promise.all(newTry).then((r) => dispatch(notificationUnreadSuccess(r)));
   };
 };
 

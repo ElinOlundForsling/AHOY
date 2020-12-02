@@ -84,3 +84,24 @@
     display: block !important;
   }
 }
+
+.split-list ul,
+li {
+  width: 100%;
+  list-style: none;
+  padding: 0;
+  line-height: 2.3rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.split-list {
+  margin-bottom: 10px;
+}
+
+.sub-title {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  margin-left: 20px;
+  margin-bottom: 10px;
+}
