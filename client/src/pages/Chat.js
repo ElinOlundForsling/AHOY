@@ -2,23 +2,26 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import {
   sendMessage,
-  getMessages,
+  getMessagesListener,
   getUserIds,
 } from '../store/actions/messageActions';
+import Sidebar from '../components/layout/Sidebar';
 import { connect } from 'react-redux';
 import '../stylesheets/chat.css';
+import Button from '../components/layout/Button';
 
 export const Chat = ({
   auth,
   profile,
   sendMessage,
-  getMessages,
+  getMessagesListener,
   getUserIds,
   userIds,
   messages,
 }) => {
   const [params, setParams] = useState({});
   const [chatText, setChatText] = useState('');
+  const [sidebarIsOpen, setSidebarIsOpen] = useState(true);
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -30,7 +33,6 @@ export const Chat = ({
   const chat = useParams().chatId;
 
   useEffect(() => {
-    getMessages(chat);
     getUserIds(chat);
 
     if (isFirstRun.current) {
@@ -38,7 +40,15 @@ export const Chat = ({
       return;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sendMessage, messages]);
+  }, []);
+
+  useEffect(() => {
+    getMessagesListener(chat, 'subscribe');
+    return function cleanup() {
+      getMessagesListener(chat, 'unsubscribe');
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleInputChange = event => {
     setChatText(event.target.value);
@@ -52,39 +62,62 @@ export const Chat = ({
   };
 
   return (
-    <div className='chat-page'>
-      <div className='chat-container'>
-        <div className='chat-messages'>
-          {messages &&
-            messages.map(message => {
-              if (message.senderId === auth.uid) {
-                return (
-                  <p className='sender-msg msg-bubble'>{message.text} :You</p>
-                );
-              } else {
-                return (
-                  <p className='recepient-msg msg-bubble'>
-                    {message.senderName}: {message.text}
-                  </p>
-                );
-              }
-            })}
+    <>
+      <section className='sidebar-layout'>
+        <Sidebar
+          width={200}
+          auth={auth}
+          profile={profile}
+          setSidebarIsOpen={setSidebarIsOpen}
+          sidebarIsOpen={sidebarIsOpen}
+          isDashboard={false}
+        />
+      </section>
+      <main
+        className={`chat-layout
+      ${sidebarIsOpen ? 'chat-sidebar' : 'chat-fullscreen'}
+    `}>
+        <div className='chat-page'>
+          <div className='chat-container'>
+            <div className='chat-messages'>
+              {messages &&
+                messages.map(message => {
+                  if (message.senderId === auth.uid) {
+                    return (
+                      <p className='sender-msg msg-bubble' key={message.date}>
+                        You: {message.text}
+                      </p>
+                    );
+                  } else {
+                    return (
+                      <p
+                        className='recepient-msg msg-bubble'
+                        key={message.date}>
+                        {message.senderName}: {message.text}
+                      </p>
+                    );
+                  }
+                })}
+            </div>
+            <form onSubmit={handleSubmit} className='chat-form'>
+              <textarea
+                value={chatText}
+                type='text'
+                onChange={handleInputChange}
+                name='message'
+                className='chat-text-area'
+                placeholder='Start a discussion...'
+              />
+              <Button type='submit' className='small'>
+                Send Message
+              </Button>
+            </form>
+            <br></br>
+            <Button to={`/profiles/${userIds[0]}`}>Close</Button>
+          </div>
         </div>
-        <form onSubmit={handleSubmit} className='chat-form'>
-          <textarea
-            value={chatText}
-            type='text'
-            onChange={handleInputChange}
-            name='message'
-            className='chat-text-area'
-            placeholder='Start a discussion...'
-          />
-          <button type='submit' className='chat-button'>
-            Send Message
-          </button>
-        </form>
-      </div>
-    </div>
+      </main>
+    </>
   );
 };
 
@@ -101,7 +134,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     sendMessage: params => dispatch(sendMessage(params)),
-    getMessages: chatId => dispatch(getMessages(chatId)),
+    getMessagesListener: (chatId, status) =>
+      dispatch(getMessagesListener(chatId, status)),
     getUserIds: chatId => dispatch(getUserIds(chatId)),
   };
 };

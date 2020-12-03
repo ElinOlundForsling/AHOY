@@ -7,6 +7,7 @@ import {
 import { updateProfileAdmin } from '../../store/actions/profileActions';
 import '../../stylesheets/admin-panel.css';
 import Select from 'react-select';
+import Button from '../layout/Button';
 
 const Collapse = ({
   isOpen,
@@ -23,18 +24,41 @@ const Collapse = ({
     lastName: member.lastName,
     department: member.department,
     team: member.team,
+    title: member.title,
+    employmentType: member.employmentType || 'Full-time',
   });
   const [teamOption, setTeamOption] = useState(null);
   const [departmentOption, setDepartmentOption] = useState(null);
+  const [adminOption, setAdminOption] = useState(null);
 
   useEffect(() => {
     getDepartments();
-  }, [getDepartments]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleSubmit = event => {
     event.preventDefault();
-    console.log(userData);
     updateProfileAdmin(member.id, userData);
+  };
+
+  const handleChange = event => {
+    setUserData(userData => ({
+      ...userData,
+      [event.target.name]: event.target.value,
+    }));
+  };
+
+  const createAdminOptions = () => {
+    return [
+      { name: 'Admin', label: 'Admin', value: 'admin' },
+      { name: 'HR', label: 'HR', value: 'hr' },
+      {
+        name: 'Department Lead',
+        label: 'Department Lead',
+        value: 'department-lead',
+      },
+      { name: 'Team Lead', label: 'Team Lead', value: 'team-lead' },
+    ];
   };
 
   const createDepartmentOptions = () => {
@@ -49,15 +73,19 @@ const Collapse = ({
   };
 
   const createTeamOptions = () => {
-    const options =
-      teams &&
-      teams.map(team => {
-        return {
-          label: team.teamName,
-          name: team.teamName,
-          value: team.teamName.toLowerCase(),
+    const options = teams
+      ? teams.map(team => {
+          return {
+            label: team.teamName,
+            name: team.teamName,
+            value: team.teamName.toLowerCase(),
+          };
+        })
+      : {
+          label: 'Select Department first',
+          name: 'Select Department first',
+          value: 'selectDepFirst',
         };
-      });
     return options;
   };
 
@@ -79,132 +107,146 @@ const Collapse = ({
     }));
   };
 
+  const handleAdminChange = selectedOption => {
+    setAdminOption(selectedOption);
+    setUserData(userData => ({
+      ...userData,
+      adminRights: selectedOption.name,
+    }));
+  };
+
   return (
     <div
       className='collapse'
       style={{
-        maxHeight: isOpen ? 400 : 0,
+        maxHeight: isOpen ? 500 : 0,
       }}>
       <div>
-        <section className='sample-content'>
+        <section className='container-form'>
           <form className='myForm' onSubmit={handleSubmit}>
-            <div className='row'>
-              <div className='column'>
-                <div className='input-group'>
-                  <label for='first_name'>First Name </label>
-                  <input id='first_name' placeholder={member.firstName} />
-                </div>
-                <div className='input-group'>
-                  <label for='last_name'>Last Name </label>
-                  <input
-                    type='tel'
-                    id='last_name'
-                    placeholder={member.lastName}
-                  />
-                </div>
-                <div className='input-group'>
-                  <label for='email_address'>Email </label>
-                  <input
-                    type='email'
-                    id='email_address'
-                    placeholder={member.email}
-                  />
-                </div>
-                <div className='input-group'>
-                  <label htmlFor='admin_form_department'>Department</label>
-
-                  <div className='input-field col s12'>
+            <table className='table-form'>
+              <tbody>
+                <tr>
+                  <td>
+                    <label htmlFor='first_name'>First Name </label>
+                  </td>
+                  <td>
+                    <input
+                      id='first_name'
+                      onChange={handleChange}
+                      className='input-form'
+                      name='firstName'
+                      placeholder={member.firstName}
+                    />
+                  </td>
+                  <td colspan='2' rowspan='2'>
+                    <fieldset className='fieldset-form'>
+                      <legend>Employment Type</legend>
+                      <label>
+                        <input
+                          type='radio'
+                          name='employmentType'
+                          id='intern'
+                          value='Intern'
+                          onChange={handleChange}
+                        />
+                        &nbsp;Intern&nbsp;&nbsp;
+                      </label>
+                      <label>
+                        <input
+                          type='radio'
+                          name='employmentType'
+                          id='full-time'
+                          value='Full-time'
+                          onChange={handleChange}
+                        />
+                        &nbsp;Full-time&nbsp;&nbsp;
+                      </label>
+                      <label>
+                        <input
+                          type='radio'
+                          name='employmentType'
+                          id='part-time'
+                          value='Part-Time'
+                          onChange={handleChange}
+                        />
+                        &nbsp;Part-time&nbsp;&nbsp;
+                      </label>
+                      <label>
+                        <input
+                          type='radio'
+                          name='employmentType'
+                          id='consultant'
+                          value='Consultant'
+                          onChange={handleChange}
+                        />
+                        &nbsp;Consultant
+                      </label>
+                    </fieldset>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <label htmlFor='last_name'>Last Name </label>
+                  </td>
+                  <td>
+                    <input
+                      type='tel'
+                      id='last_name'
+                      className='input-form'
+                      onChange={handleChange}
+                      name='lastName'
+                      placeholder={member.lastName}
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan='2'>
                     <Select
                       value={departmentOption}
                       onChange={handleDepartmentChange}
                       options={createDepartmentOptions()}
                     />
-                  </div>
-                </div>
-                <div className='input-group'>
-                  <label htmlFor='admin_form_teams'>Team</label>
-                  {departmentOption && (
-                    <div className='input-field col s12'>
-                      <Select
-                        value={teamOption}
-                        onChange={handleTeamChange}
-                        options={createTeamOptions()}
-                      />
+                  </td>
+                  <td>
+                    <label htmlFor='title'>Title </label>
+                  </td>
+                  <td className='right'>
+                    <input
+                      onChange={handleChange}
+                      name='title'
+                      type='text'
+                      className='input-form'
+                      id='title'
+                      placeholder={member.title}
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan='2'>
+                    <Select
+                      value={teamOption}
+                      onChange={handleTeamChange}
+                      options={createTeamOptions()}
+                    />
+                  </td>
+                  <td colspan='2'>
+                    <Select
+                      value={adminOption}
+                      onChange={handleAdminChange}
+                      options={createAdminOptions()}
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan='4'>
+                    <div className='row'>
+                      <Button id='submit'>Update user</Button>&nbsp;
                     </div>
-                  )}
-                </div>
-              </div>
-              <div className='column'>
-                <fieldset className='taxi'>
-                  <legend>Employment Type</legend>
-                  <label>
-                    {' '}
-                    <input
-                      type='radio'
-                      name='employment_type'
-                      id='taxi_car'
-                      value='car'
-                    />{' '}
-                    Intern{' '}
-                  </label>
-                  <label>
-                    {' '}
-                    <input
-                      type='radio'
-                      name='employment_type'
-                      id='taxi_van'
-                      value='van'
-                    />{' '}
-                    Full-time{' '}
-                  </label>
-                  <label>
-                    {' '}
-                    <input
-                      type='radio'
-                      name='employment_type'
-                      id='taxi_van'
-                      value='van'
-                    />{' '}
-                    Part-time{' '}
-                  </label>
-                  <label>
-                    {' '}
-                    <input
-                      type='radio'
-                      name='employment_type'
-                      id='taxi_tuk'
-                      value='tuktuk'
-                    />{' '}
-                    Consultant{' '}
-                  </label>
-                </fieldset>
-
-                <fieldset className='extras'>
-                  <legend>Extra field?</legend>
-                  <label>
-                    {' '}
-                    <input
-                      type='checkbox'
-                      id='extras_baby'
-                      value='baby'
-                    /> Baby{' '}
-                  </label>
-                  <label>
-                    {' '}
-                    <input
-                      type='checkbox'
-                      id='extras_adult'
-                      value='adult'
-                    />{' '}
-                    Adult{' '}
-                  </label>
-                </fieldset>
-              </div>
-            </div>
-
-            <div className='row'>
-              <button id='submit'>Update user</button>&nbsp;
-            </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </form>
         </section>
       </div>

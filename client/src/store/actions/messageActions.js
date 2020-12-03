@@ -2,6 +2,10 @@ export const sendSuccess = () => {
   return { type: 'SEND_SUCCESS' };
 };
 
+export const chatError = error => {
+  return { type: 'CHAT_ERROR', payload: error };
+};
+
 export const chatSuccess = chatId => {
   return { type: 'CHAT_SUCCESS', payload: chatId };
 };
@@ -16,6 +20,7 @@ export const idSuccess = messages => {
 
 export const getChat = (id1, id2) => {
   return async (dispatch, getState, { getFirestore }) => {
+    console.log('getChat');
     const firestore = getFirestore();
 
     const chatChannel = await firestore
@@ -59,6 +64,7 @@ export const getChat = (id1, id2) => {
 
 export const getMessages = chatId => {
   return async (dispatch, getState, { getFirestore }) => {
+    console.log('getMessages');
     const firestore = getFirestore();
 
     const snapshot = await firestore
@@ -73,8 +79,38 @@ export const getMessages = chatId => {
   };
 };
 
+export const getMessagesListener = (chatId, status) => {
+  return async (dispatch, getState, { getFirestore }) => {
+    console.log('getMessages');
+    const firestore = getFirestore();
+
+    const unsubscribe = await firestore
+      .collection('messages')
+      .doc(chatId)
+      .collection('msg')
+      .orderBy('date', 'desc')
+      .onSnapshot(function (querySnapshot) {
+        var data = [];
+        querySnapshot.forEach(function (doc) {
+          data.push(doc.data());
+        });
+        if (status !== unsubscribe) {
+          dispatch(getMessagesSuccess(data));
+        }
+      });
+
+    if (status === unsubscribe) {
+      unsubscribe();
+      dispatch(sendSuccess());
+    } else {
+      dispatch(chatError({ msg: 'Error fetching messages' }));
+    }
+  };
+};
+
 export const sendMessage = params => {
   return async (dispatch, getState, { getFirestore }) => {
+    console.log('sendMessage');
     const firestore = getFirestore();
     const { senderId, recipientId, text, senderName, chatId } = params;
 
@@ -91,6 +127,7 @@ export const sendMessage = params => {
 
 export const getUserIds = chatId => {
   return async (dispatch, getState, { getFirestore }) => {
+    console.log('getUserIds');
     const firestore = getFirestore();
 
     const snapshot = await firestore.collection('messages').doc(chatId).get();

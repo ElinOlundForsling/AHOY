@@ -10,8 +10,13 @@ export const getLatestHiresSuccess = (hires) => {
   return { type: 'LATEST_HIRES_SUCCESS', payload: hires };
 };
 
+export const getDepartmentTeamsSuccess = (data) => {
+  return { type: 'DEPARTMENT_TEAMS_SUCCESS', payload: data };
+};
+
 export const getDepartments = () => {
   return async (dispatch, getState, { getFirestore }) => {
+    console.log('getDepartments');
     const firestore = getFirestore();
 
     const snapshot = await firestore.collection('departments').get();
@@ -22,11 +27,12 @@ export const getDepartments = () => {
 
 export const getLatestHires = () => {
   return async (dispatch, getState, { getFirestore }) => {
+    console.log('getLatestHires');
     const firestore = getFirestore();
 
     const snapshot = await firestore
       .collection('users')
-      .orderBy('joinDate', 'desc')
+      .orderBy('joinDate', 'asc')
       .get();
 
     const data = snapshot.docs.map((doc) => doc.data());
@@ -42,6 +48,7 @@ export const getLatestHires = () => {
 
 export const getTeamByDepartment = (department) => {
   return async (dispatch, getState, { getFirestore }) => {
+    console.log('getTeamByDepartment');
     const firestore = getFirestore();
     const getOptions = {
       source: 'server',
@@ -59,5 +66,39 @@ export const getTeamByDepartment = (department) => {
       .get();
     const data = snapshot.docs.map((doc) => doc.data());
     dispatch(getTeamsSuccess(data));
+  };
+};
+
+export const getDepartmentTeams = (userId) => {
+  return async (dispatch, getState, { getFirestore }) => {
+    const firestore = getFirestore();
+    const getOptions = {
+      source: 'server',
+    };
+
+    try {
+      const user = await firestore.collection('users').doc(userId).get();
+
+      const uData = user.data();
+      const userDep = uData.department;
+
+      const snapshot = await firestore
+        .collection('departments')
+        .where('name', '==', userDep)
+        .get(getOptions);
+      const id = snapshot.docs.map((doc) => doc.id);
+
+      const teamData = await firestore
+        .collection('departments')
+        .doc(id[0])
+        .collection('teams')
+        .get();
+
+      const teams = teamData.docs.map((doc) => doc.data());
+
+      dispatch(getDepartmentTeamsSuccess(teams));
+    } catch (error) {
+      console.error('ERROR!: ', error.message);
+    }
   };
 };

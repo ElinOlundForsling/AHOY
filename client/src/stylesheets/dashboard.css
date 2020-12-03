@@ -1,7 +1,7 @@
-.dashboard-welcome h4 {
+/* .dashboard-welcome h4 {
   color: grey;
   text-align: center;
-}
+} */
 
 .main {
   background-color: #fcf4ef;
@@ -9,17 +9,10 @@
 }
 
 .dashboard-layout {
-  /* column-count: 3; */
-  /* column-gap: 10px; */
-
-  grid-auto-flow: row dense;
-  padding: 50px;
+  padding: 20px 20px 50px 20px;
+  margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  grid-gap: .5rem;
-  /* align-items: flex-start; */
-  
-  transition: 0.8s ease;
+  grid-gap: 1rem;
 }
 
 .dashboard-fullscreen {
@@ -34,3 +27,14 @@
   position: fixed;
 }
 
+@media (min-width: 600px) {
+  .dashboard-layout {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 900px) {
+  .dashboard-layout {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

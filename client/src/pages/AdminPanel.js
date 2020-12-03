@@ -1,66 +1,130 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import {
-  getAllMembers,
-  updateProfileAdmin,
-} from '../store/actions/profileActions';
+import Sidebar from '../components/layout/Sidebar';
+import CreateUser from '../components/admin/CreateUser';
+import EditUsers from '../components/admin/EditUsers';
+import UploadDocuments from '../components/admin/UploadDocuments';
+import AddNotifications from '../components/admin/AddNotifications';
+import CustomizeUX from '../components/admin/CustomizeUX';
 import '../stylesheets/admin-panel.css';
-import Collapse from '../components/layout/Collapse';
+import '../stylesheets/page.css';
+import { render } from 'react-dom';
 
-const AdminPanel = ({
-  auth,
-  profile,
-  allMembers,
-  getAllMembers,
-  updateProfileAdmin,
-}) => {
-  // const [changes, setChanges] = useState([]);
-  const [isOpen, setIsOpen] = useState(false);
-  const [members, setMembers] = useState(allMembers);
+const AdminPanel = ({ profile, auth }) => {
+  const [sidebarIsOpen, setSidebarIsOpen] = useState(true);
+  const [adminComponent, setAdminComponent] = useState('EditUsers');
+  const [adminTitle, setAdminTitle] = useState('Edit Users');
 
-  const isFirstRun = useRef(true);
+  const handleComponentChange = event => {
+    setAdminComponent(event.target.name);
+  };
+
   useEffect(() => {
-    getAllMembers();
-    if (isFirstRun.current) {
-      isFirstRun.current = false;
-      return;
+    switch (adminComponent) {
+      case 'EditUsers':
+        setAdminTitle('Edit Users');
+        break;
+      case 'CreateUser':
+        setAdminTitle('Create New User');
+        break;
+      case 'UploadDocuments':
+        setAdminTitle('Upload Documents');
+        break;
+      case 'AddNotifications':
+        setAdminTitle('Add Notifications');
+        break;
+      case 'CustomizeUX':
+        setAdminTitle('Customize UX');
+        break;
+      default:
+        setAdminTitle('Edit Users');
+        break;
     }
-  }, [getAllMembers]);
+  }, [adminComponent]);
 
-  useEffect(() => {
-    setMembers(allMembers);
-  }, [allMembers]);
-
-  const toggle = e => {
-    const newMembers = members.map(mem => {
-      if (mem.id === e.target.id) {
-        if (mem.isOpen) {
-          mem.isOpen = false;
-        } else {
-          mem.isOpen = true;
-        }
-      }
-      return mem;
-    });
-
-    setMembers(newMembers);
+  const renderSwitch = () => {
+    switch (adminComponent) {
+      case 'EditUsers':
+        return <EditUsers />;
+      case 'CreateUser':
+        return <CreateUser />;
+      case 'UploadDocuments':
+        return <UploadDocuments />;
+      case 'AddNotifications':
+        return <AddNotifications />;
+      case 'CustomizeUX':
+        return <CustomizeUX />;
+      default:
+        return <EditUsers />;
+    }
   };
 
   return (
-    <section className='admin-memberlist'>
-      {members &&
-        members.map(member => {
-          return (
-            <article key={member.id}>
-              <button onClick={toggle} id={member.id} className='toggle-button'>
-                <img src={member.imgURL} className='avatar-small' />
-                {member.firstName}&nbsp;{member.lastName}
+    <>
+      <section className='sidebar-layout'>
+        <Sidebar
+          width={200}
+          auth={auth}
+          profile={profile}
+          setSidebarIsOpen={setSidebarIsOpen}
+          sidebarIsOpen={sidebarIsOpen}
+          isDashboard={false}
+        />
+      </section>
+      <main
+        className={`admin-layout
+      ${sidebarIsOpen ? 'admin-sidebar' : 'admin-fullscreen'}
+    `}>
+        <header className='page-header'>
+          <h1>Admin Panel - {adminTitle}</h1>
+        </header>
+        <nav className='admin-nav'>
+          <ul class='admin-menu'>
+            <li>
+              <button
+                className='admin-menu-button'
+                name='EditUser'
+                onClick={handleComponentChange}>
+                Edit Users
               </button>
-              <Collapse isOpen={member.isOpen} member={member} />
-            </article>
-          );
-        })}
-    </section>
+            </li>
+            <li>
+              <button
+                className='admin-menu-button'
+                name='CreateUser'
+                onClick={handleComponentChange}>
+                Create new User
+              </button>
+            </li>
+            <li>
+              <button
+                className='admin-menu-button'
+                name='UploadDocuments'
+                onClick={handleComponentChange}>
+                Upload Documents
+              </button>
+            </li>
+            <li>
+              <button
+                className='admin-menu-button'
+                name='AddNotifications'
+                onClick={handleComponentChange}>
+                Add Notifications
+              </button>
+            </li>
+            <li>
+              <button
+                className='admin-menu-button'
+                name='CustomizeUX'
+                onClick={handleComponentChange}>
+                Customize UX
+              </button>
+            </li>
+          </ul>
+        </nav>
+        {renderSwitch()}
+      </main>
+    </>
   );
 };
 
@@ -68,16 +132,11 @@ const mapStateToProps = state => {
   return {
     auth: state.firebase.auth,
     profile: state.firebase.profile,
-    allMembers: state.profileData.allMembers,
   };
 };
 
 const mapDispatchToProps = dispatch => {
-  return {
-    getAllMembers: () => dispatch(getAllMembers()),
-    updateProfileAdmin: (userId, userData) =>
-      dispatch(updateProfileAdmin(userId, userData)),
-  };
+  return {};
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdminPanel);

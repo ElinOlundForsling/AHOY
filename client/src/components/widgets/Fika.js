@@ -15,7 +15,12 @@ const Fika = () => {
       heading='Virtual Fika'
       subHeading='Find a coffee buddy'
       className='fika-component'>
-      <img src='/img/coffee.png' className='img-fullsize' onClick={openModal} />
+      <img
+        src='/img/coffee.png'
+        alt='fika'
+        className='img-fullsize'
+        onClick={openModal}
+      />
       <FikaModal modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} />
     </Card>
   );

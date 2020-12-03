@@ -1,3 +1,24 @@
+.admin-layout {
+  padding: 20px 20px 50px 20px;
+  margin: 0 auto;
+  margin-right: 30px;
+  display: grid;
+  grid-gap: 1rem;
+  transition: 0.8s ease;
+}
+
+.admin-fullscreen {
+  margin-left: 30px;
+}
+
+.admin-sidebar {
+  margin-left: 230px;
+}
+
+.sidebar-layout {
+  position: fixed;
+}
+
 .collapse {
   overflow: hidden;
   transition: 0.4s max-height;
@@ -9,18 +30,32 @@
 
 .toggle-button {
   padding: 10px;
-  display: block;
-  background: #333;
-  color: white;
+  display: flex;
+  align-items: center;
+  font-family: 'Roboto Slab', serif;
+  border-top: 2px solid var(--color-lighter-7);
+  border-bottom: none;
+  border-right: none;
+  border-left: none;
+  justify-content: center;
+  background-color: #fff;
+  color: var(--color-7);
   width: 100%;
-  border: 0;
   cursor: pointer;
+}
+
+.toggle-button:hover,
+.toggle-button:focus,
+.toggle-button:active {
+  background-color: var(--color-lighter-7);
+  color: white;
 }
 
 .avatar-small {
   width: 50px;
   height: 50px;
   border-radius: 25px;
+  margin-right: 10px;
 }
 
 .admin-member-form {
@@ -63,4 +98,43 @@
 }
 .extras > label {
   display: block;
+}
+
+.admin-menu {
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+}
+
+.admin-menu li {
+  line-height: 3rem;
+  width: 100%;
+}
+
+.admin-menu li a {
+  text-decoration: none;
+  color: var(--color-7);
+  font-weight: 400;
+  position: relative;
+  text-transform: uppercase;
+}
+
+.admin-menu li a:hover {
+  color: var(--color-4);
+}
+
+.admin-menu-button {
+  font-family: 'Roboto Slab';
+  line-height: 3rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  width: 100%;
+  background-color: transparent;
+  border: none;
+  color: var(--color-7);
+}
+
+.admin-menu-button:hover {
+  background-color: var(--color-7);
+  color: #fff;
 }

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
 import { GiCoffeeCup } from 'react-icons/gi';
+import '../../stylesheets/profile-modal.css';
+import Button from '../layout/Button';
 
 const ProfileModal = ({
   auth,
@@ -24,14 +26,14 @@ const ProfileModal = ({
     setModalIsOpen(false);
   }
 
-  const handleSubmit = event => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     closeModal();
     updateProfile(auth.uid, info);
   };
 
-  const handleInputChange = event => {
-    setInfo(info => ({
+  const handleInputChange = (event) => {
+    setInfo((info) => ({
       ...info,
       [event.target.name]: event.target.value,
     }));
@@ -47,14 +49,14 @@ const ProfileModal = ({
     updateProfileImage(auth.uid, file);
   }
 
-  const handleAvailability = event => {
+  const handleAvailability = (event) => {
     if (profile.availableForFika) {
-      setInfo(info => ({
+      setInfo((info) => ({
         ...info,
         availableForFika: !profile.availableForFika,
       }));
     } else {
-      setInfo(info => ({
+      setInfo((info) => ({
         ...info,
         availableForFika: true,
       }));
@@ -63,74 +65,83 @@ const ProfileModal = ({
 
   return (
     <Modal
-      className='Modal'
-      overlayClassName='Overlay'
+      className="Modal"
+      overlayClassName="Overlay"
       isOpen={modalIsOpen}
       onRequestClose={closeModal}
-      contentLabel='Example Modal'>
-      <h4>Update your profile.</h4>
-
-      <form onSubmit={handleSubmit}>
-        <input
-          type='text'
-          onChange={handleInputChange}
-          name='firstName'
-          placeholder={profile.firstName}
-        />
-        <input
-          type='text'
-          onChange={handleInputChange}
-          name='lastName'
-          placeholder={profile.lastName}
-        />
-        <input
-          type='text'
-          onChange={handleInputChange}
-          name='location'
-          placeholder={
-            profile.location ? profile.location : 'Add your location here.'
-          }
-        />
-
-        <textarea
-          type='text'
-          onChange={handleInputChange}
-          name='bio'
-          placeholder='Your bio here.'
-        />
-
-        <label>
-          <input
-            type='checkbox'
-            onChange={handleAvailability}
-            defaultChecked={profile.availableForFika}
-          />
-          <span>
-            <GiCoffeeCup /> Available For Fika
-          </span>
-        </label>
-        <br></br>
-        <button type='submit'>Save Changes</button>
-      </form>
-      <hr />
+      contentLabel="Example Modal"
+    >
+      <h3 className="profile-modal-heading">Update your profile</h3>
       <div>
-        <label for='file'>Upload</label>
-        <form onSubmit={handleUpload}>
-          <div class='file-upload-wrapper' data-text='Select your file!'>
+        <form onSubmit={handleUpload} className="profile-form">
+          <label htmlFor="file">Profile Image</label>
+          <div className="file-upload-wrapper" data-text="Select your file!">
             <input
-              name='file-upload-field'
-              type='file'
-              class='file-upload-field'
+              name="file-upload-field"
+              type="file"
+              className="file-upload-field"
               onChange={handleChange}
-              value=''
+              value=""
             />
           </div>
           <br></br>
-          <button disabled={!file}>upload to firebase</button>
+          <Button size="small" disabled={!file}>
+            upload
+          </Button>
         </form>
       </div>
+      <form onSubmit={handleSubmit} className="profile-form">
+        <div className="profile-input">
+          <input
+            type="text"
+            onChange={handleInputChange}
+            name="firstName"
+            placeholder={profile.firstName}
+          />
+          <input
+            type="text"
+            onChange={handleInputChange}
+            name="lastName"
+            placeholder={profile.lastName}
+          />
+          <input
+            type="text"
+            onChange={handleInputChange}
+            name="location"
+            placeholder={
+              profile.location ? profile.location : 'Add your location here.'
+            }
+          />
+        </div>
+
+        <textarea
+          type="text"
+          onChange={handleInputChange}
+          name="bio"
+          placeholder="Your bio here."
+        />
+        <label>
+          <div className="fika-checkbox">
+            <input
+              type="checkbox"
+              onChange={handleAvailability}
+              defaultChecked={profile.availableForFika}
+            />
+            <GiCoffeeCup />{' '}
+            <span className="fika-span">Available For Fika</span>
+          </div>
+        </label>
+        <br></br>
+        <hr />
+        <Button size="small" type="submit">
+          Save Changes
+        </Button>
+      </form>
+
       <p></p>
-      <button onClick={closeModal}>close</button>
+      <Button size="small" onClick={closeModal}>
+        close
+      </Button>
       <p></p>
     </Modal>
   );

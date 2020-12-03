@@ -2,12 +2,21 @@
   text-align: center;
   position: relative;
   width: 130px;
-  padding: 10px;
-  padding-bottom: 0;
 }
 
 .avatar-name {
   color: black;
+  font-size: 1rem;
+  padding-left: 5px;
+}
+
+.name-remote {
+  display: flex;
+  line-height: 1rem;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  margin-bottom: 5px;
 }
 
 .avatar-image {
@@ -35,7 +44,7 @@
   width: 18px;
   height: 18px;
   bottom: 0;
-  left: 90px;
+  right: 90px;
   /* z-index: 1; */
 }
 
@@ -48,6 +57,84 @@
   width: 18px;
   height: 18px;
   bottom: 0;
-  left: 90px;
+  right: 90px;
   /* z-index: 1; */
+}
+
+.logged-in .tooltiptext {
+  visibility: hidden;
+  width: auto;
+  background-color: white;
+  color: blue;
+  text-align: center;
+  border-radius: 6px;
+  padding: 2px;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 99;
+}
+
+.logged-in:hover .tooltiptext {
+  visibility: visible;
+}
+
+.logged-out .tooltiptext {
+  visibility: hidden;
+  width: auto;
+  background-color: white;
+  color: blue;
+  text-align: center;
+  border-radius: 6px;
+  padding: 2px;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 99;
+}
+
+.logged-out:hover .tooltiptext {
+  visibility: visible;
+}
+
+.home .tooltiptext {
+  visibility: hidden;
+  width: auto;
+  background-color: white;
+  color: blue;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+
+  position: absolute;
+  z-index: 99;
+}
+
+.home:hover .tooltiptext {
+  visibility: visible;
+}
+
+.office .tooltiptext {
+  visibility: hidden;
+  width: auto;
+  background-color: white;
+  color: blue;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+
+  position: absolute;
+  z-index: 99;
+}
+
+.office:hover .tooltiptext {
+  visibility: visible;
+}
+
+.avatar-card {
+  display: inline-flex;
+}
+
+.avatar-name {
+  font-size: 1rem;
 }

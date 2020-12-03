@@ -1,5 +1,6 @@
 import React from 'react';
 import Card from '../layout/Card';
+import { Link } from 'react-router-dom';
 import '../../stylesheets/widget-image.css';
 
 const Fika = () => {
@@ -8,7 +9,9 @@ const Fika = () => {
       heading='Virtual Pong'
       subHeading='Find a Pong buddy'
       className='pong-component'>
-      <img src='/img/vr.svg' className='img-fullsize' />
+      <Link to='./pong'>
+        <img src='/img/vr.svg' alt='pong' className='img-fullsize' />
+      </Link>
     </Card>
   );
 };
