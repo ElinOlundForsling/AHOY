@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { getLatestHires } from '../../store/actions/departmentActions';
 import Card from '../layout/Card';
 import Avatar from '../layout/Avatar';
+import { GiHand } from 'react-icons/gi';
+
 import '../../stylesheets/latestHires.css';
 
 const LatestHires = ({ getLatestHires, latestHires }) => {
@@ -10,27 +12,31 @@ const LatestHires = ({ getLatestHires, latestHires }) => {
     getLatestHires();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
+  console.log('JOIN DATE', latestHires);
   return (
     <Card
-      heading='Latest Hires'
+      heading="Latest Hires"
       subHeading={'Say hi to your new colleagues'}
-      className='latest-hires-component'>
-      <div className='latest-hires'>
-        {latestHires.map(hire => {
+      className="latest-hires-component"
+    >
+      <div className="latest-hires">
+        {latestHires.map((hire) => {
           return (
-            <div key={hire.id} className='latest-hired-card'>
+            <div
+              style={{ position: 'relative' }}
+              key={hire.id}
+              className="latest-hired-card"
+            >
               <Avatar
                 id={hire.id}
                 imgURL={hire.imgURL}
                 firstName={hire.firstName}
                 lastName={hire.lastName}
                 isOnline={hire.isOnline}
-                className='small-size'
+                joinDate={hire.joinDate}
+                className="small-size"
               />
-              <div className='latest-hired-name'>
-                <p>{hire.joinDate}</p>
-              </div>
+              <GiHand className="latest-hires-wave-icon" color="#577590" />
             </div>
           );
         })}
@@ -39,13 +45,13 @@ const LatestHires = ({ getLatestHires, latestHires }) => {
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     latestHires: state.departments.hires,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     getLatestHires: () => dispatch(getLatestHires()),
   };

@@ -1,25 +1,25 @@
 export const getDepartmentsSuccess = (departments) => {
-  return { type: "DEPARTMENTS_SUCCESS", payload: departments };
+  return { type: 'DEPARTMENTS_SUCCESS', payload: departments };
 };
 
 export const getTeamsSuccess = (teams) => {
-  return { type: "TEAMS_SUCCESS", payload: teams };
+  return { type: 'TEAMS_SUCCESS', payload: teams };
 };
 
 export const getLatestHiresSuccess = (hires) => {
-  return { type: "LATEST_HIRES_SUCCESS", payload: hires };
+  return { type: 'LATEST_HIRES_SUCCESS', payload: hires };
 };
 
 export const getDepartmentTeamsSuccess = (data) => {
-  return { type: "DEPARTMENT_TEAMS_SUCCESS", payload: data };
+  return { type: 'DEPARTMENT_TEAMS_SUCCESS', payload: data };
 };
 
 export const getDepartments = () => {
   return async (dispatch, getState, { getFirestore }) => {
-    console.log("getDepartments");
+    console.log('getDepartments');
     const firestore = getFirestore();
 
-    const snapshot = await firestore.collection("departments").get();
+    const snapshot = await firestore.collection('departments').get();
     const data = snapshot.docs.map((doc) => doc.data());
     dispatch(getDepartmentsSuccess(data));
   };
@@ -27,12 +27,12 @@ export const getDepartments = () => {
 
 export const getLatestHires = () => {
   return async (dispatch, getState, { getFirestore }) => {
-    console.log("getLatestHires");
+    console.log('getLatestHires');
     const firestore = getFirestore();
 
     const snapshot = await firestore
-      .collection("users")
-      .orderBy("joinDate", "desc")
+      .collection('users')
+      .orderBy('joinDate', 'asc')
       .get();
 
     const data = snapshot.docs.map((doc) => doc.data());
@@ -48,21 +48,21 @@ export const getLatestHires = () => {
 
 export const getTeamByDepartment = (department) => {
   return async (dispatch, getState, { getFirestore }) => {
-    console.log("getTeamByDepartment");
+    console.log('getTeamByDepartment');
     const firestore = getFirestore();
     const getOptions = {
-      source: "server",
+      source: 'server',
     };
     const departmentId = await firestore
-      .collection("departments")
-      .where("name", "==", department)
+      .collection('departments')
+      .where('name', '==', department)
       .get(getOptions);
 
     const id = departmentId.docs.map((doc) => doc.id);
     const snapshot = await firestore
-      .collection("departments")
+      .collection('departments')
       .doc(id[0])
-      .collection("teams")
+      .collection('teams')
       .get();
     const data = snapshot.docs.map((doc) => doc.data());
     dispatch(getTeamsSuccess(data));
@@ -73,33 +73,32 @@ export const getDepartmentTeams = (userId) => {
   return async (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
     const getOptions = {
-      source: "server",
+      source: 'server',
     };
 
     try {
-      const user = await firestore.collection("users").doc(userId).get();
+      const user = await firestore.collection('users').doc(userId).get();
 
       const uData = user.data();
       const userDep = uData.department;
 
       const snapshot = await firestore
-        .collection("departments")
-        .where("name", "==", userDep)
+        .collection('departments')
+        .where('name', '==', userDep)
         .get(getOptions);
       const id = snapshot.docs.map((doc) => doc.id);
 
       const teamData = await firestore
-        .collection("departments")
+        .collection('departments')
         .doc(id[0])
-        .collection("teams")
+        .collection('teams')
         .get();
 
       const teams = teamData.docs.map((doc) => doc.data());
-     
 
       dispatch(getDepartmentTeamsSuccess(teams));
     } catch (error) {
-      console.error("ERROR!: ", error.message);
+      console.error('ERROR!: ', error.message);
     }
   };
 };
