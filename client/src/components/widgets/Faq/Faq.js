@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import ReactDOM from 'react-dom';
 import Card from '../../layout/Card';
 import DocumentContainer from './DocumentContainer';
 
 import '../../../stylesheets/faq.css';
 import '../../../stylesheets/index.css';
 import '../../../stylesheets/card.css';
+import '../../../stylesheets/form.css';
 
 const Faq = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -58,25 +58,25 @@ const Faq = () => {
     },
   ]);
 
-  const editSearchTerm = (e) => {
+  const editSearchTerm = e => {
     setSearchTerm(e.target.value);
   };
 
   const dynamicSearch = () => {
-    return documents.filter((document) =>
-      document.content.toLowerCase().includes(searchTerm.toLowerCase())
+    return documents.filter(document =>
+      document.content.toLowerCase().includes(searchTerm.toLowerCase()),
     );
   };
 
   return (
-    <Card heading="FAQ" subHeading="Got questions?" className="faq-component">
-      <div className="faq-card">
+    <Card heading='FAQ' subHeading='Got questions?' className='faq-component'>
+      <div className='faq-card'>
         <input
-          type="text"
-          className="faq-input"
+          type='text'
+          className='faq-input input-form'
           value={searchTerm}
           onChange={editSearchTerm}
-          placeholder="Search here!"
+          placeholder='Search here!'
         />
         <br></br>
 
