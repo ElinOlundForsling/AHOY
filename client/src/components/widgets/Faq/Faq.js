@@ -32,6 +32,11 @@ const Faq = () => {
         'Whether interns, graduates, managers or C-Suite, all new hires want to have a positive impact. They want to know your expectations so they can meet – and exceed – them.',
     },
     {
+      title: 'How do I setup my computer?',
+      content:
+        'To setup your computer, a document walkthrough is provided which you can find in your document uploads.',
+    },
+    {
       title: 'What should I focus on doing today?',
       content:
         'It’s important for you and your manager to align on expectations immediately, says Joseph Liu, a career change consultant and host of the Career Relaunch Podcast. Don’t assume you fully understand your role and begin working on a project incorrectly—or sit idly by and wait for someone to tell you to work. Asking this question conveys to your manager that you respect his or her authority, you’re a team player and you’re ready to hit the ground running.',
@@ -58,25 +63,25 @@ const Faq = () => {
     },
   ]);
 
-  const editSearchTerm = e => {
+  const editSearchTerm = (e) => {
     setSearchTerm(e.target.value);
   };
 
   const dynamicSearch = () => {
-    return documents.filter(document =>
-      document.content.toLowerCase().includes(searchTerm.toLowerCase()),
+    return documents.filter((document) =>
+      document.content.toLowerCase().includes(searchTerm.toLowerCase())
     );
   };
 
   return (
-    <Card heading='FAQ' subHeading='Got questions?' className='faq-component'>
-      <div className='faq-card'>
+    <Card heading="FAQ" subHeading="Got questions?" className="faq-component">
+      <div className="faq-card">
         <input
-          type='text'
-          className='faq-input input-form'
+          type="text"
+          className="faq-input input-form"
           value={searchTerm}
           onChange={editSearchTerm}
-          placeholder='Search here!'
+          placeholder="Search here!"
         />
         <br></br>
 
