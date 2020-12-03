@@ -1,4 +1,4 @@
-export const notificationError = (error) => {
+export const notificationError = error => {
   return { type: 'NOTIFICATION_ERROR', payload: error };
 };
 
@@ -6,27 +6,27 @@ export const notificationSuccess = () => {
   return { type: 'NOTIFICATION_SUCCESS' };
 };
 
-export const notificationUnreadSuccess = (data) => {
+export const notificationUnreadSuccess = data => {
   return { type: 'NOTIFICATION_UNREAD_SUCCESS', payload: data };
 };
 
-export const notificationPersonalSuccess = (data) => {
+export const notificationPersonalSuccess = data => {
   return { type: 'NOTIFICATION_PERSONAL_SUCCESS', payload: data };
 };
 
-export const notificationTeamSuccess = (data) => {
+export const notificationTeamSuccess = data => {
   return { type: 'NOTIFICATION_TEAM_SUCCESS', payload: data };
 };
 
-export const notificationDepartmentSuccess = (data) => {
+export const notificationDepartmentSuccess = data => {
   return { type: 'NOTIFICATION_DEPARTMENT_SUCCESS', payload: data };
 };
 
-export const notificationCompanySuccess = (data) => {
+export const notificationCompanySuccess = data => {
   return { type: 'NOTIFICATION_COMPANY_SUCCESS', payload: data };
 };
 
-export const sendPersonalNotification = (params) => {
+export const sendPersonalNotification = params => {
   return async (dispatch, getState, { getFirestore }) => {
     console.log('sendPersonalNotification');
 
@@ -67,7 +67,7 @@ export const sendPersonalNotification = (params) => {
   };
 };
 
-export const getUnreadNotifications = (userId) => {
+export const getUnreadNotifications = userId => {
   return async (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
     const snapshot = await firestore
@@ -77,16 +77,48 @@ export const getUnreadNotifications = (userId) => {
       .where('readStatus', '==', 'unread')
       .get();
 
-    const data = snapshot.docs.map((doc) => doc.data());
+    const data = snapshot.docs.map(doc => doc.data());
 
-    const newTry = data.map(async (n) => {
+    const newTry = data.map(async n => {
       const res = await firestore
         .collection('personalNotifications')
         .doc(n.notificationId)
         .get();
       return await res.data();
     });
-    Promise.all(newTry).then((r) => dispatch(notificationUnreadSuccess(r)));
+    Promise.all(newTry).then(r => dispatch(notificationUnreadSuccess(r)));
+  };
+};
+
+export const deleteNotifications = (notificationId, userId) => {
+  return async (dispatch, getState, { getFirestore }) => {
+    console.log('deleteaction: ', notificationId, userId);
+    const firestore = getFirestore();
+    await firestore
+      .collection('personalNotifications')
+      .doc(notificationId)
+      .delete()
+      .then(function () {
+        console.log('Document successfully deleted!');
+      })
+      .catch(function (error) {
+        console.error('Error removing document: ', error);
+      });
+
+    await firestore
+      .collection('users')
+      .doc(userId)
+      .collection('notifications')
+      .where('notificationId', '==', notificationId)
+      .delete()
+      .then(function () {
+        console.log('Document successfully deleted!');
+      })
+      .catch(function (error) {
+        console.error('Error removing document: ', error);
+      });
+
+    dispatch(notificationSuccess());
   };
 };
 

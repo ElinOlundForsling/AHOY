@@ -2,11 +2,15 @@ import React, { useEffect, useState, useRef } from 'react';
 import Card from '../layout/Card';
 import Button from '../layout/Button';
 import { connect } from 'react-redux';
-import { getUnreadNotifications } from '../../store/actions/notificationActions';
+import {
+  getUnreadNotifications,
+  deleteNotifications,
+} from '../../store/actions/notificationActions';
 
 const Notifications = ({
   auth,
   getUnreadNotifications,
+  deleteNotifications,
   unreadNotifications,
 }) => {
   const [msg, setMsg] = useState(unreadNotifications);
@@ -19,6 +23,11 @@ const Notifications = ({
     setMsg(unreadNotifications);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [unreadNotifications]);
+
+  const handleDelete = notification => {
+    console.log('handleDelete: ', notification.id, auth.uid);
+    deleteNotifications(notification.id, auth.uid);
+  };
 
   return (
     <Card heading='Notifications' className='notifications-component'>
@@ -36,7 +45,11 @@ const Notifications = ({
                       Accept
                     </Button>
                     &nbsp;
-                    <Button size='small' danger='danger'>
+                    <Button
+                      size='small'
+                      danger='danger'
+                      name={unread.id}
+                      onClick={handleDelete}>
                       X
                     </Button>
                   </span>
@@ -75,6 +88,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     getUnreadNotifications: id => dispatch(getUnreadNotifications(id)),
+    deleteNotifications: (notificationId, userId) =>
+      dispatch(deleteNotifications(notificationId, userId)),
   };
 };
 

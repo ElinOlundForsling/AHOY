@@ -117,7 +117,7 @@ const Profile = ({
 
                 <div className='profile-container top-content'>
                   <div className='profile-container-title'>
-                    <h3>info:</h3>
+                    <h3>Info:</h3>
                     <p>
                       <p>
                         Department: {profileData.department} <br></br> Team:{' '}

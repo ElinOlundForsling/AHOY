@@ -19,15 +19,15 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 const Dashboard = ({ auth, profile }) => {
   const [sidebarIsOpen, setSidebarIsOpen] = useState(true);
   const [cards, setCards] = useState([
-    <LatestHires profiles={profile} />,
-    <MyTeam profile={profile} />,
-    <MyDepartment profile={profile} />,
-    <Fika />,
-    <Pong />,
-    <Faq />,
-    <Calendar />,
-    <Documents />,
     <Notifications />,
+    <LatestHires profiles={profile} />,
+    <Calendar />,
+    <Fika />,
+    <Documents />,
+    <Pong />,
+    <MyTeam profile={profile} />,
+    <Faq />,
+    <MyDepartment profile={profile} />,
   ]);
 
   if (!auth.uid) {
