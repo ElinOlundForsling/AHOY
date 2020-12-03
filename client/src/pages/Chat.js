@@ -93,7 +93,7 @@ export const Chat = ({
             Send Message
           </Button>
         </form>
-
+        <br></br>
         <Button to={`/profiles/${userIds[0]}`}>Close</Button>
       </div>
     </div>

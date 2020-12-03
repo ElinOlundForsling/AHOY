@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^12.1.10",
     "firebase": "^8.1.1",
     "firebaseui": "^4.7.1",
+    "moment": "^2.29.1",
     "normalize.css": "^8.0.1",
     "react": "^17.0.1",
     "react-beautiful-dnd": "^13.0.0",

@@ -8,19 +8,25 @@
 }
 
 .latest-hired-card {
-  /* text-align: center; */
-  width: 130px;
+  text-align: center;
+  width: 90px;
   padding: 10px;
-  height: 150px;
+  /* height: 150px; */
 }
 
-.latest-hired-name {
-  text-align: center;
-  color: grey;
+.latest-hired-date {
+  color: rgb(2, 1, 1);
   font-size: 12px;
+  display: inline-block;
 }
 
 .latest-hires-component .card-title {
   background-color: var(--color-3) !important;
   color: white;
+}
+
+.latest-hires-wave-icon {
+  position: absolute;
+  top: 50px;
+  left: 8px;
 }
