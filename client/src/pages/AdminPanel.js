@@ -13,10 +13,34 @@ import { render } from 'react-dom';
 const AdminPanel = ({ profile, auth }) => {
   const [sidebarIsOpen, setSidebarIsOpen] = useState(true);
   const [adminComponent, setAdminComponent] = useState('EditUsers');
+  const [adminTitle, setAdminTitle] = useState('Edit Users');
 
   const handleComponentChange = event => {
     setAdminComponent(event.target.name);
   };
+
+  useEffect(() => {
+    switch (adminComponent) {
+      case 'EditUsers':
+        setAdminTitle('Edit Users');
+        break;
+      case 'CreateUser':
+        setAdminTitle('Create New User');
+        break;
+      case 'UploadDocuments':
+        setAdminTitle('Upload Documents');
+        break;
+      case 'AddNotifications':
+        setAdminTitle('Add Notifications');
+        break;
+      case 'CustomizeUX':
+        setAdminTitle('Customize UX');
+        break;
+      default:
+        setAdminTitle('Edit Users');
+        break;
+    }
+  }, [adminComponent]);
 
   const renderSwitch = () => {
     switch (adminComponent) {
@@ -52,7 +76,7 @@ const AdminPanel = ({ profile, auth }) => {
       ${sidebarIsOpen ? 'admin-sidebar' : 'admin-fullscreen'}
     `}>
         <header className='page-header'>
-          <h1>Admin Panel</h1>
+          <h1>Admin Panel - {adminTitle}</h1>
         </header>
         <nav className='admin-nav'>
           <ul class='admin-menu'>

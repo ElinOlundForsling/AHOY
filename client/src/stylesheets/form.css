@@ -1,0 +1,51 @@
+.input-form {
+  border-color: rgb(204, 204, 204);
+  border-radius: 4px;
+  border-style: solid;
+  border-width: 1px;
+  min-height: 38px;
+  min-width: 200px;
+  padding: 2px 8px;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.input-form:focus {
+  outline: none;
+}
+
+.table-form {
+  padding: 10px;
+}
+
+.table-form td {
+  padding: 10px;
+}
+
+.center {
+  text-align: center;
+}
+
+.right {
+  text-align: right;
+}
+
+.container-form {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.section-form {
+  display: flex;
+  justify-self: center;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  width: 70%;
+}
+
+.fieldset-form {
+  border: 1px solid rgb(204, 204, 204);
+  padding: 8px;
+  font-size: 0.9rem;
+}

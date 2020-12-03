@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Collapse from '../layout/Collapse';
 import { connect } from 'react-redux';
 import { getAllMembers } from '../../store/actions/profileActions';
+import '../../stylesheets/form.css';
 
 const EditUsers = ({ allMembers, getAllMembers }) => {
   const [members, setMembers] = useState(allMembers);
@@ -37,7 +38,6 @@ const EditUsers = ({ allMembers, getAllMembers }) => {
           return (
             <article key={member.id}>
               <button onClick={toggle} id={member.id} className='toggle-button'>
-                <img src={member.imgURL} className='avatar-small' />
                 &nbsp;
                 {member.firstName}&nbsp;{member.lastName}
               </button>

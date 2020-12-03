@@ -33,7 +33,7 @@
   display: flex;
   align-items: center;
   font-family: 'Roboto Slab', serif;
-  border-top: 2px solid var(--color-4);
+  border-top: 2px solid var(--color-lighter-7);
   border-bottom: none;
   border-right: none;
   border-left: none;
@@ -47,7 +47,7 @@
 .toggle-button:hover,
 .toggle-button:focus,
 .toggle-button:active {
-  background-color: var(--color-4);
+  background-color: var(--color-lighter-7);
   color: white;
 }
 

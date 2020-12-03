@@ -24,32 +24,41 @@ const Notifications = ({
     <Card heading='Notifications' className='notifications-component'>
       <h3 className='sub-title'>Unread</h3>
       <ul className='split-list'>
-        {msg.map(unread => {
-          if (unread.type === 'fikaRequest') {
-            return (
-              <li>
-                <span>{unread.senderName} wants to have a fika! </span>
-                <span>
-                  {console.log(unread.chatId)}
-                  <Button size='small' to={`/chat/${unread.chatId}`}>
-                    Accept
-                  </Button>
-                  &nbsp;
-                  <Button size='small'>Decline</Button>
-                </span>
-              </li>
-            );
-          } else if (unread.type === 'fika') {
-            return (
-              <li>
-                {unread.senderName} wants to play Pong! <button>Accept</button>
-                <button>Decline</button>
-              </li>
-            );
-          } else {
-            return <p>{unread.senderName} wants to chat!</p>;
-          }
-        })}
+        {msg.length > 0 ? (
+          msg.map(unread => {
+            if (unread.type === 'fikaRequest') {
+              return (
+                <li>
+                  <span>{unread.senderName} wants to have a fika! </span>
+                  <span>
+                    {console.log(unread.chatId)}
+                    <Button size='small' to={`/chat/${unread.chatId}`}>
+                      Accept
+                    </Button>
+                    &nbsp;
+                    <Button size='small' danger='danger'>
+                      X
+                    </Button>
+                  </span>
+                </li>
+              );
+            } else if (unread.type === 'fika') {
+              return (
+                <li>
+                  {unread.senderName} wants to play Pong!{' '}
+                  <button>Accept</button>
+                  <button>Decline</button>
+                </li>
+              );
+            } else {
+              return <p>{unread.senderName} wants to chat!</p>;
+            }
+          })
+        ) : (
+          <p>
+            <i>No unread notifications</i>
+          </p>
+        )}
       </ul>
       <h3 className='sub-title'>Read</h3>
     </Card>

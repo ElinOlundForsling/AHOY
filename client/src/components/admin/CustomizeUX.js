@@ -1,7 +1,13 @@
 import React from 'react';
 
 const CustomizeUX = () => {
-  return <div>Customize UX</div>;
+  return (
+    <div>
+      <i>
+        <center>This is an upcoming feature</center>
+      </i>
+    </div>
+  );
 };
 
 export default CustomizeUX;
