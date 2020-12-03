@@ -12,6 +12,23 @@
   box-shadow: 5px 3px 10px -2px rgba(168, 163, 168, 0.51);
 }
 
+.chat-layout {
+  padding: 20px 20px 50px 20px;
+  margin: 0 auto;
+  margin-right: 30px;
+  display: grid;
+  grid-gap: 1rem;
+  transition: 0.8s ease;
+}
+
+.chat-fullscreen {
+  margin-left: 30px;
+}
+
+.chat-sidebar {
+  margin-left: 230px;
+}
+
 .chat-page p {
   color: grey;
   font-size: 1.5rem;
