@@ -24,9 +24,9 @@ const Notifications = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [unreadNotifications]);
 
-  const handleDelete = notification => {
-    console.log('handleDelete: ', notification.id, auth.uid);
-    deleteNotifications(notification.id, auth.uid);
+  const handleDelete = event => {
+    event.preventDefault();
+    deleteNotifications(event.target.id, auth.uid);
   };
 
   return (
@@ -38,20 +38,17 @@ const Notifications = ({
             if (unread.type === 'fikaRequest') {
               return (
                 <li>
-                  <span>{unread.senderName} wants to have a fika! </span>
+                  <span>{unread.senderName} wants to fika! </span>
                   <span>
-                    {console.log(unread.chatId)}
-                    <Button size='small' to={`/chat/${unread.chatId}`}>
-                      Accept
-                    </Button>
-                    &nbsp;
-                    <Button
-                      size='small'
-                      danger='danger'
-                      name={unread.id}
-                      onClick={handleDelete}>
-                      X
-                    </Button>
+                    <form id={unread.id} onSubmit={handleDelete}>
+                      <Button size='small' to={`/chat/${unread.chatId}`}>
+                        Accept
+                      </Button>
+                      &nbsp;
+                      <Button size='small' danger='danger' type='submit'>
+                        X
+                      </Button>
+                    </form>
                   </span>
                 </li>
               );
