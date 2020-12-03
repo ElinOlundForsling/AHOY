@@ -30,6 +30,7 @@ const Sidebar = ({
   signOut,
   sidebarIsOpen,
   setSidebarIsOpen,
+  isDashboard,
 }) => {
   const [xPosition, setX] = React.useState(-width);
 
@@ -105,91 +106,97 @@ const Sidebar = ({
               </span>
             </a>
           </div>
-          <nav role='navigation'>
-            <ul className='widget-dropdown'>
-              <li className='dropdown'>
-                <p>Widgets</p>
-                <ul className='dropdown'>
-                  <button
-                    style={{
-                      backgroundColor: 'var(--color-5',
-                      color: 'white',
-                      fontSize: '1rem',
-                    }}
-                    onClick={() => addCard(<Faq />)}>
-                    FAQ
-                  </button>
-                  <button
-                    style={{
-                      backgroundColor: 'var(--color-4)',
-                      color: 'white',
-                      fontSize: '1rem',
-                    }}
-                    onClick={() => addCard(<Pong />)}>
-                    PONG
-                  </button>
-                  <button
-                    style={{
-                      backgroundColor: 'var(--color-6)',
-                      color: 'white',
-                      fontSize: '1rem',
-                    }}
-                    onClick={() =>
-                      addCard(
-                        <MyTeam deleteCard={deleteCard} profile={profile} />,
-                      )
-                    }>
-                    TEAMS
-                  </button>
-                  <button
-                    style={{
-                      backgroundColor: 'var(--color-1)',
-                      color: 'white',
-                      fontSize: '1rem',
-                    }}
-                    onClick={() => addCard(<MyDepartment profile={profile} />)}>
-                    DEPARTMENT
-                  </button>
-                  <button
-                    style={{
-                      backgroundColor: 'var(--color-2)',
-                      color: 'white',
-                      fontSize: '1rem',
-                    }}
-                    onClick={() => addCard(<Calendar />)}>
-                    CALENDAR
-                  </button>
-                  <button
-                    style={{
-                      backgroundColor: 'var(--color-7)',
-                      color: 'white',
-                      fontSize: '1rem',
-                    }}
-                    onClick={() => addCard(<Documents />)}>
-                    DOCUMENTS
-                  </button>
-                  <button
-                    style={{
-                      backgroundColor: 'var(--color-lighter-7)',
-                      color: 'white',
-                      fontSize: '1rem',
-                    }}
-                    onClick={() => addCard(<Fika />)}>
-                    VIRTUAL FIKA
-                  </button>
-                  <button
-                    style={{
-                      backgroundColor: 'var(--color-3)',
-                      color: 'white',
-                      fontSize: '1rem',
-                    }}
-                    onClick={() => addCard(<LatestHires profiles={profile} />)}>
-                    LATEST HIRES
-                  </button>
-                </ul>
-              </li>
-            </ul>
-          </nav>
+          {isDashboard && (
+            <nav role='navigation'>
+              <ul className='widget-dropdown'>
+                <li className='dropdown'>
+                  <p>Widgets</p>
+                  <ul className='dropdown'>
+                    <button
+                      style={{
+                        backgroundColor: 'var(--color-5',
+                        color: 'white',
+                        fontSize: '1rem',
+                      }}
+                      onClick={() => addCard(<Faq />)}>
+                      FAQ
+                    </button>
+                    <button
+                      style={{
+                        backgroundColor: 'var(--color-4)',
+                        color: 'white',
+                        fontSize: '1rem',
+                      }}
+                      onClick={() => addCard(<Pong />)}>
+                      PONG
+                    </button>
+                    <button
+                      style={{
+                        backgroundColor: 'var(--color-6)',
+                        color: 'white',
+                        fontSize: '1rem',
+                      }}
+                      onClick={() =>
+                        addCard(
+                          <MyTeam deleteCard={deleteCard} profile={profile} />,
+                        )
+                      }>
+                      TEAMS
+                    </button>
+                    <button
+                      style={{
+                        backgroundColor: 'var(--color-1)',
+                        color: 'white',
+                        fontSize: '1rem',
+                      }}
+                      onClick={() =>
+                        addCard(<MyDepartment profile={profile} />)
+                      }>
+                      DEPARTMENT
+                    </button>
+                    <button
+                      style={{
+                        backgroundColor: 'var(--color-2)',
+                        color: 'white',
+                        fontSize: '1rem',
+                      }}
+                      onClick={() => addCard(<Calendar />)}>
+                      CALENDAR
+                    </button>
+                    <button
+                      style={{
+                        backgroundColor: 'var(--color-7)',
+                        color: 'white',
+                        fontSize: '1rem',
+                      }}
+                      onClick={() => addCard(<Documents />)}>
+                      DOCUMENTS
+                    </button>
+                    <button
+                      style={{
+                        backgroundColor: 'var(--color-lighter-7)',
+                        color: 'white',
+                        fontSize: '1rem',
+                      }}
+                      onClick={() => addCard(<Fika />)}>
+                      VIRTUAL FIKA
+                    </button>
+                    <button
+                      style={{
+                        backgroundColor: 'var(--color-3)',
+                        color: 'white',
+                        fontSize: '1rem',
+                      }}
+                      onClick={() =>
+                        addCard(<LatestHires profiles={profile} />)
+                      }>
+                      LATEST HIRES
+                    </button>
+                  </ul>
+                </li>
+              </ul>
+            </nav>
+          )}
           {sidebarIsOpen ? (
             <AiOutlineMenuFold
               onClick={() => toggleMenu()}

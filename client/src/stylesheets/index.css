@@ -11,6 +11,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+button:focus {
+  outline: none;
+}
+
 a {
   text-decoration: none !important;
   color: black;

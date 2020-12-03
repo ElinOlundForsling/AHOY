@@ -1,0 +1,19 @@
+.page-header {
+  display: flex;
+  background-color: var(--color-7);
+  justify-content: flex-start;
+  width: 100%;
+  align-items: center;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  padding-left: 15px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  margin-bottom: 0;
+}
+
+.page-header h1 {
+  font-family: 'Roboto Slab', serif;
+  font-weight: 400;
+  color: #fff;
+}
