@@ -38,7 +38,7 @@ const Notifications = ({
             if (unread.type === 'fikaRequest') {
               return (
                 <li>
-                  <span>{unread.senderName} wants to fika! </span>
+                  <span>Fika with {unread.senderName}?</span>
                   <span>
                     <form id={unread.id} onSubmit={handleDelete}>
                       <Button size='small' to={`/chat/${unread.chatId}`}>

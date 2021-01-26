@@ -82,6 +82,7 @@ const Dashboard = ({ auth, profile }) => {
           className={`dashboard-layout
             ${sidebarIsOpen ? 'dashboard-sidebar' : 'dashboard-fullscreen'}
           `}>
+          {console.log(cards)}
           {cards.map((content, index) => (
             <Droppable droppableId={`drop-zone-${index}`} key={index}>
               {(provided, snapshot) => (

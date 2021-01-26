@@ -8,8 +8,7 @@
   left: 50%;
   z-index: 999 !important;
   transform: translate(-50%, -50%);
-  /* right: 40px;
-    bottom: 40px; */
+  outline: none;
   background-color: var(--color-lighter-1);
   padding: 15px 35px;
   height: 450px;
